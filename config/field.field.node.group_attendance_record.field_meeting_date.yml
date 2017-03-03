@@ -1,0 +1,21 @@
+uuid: 54c23d81-908d-49dc-9018-cc2e40c9463b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meeting_date
+    - node.type.group_attendance_record
+  module:
+    - datetime
+id: node.group_attendance_record.field_meeting_date
+field_name: field_meeting_date
+entity_type: node
+bundle: group_attendance_record
+label: 'Meeting Date'
+description: 'The date of the meeting.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

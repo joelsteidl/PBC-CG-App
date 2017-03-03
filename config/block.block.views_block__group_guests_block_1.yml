@@ -1,0 +1,32 @@
+uuid: 8d66c553-1e99-4fad-bf96-c707cb7a92af
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.group_guests
+  module:
+    - node
+    - views
+  theme:
+    - bootstrap
+id: views_block__group_guests_block_1
+theme: bootstrap
+region: sidebar_first
+weight: -7
+provider: null
+plugin: 'views_block:group_guests-block_1'
+settings:
+  id: 'views_block:group_guests-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      group_attendance_record: group_attendance_record
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

@@ -1,0 +1,42 @@
+uuid: cdd6dad7-415f-4a69-badf-0d9e7213b9e7
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_meeting_day
+field_name: field_meeting_day
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: Sunday
+      label: Sunday
+    -
+      value: Monday
+      label: Monday
+    -
+      value: Tuesday
+      label: Tuesday
+    -
+      value: Wednesday
+      label: Wednesday
+    -
+      value: Thursday
+      label: Thursday
+    -
+      value: Friday
+      label: Friday
+    -
+      value: Saturday
+      label: Saturday
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

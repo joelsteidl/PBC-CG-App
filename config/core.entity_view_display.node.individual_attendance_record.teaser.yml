@@ -1,0 +1,17 @@
+uuid: 4a8cef82-e096-44de-977f-ed198beca687
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.individual_attendance_record
+  module:
+    - user
+id: node.individual_attendance_record.teaser
+targetEntityType: node
+bundle: individual_attendance_record
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden: {  }

@@ -1,0 +1,21 @@
+uuid: 89a220ac-8086-41b9-b75c-392e5c8bcffb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_group_status
+    - node.type.group
+  module:
+    - options
+id: node.group.field_group_status
+field_name: field_group_status
+entity_type: node
+bundle: group
+label: Status
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

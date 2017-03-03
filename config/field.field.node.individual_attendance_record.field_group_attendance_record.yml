@@ -1,0 +1,28 @@
+uuid: ec7b6873-d65a-4c92-96ec-5023a0d91c42
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_group_attendance_record
+    - node.type.group_attendance_record
+    - node.type.individual_attendance_record
+id: node.individual_attendance_record.field_group_attendance_record
+field_name: field_group_attendance_record
+entity_type: node
+bundle: individual_attendance_record
+label: 'Group Attendance Record'
+description: 'References a groups attendance record for a week.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      group_attendance_record: group_attendance_record
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

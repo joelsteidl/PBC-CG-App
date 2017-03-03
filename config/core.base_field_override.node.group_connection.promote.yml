@@ -1,0 +1,22 @@
+uuid: 0835bedc-66ad-4412-b855-80526bee48cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.group_connection
+id: node.group_connection.promote
+field_name: promote
+entity_type: node
+bundle: group_connection
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

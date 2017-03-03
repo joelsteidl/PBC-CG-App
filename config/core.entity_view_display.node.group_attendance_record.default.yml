@@ -1,0 +1,41 @@
+uuid: 2100bd42-0c8e-4dc8-acfb-1855587e915e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.group_attendance_record.field_group
+    - field.field.node.group_attendance_record.field_meeting_date
+    - field.field.node.group_attendance_record.field_notes
+    - node.type.group_attendance_record
+  module:
+    - datetime
+    - user
+id: node.group_attendance_record.default
+targetEntityType: node
+bundle: group_attendance_record
+mode: default
+content:
+  field_group:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_meeting_date:
+    weight: 103
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+  field_notes:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  links:
+    weight: 100
+hidden: {  }

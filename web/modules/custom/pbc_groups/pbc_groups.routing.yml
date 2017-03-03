@@ -1,0 +1,24 @@
+
+pbc_groups.find_individual_controller_getContent:
+  path: '/find/individual/{redirect}/{firstname}/{lastname}'
+  defaults:
+    _controller: '\Drupal\pbc_groups\Controller\FindIndividualController::getContent'
+    _title: 'Find People'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      redirect:
+        type: entity:node
+
+pbc_groups.manage_groups_api_create:
+  path: '/api/create/node/{redirect}'
+  defaults:
+    _controller: '\Drupal\pbc_groups\Controller\ManageGroupsApi::add'
+    _title: 'Groups API'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      redirect:
+        type: entity:node

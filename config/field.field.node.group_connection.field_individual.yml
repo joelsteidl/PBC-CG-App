@@ -1,0 +1,28 @@
+uuid: 1704ebe0-f604-46ac-9f47-b670e685f3a0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_individual
+    - node.type.group_connection
+    - node.type.individual
+id: node.group_connection.field_individual
+field_name: field_individual
+entity_type: node
+bundle: group_connection
+label: Individual
+description: 'The individual.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      individual: individual
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

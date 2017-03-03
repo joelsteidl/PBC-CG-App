@@ -1,0 +1,49 @@
+uuid: 8f7aa58b-06f5-499e-9f82-15421924a3f1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.individual.field_email_address
+    - field.field.node.individual.field_first_name
+    - field.field.node.individual.field_last_name
+    - field.field.node.individual.field_planning_center_id
+    - node.type.individual
+id: node.individual.default
+targetEntityType: node
+bundle: individual
+mode: default
+content:
+  field_email_address:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+  field_first_name:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_last_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_planning_center_id:
+    weight: 3
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+hidden:
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  title: true
+  uid: true

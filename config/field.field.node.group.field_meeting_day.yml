@@ -1,0 +1,21 @@
+uuid: addcf581-c69e-476b-bcaf-2726083227fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meeting_day
+    - node.type.group
+  module:
+    - options
+id: node.group.field_meeting_day
+field_name: field_meeting_day
+entity_type: node
+bundle: group
+label: 'Meeting Day'
+description: 'Choose the day of the week this CG meets.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

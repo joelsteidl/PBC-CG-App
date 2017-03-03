@@ -1,0 +1,17 @@
+uuid: b5d2060f-f67b-4080-a57b-df6ac2d30b9a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.group_connection
+  module:
+    - user
+id: node.group_connection.teaser
+targetEntityType: node
+bundle: group_connection
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden: {  }

@@ -1,0 +1,17 @@
+uuid: ea64141a-6088-4c01-b939-aa8b74b6c0b2
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Individual
+type: individual
+description: 'A person that can be part of a community group. Synced from Planning Center.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

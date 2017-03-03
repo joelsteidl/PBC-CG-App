@@ -1,0 +1,5 @@
+name: PBC Groups
+type: module
+description: Handles many group and individual management aspects.
+core: 8.x
+package: PBC Custom

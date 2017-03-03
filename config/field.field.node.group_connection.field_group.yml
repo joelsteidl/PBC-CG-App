@@ -1,0 +1,28 @@
+uuid: efc8f424-95e4-4d73-adbe-92438892f54b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_group
+    - node.type.group
+    - node.type.group_connection
+id: node.group_connection.field_group
+field_name: field_group
+entity_type: node
+bundle: group_connection
+label: 'Community Group'
+description: 'The community group this individual is part of.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      group: group
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

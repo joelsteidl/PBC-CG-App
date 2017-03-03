@@ -1,0 +1,39 @@
+uuid: 6a6fd203-20e8-4587-b3c9-7dcce0e9ac5a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.group.field_attendance_manager
+    - field.field.node.group.field_group_status
+    - field.field.node.group.field_meeting_day
+    - node.type.group
+  module:
+    - options
+    - user
+id: node.group.default
+targetEntityType: node
+bundle: group
+mode: default
+content:
+  field_attendance_manager:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_group_status:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_meeting_day:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  links:
+    weight: 100
+hidden: {  }

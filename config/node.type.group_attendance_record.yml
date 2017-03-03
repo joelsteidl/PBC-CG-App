@@ -1,0 +1,17 @@
+uuid: 5ea53982-27d7-499d-a51c-1a417556d046
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Group Attendance Record'
+type: group_attendance_record
+description: 'A record of anytime a community group meets.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

@@ -1,0 +1,17 @@
+uuid: 634acd34-1339-442f-9b9d-238db96e70d4
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Group
+type: group
+description: 'A community group.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

@@ -1,0 +1,8 @@
+token: 2d58a46e6a020501b2500334e91fd907847d831a2b4be262bbff850a045fbdc1
+base_uri: 'https://api.planningcenteronline.com/'
+secret: pco_api
+submit: 'Save configuration'
+form_build_id: form-EN-YNR--e0uRrCI6Tyay1Mrp364jgjU23juHvU9NRgo
+form_token: a65nDGEGF8EjTaVvcUF1Dt8C9KqmiWcOfsyszlHv25Y
+form_id: pco_api_settings_form
+op: 'Save configuration'

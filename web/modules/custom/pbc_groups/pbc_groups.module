@@ -1,0 +1,131 @@
+<?php
+
+/**
+ * @file
+ * Contains cremat_student.module.
+ */
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+
+
+/**
+ * Implements hook_entity_view().
+ */
+function pbc_groups_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if ($entity->bundle() === 'group_attendance_record' && $view_mode === 'full') {
+    $form_builder = Drupal::service('form_builder');
+    $build['management_form']['#weight'] = 20;
+    $build['management_form']['form'] = $form_builder->getForm('Drupal\pbc_groups\Form\ManageAttendanceForm');
+    return $build;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function pbc_groups_node_presave(EntityInterface $entity) {
+  $title = NULL;
+
+  // Decide what to populate the title field with.
+  switch ($entity->getType()) {
+    case 'group_attendance_record':
+      $title = $entity->field_group->entity->getTitle() . ' attendance for ' . $entity->field_meeting_date->value;
+      break;
+
+    case 'individual_attendance_record':
+      $title = 'Attendance for ' . $entity->field_group_connection->entity->getTitle() . ' for ' . $entity->field_group_attendance_record->entity->field_meeting_date->value;
+      break;
+
+    case 'group_connection':
+      $title = $entity->field_individual->entity->getTitle() . ' in ' . $entity->field_group->entity->getTitle();
+      break;
+
+    case 'individual':
+      $title = $entity->field_first_name->getString() . ' ' . $entity->field_last_name->getString();
+      break;
+  }
+
+  if (!$title) {
+    return FALSE;
+  }
+  // Limit to 255 characters.
+  $title = substr($title, 0, 255);
+  // Set a value for the title field.
+  $entity->title->setValue($title);
+
+  // Add them to Planning Center.
+  if ($entity->getType() === 'individual' && $entity->isNew() && !$entity->field_planning_center_id->isEmpty()) {
+    $task = Drupal::service('pbc_automation.pco_tasks');
+    $pco_id = $task->createPcoPerson($entity);
+    if ($pco_id) {
+      $entity->field_planning_center_id->setValue($pco_id);
+      if (!$entity->field_email_address->isEmpty()) {
+        $task->createPcoEmail($entity, $pco_id);
+      }
+    }
+  }
+
+  // Prevent Group Connection Dups.
+  if ($entity->getType() === 'group_connection' && $entity->isNew()) {
+    $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('node');
+    $connections = $storage->getQuery()
+      ->condition('type', 'group_connection')
+      ->condition('status', 1)
+      ->condition('field_group', $entity->field_group->target_id)
+      ->condition('field_individual', $entity->field_individual->target_id)
+      ->execute();
+
+    if (count($connections)) {
+      throw new \Exception(t('You are trying to add a duplicate person to your group.'));
+      return FALSE;
+    }
+  }
+  elseif ($entity->getType() === 'individual_attendance_record' && $entity->isNew()) {
+    $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('node');
+    $connections = $storage->getQuery()
+      ->condition('type', 'individual_attendance_record')
+      ->condition('status', 1)
+      ->condition('field_group_connection', $entity->field_group_connection->target_id)
+      ->condition('field_group_attendance_record', $entity->field_group_attendance_record->target_id)
+      ->execute();
+
+    if (count($connections)) {
+      throw new \Exception(t('You are trying to add a duplicate person to this weeks attendance.'));
+      return FALSE;
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function pbc_groups_node_insert(EntityInterface $entity) {
+
+  if ($entity->getType() != 'group_attendance_record') {
+    return FALSE;
+  }
+
+  $utility = Drupal::service('pbc_groups.utility');
+  // TODO: Call my service here so i'm not duping code.
+  // TODO: Provide an option to add guests/inactive
+  // Create Individual Attendance Records.
+  $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('node');
+  $connections = $storage->getQuery()
+    ->condition('type', 'group_connection')
+    ->condition('field_group_connection_status', 1)
+    ->condition('status', 1)
+    ->condition('field_group', $entity->field_group->target_id)
+    ->execute();
+
+  foreach ($connections as $connection) {
+    $indAttendanceValues = [
+      'type' => 'individual_attendance_record',
+      'field_group_attendance_record' => $entity->id(),
+      'field_in_attendance' => 0,
+      'field_group_connection' => $connection,
+    ];
+
+    // Create individual_attendance_record node.
+    $utility->createNode($indAttendanceValues);
+  }
+}

@@ -1,0 +1,17 @@
+uuid: 2b4680d0-0a81-4e27-932c-c0b40acd0d5a
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Group Connection'
+type: group_connection
+description: 'Ties an individual to a community group.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

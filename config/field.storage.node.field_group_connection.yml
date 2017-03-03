@@ -1,0 +1,19 @@
+uuid: e8a9f881-d093-46c2-9955-c8ef31d66356
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_group_connection
+field_name: field_group_connection
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

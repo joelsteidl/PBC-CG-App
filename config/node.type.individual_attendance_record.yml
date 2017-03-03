@@ -1,0 +1,17 @@
+uuid: 776e4e8e-d618-4619-8273-4f8dff162cd8
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Individual Attendance Record'
+type: individual_attendance_record
+description: 'A record of an individuals attendance each week.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

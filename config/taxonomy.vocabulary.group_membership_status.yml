@@ -1,0 +1,9 @@
+uuid: 98cca237-97cb-49dc-80d0-416cbc02a1d8
+langcode: en
+status: true
+dependencies: {  }
+name: 'Group Membership Status'
+vid: group_membership_status
+description: ''
+hierarchy: 0
+weight: 0

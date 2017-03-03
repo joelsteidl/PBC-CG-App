@@ -1,0 +1,4 @@
+services:
+  pbc_automation.pco_tasks:
+    class: Drupal\pbc_automation\PcoTasks
+    arguments: ['@entity_type.manager', '@pco_api.client']

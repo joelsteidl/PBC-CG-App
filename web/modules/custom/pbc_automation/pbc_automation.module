@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Contains pbc_automation.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function pbc_automation_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the pbc_automation module.
+    case 'help.page.pbc_automation':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Handles various tasks that need to happen nightly and throughout the week. Mostly a hook_cron implementation.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function pbc_automation_cron() {
+  // 1. Get timestamp from last update.
+  // 2. Request to pco_api
+  // 3. Loop over results (if any)
+  // 4. Set timestamp
+}

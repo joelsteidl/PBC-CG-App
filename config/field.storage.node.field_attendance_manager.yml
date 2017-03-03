@@ -1,0 +1,20 @@
+uuid: b004c7d5-2c21-4d5f-85b3-6d7215080848
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - user
+id: node.field_attendance_manager
+field_name: field_attendance_manager
+entity_type: node
+type: entity_reference
+settings:
+  target_type: user
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,39 @@
+uuid: 8f46bf31-9995-4c03-b408-94d8423d6143
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.group_connection.field_group
+    - field.field.node.group_connection.field_group_connection_status
+    - field.field.node.group_connection.field_individual
+    - node.type.group_connection
+id: node.group_connection.default
+targetEntityType: node
+bundle: group_connection
+mode: default
+content:
+  field_group:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_group_connection_status:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_individual:
+    type: entity_reference_autocomplete
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  title: true
+  uid: true

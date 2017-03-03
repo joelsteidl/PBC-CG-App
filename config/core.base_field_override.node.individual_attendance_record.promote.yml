@@ -1,0 +1,22 @@
+uuid: ef5eb2ae-f6fb-4599-bac5-5f76ab43e12c
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.individual_attendance_record
+id: node.individual_attendance_record.promote
+field_name: promote
+entity_type: node
+bundle: individual_attendance_record
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

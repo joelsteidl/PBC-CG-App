@@ -1,0 +1,4 @@
+services:
+  pbc_groups.utility:
+    class: Drupal\pbc_groups\GroupsUtility
+    arguments: ['@entity_type.manager']

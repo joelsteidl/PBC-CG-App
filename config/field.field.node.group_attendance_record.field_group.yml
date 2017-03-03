@@ -1,0 +1,28 @@
+uuid: 2ea57696-ed1a-4b4b-be87-c6d1e97a3a14
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_group
+    - node.type.group
+    - node.type.group_attendance_record
+id: node.group_attendance_record.field_group
+field_name: field_group
+entity_type: node
+bundle: group_attendance_record
+label: 'Community Group'
+description: 'The community group associated with this attendance record.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      group: group
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

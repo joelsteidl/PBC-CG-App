@@ -1,0 +1,14 @@
+uuid: 78cd0e8f-60d4-4634-befb-3484df2e3f99
+name: 'PBC Community Groups'
+mail: admin@providencedenver.org
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /user/login
+admin_compact_mode: false
+weight_select_max: 100
+langcode: en
+default_langcode: en
+_core:
+  default_config_hash: AyT9s8OUcclfALRE_imByOMgtZ19eOlqdF6zI3p7yqo

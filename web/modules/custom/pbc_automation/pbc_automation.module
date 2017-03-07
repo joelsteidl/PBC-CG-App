@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Implements hook_help().
@@ -27,8 +28,18 @@ function pbc_automation_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_cron().
  */
 function pbc_automation_cron() {
-  // 1. Get timestamp from last update.
-  // 2. Request to pco_api
-  // 3. Loop over results (if any)
-  // 4. Set timestamp
+  $task = Drupal::service('pbc_automation.pco_tasks');
+  // $last_sync = Drupal::state()->get('pbc_automation_sync');
+
+  if ($results = $task->getPcoUpdatedPeople()) {
+    foreach ($results as $result) {
+      $task->createOrUpdateNode($result);
+    }
+    // Set a last updated date.
+    $dateTime = new DrupalDateTime('now');
+    $dateTime->setTimezone(new \DateTimezone(DATETIME_STORAGE_TIMEZONE));
+    $formatted = $dateTime->format(DATETIME_DATETIME_STORAGE_FORMAT);
+    Drupal::state()->set('pbc_automation_sync', $formatted);
+  }
+
 }

@@ -34,10 +34,41 @@ class GroupsUtility implements GroupsUtilityInterface {
   /**
    * { @inheritdoc }
    */
+  public function termsToOptions($vocab) {
+    $options = [];
+    $storage = $this->entityTypeManager->getStorage('taxonomy_term');
+
+    $terms = $storage->loadByProperties([
+      'vid' => $vocab,
+    ]);
+
+    foreach ($terms as $term) {
+      $options[$term->id()] = $term->getName();
+    }
+
+    return $options;
+  }
+
+  /**
+   * { @inheritdoc }
+   */
   public function updateNode($values, $nid) {
     $storage = $this->entityTypeManager->getStorage('node');
     $node = $storage->load($nid);
-    // UPDATE FROM PCO VALUES.
+
+    $fields = [
+      'field_first_name',
+      'field_last_name',
+      'field_email_address',
+      'field_below_poverty_line',
+      'field_ethnicity',
+      'field_neighborhood',
+    ];
+    foreach ($values as $key => $value) {
+      if (in_array($key, $fields) && !empty($value)) {
+        $node->{$key}->setValue($value);
+      }
+    }
     $node->save();
   }
 
@@ -59,6 +90,23 @@ class GroupsUtility implements GroupsUtilityInterface {
     }
 
     return $node;
+  }
+
+  /**
+   * { @inheritdoc }
+   */
+  public function getTidByName($vocab, $term) {
+    $storage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $result = $storage->getQuery()
+      ->condition('vid', $vocab)
+      ->condition('name', $term)
+      ->execute();
+
+    if (!count($result)) {
+      return FALSE;
+    }
+
+    return array_shift($result);
   }
 
   /**

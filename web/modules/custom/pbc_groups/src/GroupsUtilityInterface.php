@@ -34,6 +34,30 @@ interface GroupsUtilityInterface {
   public function updateNode($values, $nid);
 
   /**
+   * Given a term name, return ID.
+   *
+   * @param string $vocab
+   *   The terms vocabulary.
+   * @param string $term
+   *   A taxonomy term name.
+   *
+   * @return int
+   *   a term id
+   */
+  public function getTidByName($vocab, $term);
+
+  /**
+   * Terms to options.
+   *
+   * @param string $vocab
+   *   The terms vocabulary.
+   *
+   * @return array
+   *   array that can be used in a select
+   */
+  public function termsToOptions($vocab);
+
+  /**
    * Build a complete array to create a node with.
    *
    * @param array $values

@@ -54,18 +54,15 @@ function pbc_groups_node_presave(EntityInterface $entity) {
   $entity->title->setValue($title);
 
   // Add them to Planning Center.
-  if ($entity->getType() === 'individual' && $entity->isNew() && !$entity->field_planning_center_id->isEmpty()) {
+  if ($entity->getType() === 'individual' && $entity->isNew() && $entity->field_planning_center_id->isEmpty()) {
     $task = Drupal::service('pbc_automation.pco_tasks');
-    $pco_id = $task->createPcoPerson($entity);
-    if ($pco_id) {
+    if ($pco_id = $task->createPcoPerson($entity)) {
       $entity->field_planning_center_id->setValue($pco_id);
-      if (!$entity->field_email_address->isEmpty()) {
-        $task->createPcoEmail($entity, $pco_id);
-      }
     }
   }
 
   // Prevent Group Connection Dups.
+  // TODO: Move to method
   if ($entity->getType() === 'group_connection' && $entity->isNew()) {
     $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('node');
     $connections = $storage->getQuery()

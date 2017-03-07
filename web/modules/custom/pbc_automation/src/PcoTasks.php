@@ -47,7 +47,8 @@ class PcoTasks implements PcoTasksInterface {
    * { @inheritdoc }
    */
   public function createOrUpdateNode($pcoRecord) {
-    // if !pcoid return FALSE
+    $storage = $this->entityTypeManager->getStorage('node');
+
     $individual = $storage->getQuery()
       ->condition('type', 'individual')
       ->condition('field_planning_center_id', $pcoRecord->id)
@@ -56,11 +57,13 @@ class PcoTasks implements PcoTasksInterface {
 
     // If a record exists, just update it.
     $values = $this->convertPcoToNode($pcoRecord);
+
     if (count($individual)) {
-      $this->updateNode($values);
+      $nid = array_shift($individual);
+      $this->groupsUtility->updateNode($values, $nid);
     }
     else {
-      $this->createNode($values);
+      $this->groupsUtility->createNode($values);
     }
   }
 
@@ -68,21 +71,43 @@ class PcoTasks implements PcoTasksInterface {
    * { @inheritdoc }
    */
   public function convertPcoToNode($pcoRecord) {
-
     $values = [
       'type' => 'individual',
       'field_first_name' => $pcoRecord->attributes->first_name,
       'field_last_name' => $pcoRecord->attributes->last_name,
       'field_planning_center_id' => $pcoRecord->id,
-      // 'field_email_address' =>,
-      // 'field_neighborhood' =>,
-      // 'field_ethnicity' =>,
     ];
 
-
+    // Handle Email Address.
     if (isset($pcoRecord->relationships->emails->data[0]->id)) {
       $emailId = $pcoRecord->relationships->emails->data[0]->id;
       $values['field_email_address'] = $this->getPcoEmail($emailId);
+    }
+
+    // Handle Field Data.
+    if (isset($pcoRecord->relationships->field_data->data)) {
+      $fields = $pcoRecord->relationships->field_data->data;
+      foreach ($fields as $field) {
+        $data = $this->getPcoFieldData($pcoRecord->id, $field->id);
+
+        switch ($data['field_name']) {
+          case 'ethnicity':
+            if ($tid = $this->groupsUtility->getTidByName('ethnicity', $data['field_value'])) {
+              $values['field_ethnicity'] = $tid;
+            }
+            break;
+
+          case 'neighborhood':
+            if ($tid = $this->groupsUtility->getTidByName('neighborhood', $data['field_value'])) {
+              $values['field_neighborhood'] = $tid;
+            }
+            break;
+
+          case 'below_poverty_line':
+            $values['field_below_poverty_line'] = $data['field_value'];
+            break;
+        }
+      }
     }
 
     return $values;
@@ -97,9 +122,6 @@ class PcoTasks implements PcoTasksInterface {
 
   /**
    * { @inheritdoc }
-   * field_below_poverty_line|12634815
-   * field_ethnicity|12634816
-   * field_neighborhood|12634817
    */
   public function createPcoPerson(NodeInterface $node) {
     $body = [
@@ -114,7 +136,48 @@ class PcoTasks implements PcoTasksInterface {
     $body = json_encode($body);
     $request = $this->pcoApiClient->connect('post', 'people/v2/people', [], $body);
     $response = json_decode($request);
-    kint($response);
+
+    if (!isset($response->data->id)) {
+      return FALSE;
+    }
+
+    $pcoId = $response->data->id;
+    // Create their email address.
+    if (!$node->field_email_address->isEmpty()) {
+      $this->createPcoEmail($node, $pcoId);
+    }
+    // Create custom field data.
+    // Keys are field IDs in PCO.
+    $fields = [
+      '118307' => 'field_below_poverty_line',
+      '118308' => 'field_ethnicity',
+      '118309' => 'field_neighborhood',
+    ];
+
+    foreach ($fields as $fieldId => $field) {
+      $fieldInfo = [];
+      if (!$node->{$field}->isEmpty()) {
+        switch ($field) {
+          case 'field_ethnicity':
+          case 'field_neighborhood':
+            $fieldInfo['value'] = $node->{$field}->entity->getName();
+            break;
+
+          case 'field_below_poverty_line':
+            $value = $node->{$field}->value;
+            if ($value == 1) {
+              $fieldInfo['value'] = 'true';
+            }
+            elseif ($value == 0) {
+              $fieldInfo['value'] = 'false';
+            }
+            break;
+        }
+        $fieldInfo['id'] = $fieldId;
+        $this->createPcoFieldData($node, $fieldInfo, $pcoId);
+      }
+    }
+
     return $response->data->id;
   }
 
@@ -139,25 +202,47 @@ class PcoTasks implements PcoTasksInterface {
     return $response->data->id;
   }
 
-/**
- * { @inheritdoc }
- */
-  public function createPcoFieldData(NodeInterface $node, $fieldId, $personId) {
+  /**
+   * { @inheritdoc }
+   */
+  public function createPcoFieldData(NodeInterface $node, $fieldInfo, $personId) {
     $body = [
       'data' => [
-        'type' => 'Email',
+        'type' => 'FieldDatum',
         'attributes' => [
-          'address' => $node->field_email_address->getString(),
-          'location' => 'Home',
+          'value' => $fieldInfo['value'],
+        ],
+        'relationships' => [
+          'field_definition' => [
+            'data' => [
+              'type' => 'FieldDefinition',
+              'id' => $fieldInfo['id'],
+            ]
+          ]
         ]
       ]
     ];
     $body = json_encode($body);
-    $endPoint = 'people/v2/people/' . $personId . '/emails';
+    $endPoint = 'people/v2/people/' . $personId . '/field_data';
     $request = $this->pcoApiClient->connect('post', $endPoint, [], $body);
     $response = json_decode($request);
 
     return $response->data->id;
+  }
+
+  /**
+   * { @inheritdoc }
+   */
+  public function getPcoFieldData($personId, $fieldId) {
+    $query = ['include' => 'field_definition'];
+    $endpoint = 'people/v2/people/' . $personId . '/field_data/' . $fieldId;
+    $request = $this->pcoApiClient->connect('get', $endpoint, $query, []);
+    $response = json_decode($request);
+    $data = [];
+    $data['field_name'] = $response->included[0]->attributes->slug;
+    $data['field_value'] = $response->data->attributes->value;
+
+    return $data;
   }
 
   /**
@@ -178,9 +263,38 @@ class PcoTasks implements PcoTasksInterface {
   /**
    * { @inheritdoc }
    */
+  public function refreshPcoUpdateList($listId) {
+    // Refresh the recently updated list on PCO.
+    $this->pcoApiClient->connect('post', 'people/v2/lists/' . $listId . '/run', [], []);
+  }
+
+  /**
+   * { @inheritdoc }
+   */
+  public function getPcoUpdatedPeople() {
+    // Refresh the PCO list.
+    // See https://people.planningcenteronline.com/lists/195220
+    $listId = 195220;
+    $this->refreshPcoUpdateList($listId);
+    $query = [
+      'per_page' => 99,
+      'include' => 'emails,field_data',
+    ];
+    // Grab results from the updated list.
+    $request = $this->pcoApiClient->connect('get', 'people/v2/lists/' . $listId . '/people', $query, []);
+    $results = json_decode($request);
+    if (!count($results->data)) {
+      return FALSE;
+    }
+
+    return $results->data;
+  }
+
+  /**
+   * { @inheritdoc }
+   */
   public function getPcoPeople($offset, $perPage) {
     $query = [
-      // 'order' => 'last_name',
       'per_page' => $perPage,
       'include' => 'emails',
       'offset' => $offset,

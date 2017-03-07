@@ -36,6 +36,9 @@ web/web.config
 # repository as a custom upstream. The .gitignore file
 # is not modified in the GitHub PR workflow.
 
+# Custom
+web/sites/default/local.settings.php
+
 
 # :::::::::::::::::::::: cut ::::::::::::::::::::::
 

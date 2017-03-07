@@ -23,6 +23,14 @@ interface PcoTasksInterface {
   public function createOrUpdateNode($pcoRecord);
 
   /**
+   * Given a date, return PCO records that have been updated since then.
+   *
+   * @return array
+   *   array of PCO records.
+   */
+  public function getPcoUpdatedPeople();
+
+  /**
    * Given a PCO record, convert it to node data.
    *
    * @param object $pcoRecord
@@ -73,15 +81,15 @@ interface PcoTasksInterface {
    *
    * @param Drupal\node\NodeInterface $node
    *   Node object.
-   * @param int $fieldId
-   *   PCO Custom field ID.
+   * @param array $fieldInfo
+   *   Array containing PCO field ID and the value.
    * @param int $personId
    *   Planning Center Online Person ID.
    *
    * @return int
    *   Planning Center Online Email ID.
    */
-  public function createPcoFieldData(NodeInterface $node, $fieldId, $personId);
+  public function createPcoFieldData(NodeInterface $node, $fieldInfo, $personId);
 
   /**
    * Create a new email in Planning Center.

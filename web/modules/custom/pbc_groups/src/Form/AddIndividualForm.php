@@ -59,36 +59,43 @@ class AddIndividualForm extends FormBase {
 
     $this->redirect = $defaults['redirect'];
 
-    $storage = $this->entityTypeManager->getStorage('taxonomy_term');
-
-    $statusOptions = [];
-
-    $terms = $storage->loadByProperties([
-      'vid' => 'group_membership_status',
-    ]);
-
-    foreach ($terms as $term) {
-      $statusOptions[$term->id()] = $term->getName();
-    }
-
-    $form['firstname'] = [
+    $form['field_first_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('First Name'),
       '#default_value' => $defaults['firstname'],
     ];
-    $form['lastname'] = [
+    $form['field_last_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Last Name'),
       '#default_value' => $defaults['lastname'],
     ];
-    $form['email_address'] = [
+    $form['field_email_address'] = [
       '#type' => 'email',
       '#title' => $this->t('Email Address'),
     ];
-    $form['status'] = [
+
+    $form['field_group_connection_status'] = [
       '#type' => 'select',
       '#title' => $this->t('Status'),
-      '#options' => $statusOptions,
+      '#options' => $this->groupsUtility->termsToOptions('group_membership_status'),
+    ];
+
+    $form['field_below_poverty_line'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Below Poverty Line'),
+      '#options' => [1 => 'Yes', 0 => 'No'],
+    ];
+
+    $form['field_ethnicity'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Ethnicity'),
+      '#options' => $this->groupsUtility->termsToOptions('ethnicity'),
+    ];
+
+    $form['field_neighborhood'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Neighborhood'),
+      '#options' => $this->groupsUtility->termsToOptions('neighborhood'),
     ];
 
     $form['submit'] = [
@@ -121,12 +128,18 @@ class AddIndividualForm extends FormBase {
       $groupId = $redirectNode->id();
     }
 
-    $individualValues = [
-      'type' => 'individual',
-      'field_first_name' => $form_state->getValue('firstname'),
-      'field_last_name' => $form_state->getValue('lastname'),
-      'field_email_address' => $form_state->getValue('email_address'),
+    $individualValues = ['type' => 'individual'];
+    $fields = [
+      'field_first_name',
+      'field_last_name',
+      'field_email_address',
+      'field_below_poverty_line',
+      'field_ethnicity',
+      'field_neighborhood',
     ];
+    foreach ($fields as $field) {
+      $individualValues[$field] = $form_state->getValue($field);
+    }
 
     // Create individual node.
     $individual = $this->groupsUtility->createNode($individualValues);
@@ -135,7 +148,7 @@ class AddIndividualForm extends FormBase {
       'type' => 'group_connection',
       'field_group' => $groupId,
       'field_individual' => $individual->id(),
-      'field_group_connection_status' => $form_state->getValue('status'),
+      'field_group_connection_status' => $form_state->getValue('field_group_connection_status'),
     ];
 
     // Create group_connection node.

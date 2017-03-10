@@ -4,9 +4,10 @@
  * @file
  * Contains cremat_student.module.
  */
+
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
-
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_entity_view().
@@ -103,7 +104,6 @@ function pbc_groups_node_insert(EntityInterface $entity) {
   }
 
   $utility = Drupal::service('pbc_groups.utility');
-  // TODO: Call my service here so i'm not duping code.
   // TODO: Provide an option to add guests/inactive
   // Create Individual Attendance Records.
   $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('node');
@@ -124,5 +124,18 @@ function pbc_groups_node_insert(EntityInterface $entity) {
 
     // Create individual_attendance_record node.
     $utility->createNode($indAttendanceValues);
+  }
+}
+
+/**
+ * Implements hook_views_pre_view().
+ */
+function pbc_groups_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
+  if ($view->id() === 'group_guests') {
+    if (!$node = Drupal::routeMatch()->getParameter('node')) {
+      return FALSE;
+    }
+    // Pass in group id.
+    $args[] = $node->field_group->target_id;
   }
 }

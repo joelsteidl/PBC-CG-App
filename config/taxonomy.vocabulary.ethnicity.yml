@@ -1,0 +1,9 @@
+uuid: cec629a3-2215-4606-a564-c16ceb39a7cb
+langcode: en
+status: true
+dependencies: {  }
+name: Ethnicity
+vid: ethnicity
+description: ''
+hierarchy: 0
+weight: 0

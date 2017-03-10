@@ -38,6 +38,7 @@ web/web.config
 
 # Custom
 web/sites/default/local.settings.php
+/private/
 
 
 # :::::::::::::::::::::: cut ::::::::::::::::::::::

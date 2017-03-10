@@ -317,9 +317,9 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: Add
+            text: 'Add to this week'
             make_link: true
-            path: '/api/create/node/{{ arguments.null }}?type=individual_attendance_record&field_group_attendance_record={{ arguments.null }}&field_in_attendance=0&field_group_connection={{ nid }}'
+            path: '/api/create/node/{{ arguments.null }}?type=individual_attendance_record&field_group_attendance_record={{ arguments.null }}&field_in_attendance=1&field_group_connection={{ nid }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -388,20 +388,21 @@ display:
             3: 3
             2: 2
           group: 1
-          exposed: false
+          exposed: true
           expose:
-            operator_id: ''
-            label: ''
+            operator_id: field_group_connection_status_target_id_op
+            label: Status
             description: ''
             use_operator: false
-            operator: ''
-            identifier: ''
-            required: false
+            operator: field_group_connection_status_target_id_op
+            identifier: field_group_connection_status_target_id
+            required: true
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            reduce: false
+              anonymous: '0'
+            reduce: true
           is_grouped: false
           group_info:
             label: ''
@@ -515,6 +516,41 @@ display:
           required: false
           plugin_id: standard
       arguments:
+        field_group_target_id:
+          id: field_group_target_id
+          table: node__field_group
+          field: field_group_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          default_action: default
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            items_per_page: 25
+            override: false
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
+          plugin_id: numeric
         'null':
           id: 'null'
           table: views

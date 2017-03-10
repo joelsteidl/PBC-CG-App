@@ -1,0 +1,9 @@
+uuid: 4e2810a5-5320-4c67-b64e-cc00c885d489
+langcode: en
+status: true
+dependencies: {  }
+name: Neighborhood
+vid: neighborhood
+description: ''
+hierarchy: 0
+weight: 0

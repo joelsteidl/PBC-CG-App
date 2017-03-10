@@ -462,7 +462,7 @@ display:
           id: field_first_name_value
           table: node__field_first_name
           field: field_first_name_value
-          relationship: none
+          relationship: field_individual
           group_type: group
           admin_label: ''
           order: ASC
@@ -474,7 +474,7 @@ display:
           id: field_last_name_value
           table: node__field_last_name
           field: field_last_name_value
-          relationship: none
+          relationship: field_individual
           group_type: group
           admin_label: ''
           order: ASC

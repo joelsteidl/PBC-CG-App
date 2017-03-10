@@ -3,9 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.individual.field_below_poverty_line
     - field.field.node.individual.field_email_address
+    - field.field.node.individual.field_ethnicity
     - field.field.node.individual.field_first_name
     - field.field.node.individual.field_last_name
+    - field.field.node.individual.field_neighborhood
     - field.field.node.individual.field_planning_center_id
     - node.type.individual
 id: node.individual.default
@@ -13,6 +16,11 @@ targetEntityType: node
 bundle: individual
 mode: default
 content:
+  field_below_poverty_line:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
   field_email_address:
     weight: 2
     settings:
@@ -20,6 +28,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: email_default
+  field_ethnicity:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
   field_first_name:
     weight: 0
     settings:
@@ -34,8 +47,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_neighborhood:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
   field_planning_center_id:
-    weight: 3
+    weight: 6
     settings:
       placeholder: ''
     third_party_settings: {  }

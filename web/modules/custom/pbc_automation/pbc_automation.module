@@ -6,6 +6,10 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Mail\MailFormatHelper;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
@@ -28,18 +32,114 @@ function pbc_automation_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_cron().
  */
 function pbc_automation_cron() {
+  $utility = Drupal::service('pbc_groups.utility');
   $task = Drupal::service('pbc_automation.pco_tasks');
-  // $last_sync = Drupal::state()->get('pbc_automation_sync');
+  $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('node');
+
+  $now = new DrupalDateTime('now');
+  $nowDate = $now->format('Y-m-d');
+  $nowTime = $now->format('U');
+  // TODO: move some of this to a class.
+  // Get the start date for the current week.
+  $start = new DrupalDateTime('sunday last week');
+  $startDate = $start->format('Y-m-d');
+
+  // Get the end date for the current week.
+  $end = new DrupalDateTime('saturday this week');
+  $endDate = $end->format('Y-m-d');
+
+  // Load all the published groups.
+  $groups = $storage->loadByProperties([
+    'type' => 'group',
+    'status' => 1,
+  ]);
+
+  foreach ($groups as $group) {
+    // See if a record already exists for the week.
+    $attendance = $storage->getQuery()->count()
+      ->condition('type', 'group_attendance_record')
+      ->condition('status', 1)
+      ->condition('field_group', $group->id())
+      ->condition('field_meeting_date', [$startDate, $endDate], 'BETWEEN')
+      ->execute();
+
+    // 1. Attendance not created for the current week.
+    // 2. It is after 8PM of day of the meeting.
+    $day = $group->field_meeting_day->getString();
+    $dayDate = new DrupalDateTime($day . '8pm this week');
+    $meetingTime = $dayDate->format('U');
+    if ($attendance == 0 && $nowTime > $meetingTime) {
+      $groupAttendValues = [
+        'type' => 'group_attendance_record',
+        'field_group' => $group->id(),
+        'field_meeting_date' => $nowDate,
+      ];
+
+      // Create group_attendance_record node.
+      if ($attendance = $utility->createNode($groupAttendValues)) {
+        // Send attendance manager an email.
+        $mail = Drupal::service('plugin.manager.mail');
+        $user = $attendance->field_group->entity->field_attendance_manager->entity;
+        $mail->mail(
+          'pbc_automation',
+          'send_attendance_link',
+          $user->getEmail(),
+          $user->getPreferredLangcode(),
+          [
+            'user' => $user,
+            'group_attendance_record' => $attendance,
+          ]
+        );
+      }
+    }
+  }
 
   if ($results = $task->getPcoUpdatedPeople()) {
     foreach ($results as $result) {
       $task->createOrUpdateNode($result);
     }
     // Set a last updated date.
-    $dateTime = new DrupalDateTime('now');
-    $dateTime->setTimezone(new \DateTimezone(DATETIME_STORAGE_TIMEZONE));
-    $formatted = $dateTime->format(DATETIME_DATETIME_STORAGE_FORMAT);
-    Drupal::state()->set('pbc_automation_sync', $formatted);
+    Drupal::state()->set('pbc_automation_sync', $nowDate);
   }
+
+}
+
+/**
+ * Implements hook_mail().
+ */
+function pbc_automation_mail($key, &$message, $params) {
+  $function = sprintf('pbc_automation_%s', $key);
+  if (function_exists($function)) {
+    $function($message, $params);
+  }
+}
+
+/**
+ * Send email to the attendance manager for a group.
+ *
+ * Called from pbc_automation_cron.
+ */
+function pbc_automation_send_attendance_link(&$message, $params) {
+  $user = $params['user'];
+  $attendance = $params['group_attendance_record'];
+  $options = ['absolute' => TRUE];
+  $url = Url::fromRoute(
+    'entity.node.canonical',
+    ['node' => $attendance->id()],
+    $options
+  );
+  $link = Link::fromTextAndUrl($url->toString(), $url)->toString();
+  $body = [
+    '<p>' . t('Hi @name!,', ['@name' => $user->field_first_name->getString()]) . '</p>',
+    '<p>This is your friendly CG robot reminding you to record your attendance this week!</p>',
+    '<p><strong>' . t('Link:') . '</strong> ' . $link . '</p>',
+    '<p>' . t('Questions? Please get in touch with Caleb Johnson.') . '</p>',
+    '<p>' . t('Sincerely,') . '</p>',
+    '<p>' . t('The CG Attendance Robot') . '</p>'
+  ];
+
+  $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
+  $message['subject'] = $attendance->getTitle();
+  $message['body'] = $body;
 
 }

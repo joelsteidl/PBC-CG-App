@@ -28,14 +28,4 @@ if (file_exists($local_settings)) {
  * See: tests/installer-features/installer.feature
  */
 $settings['install_profile'] = 'minimal';
-$databases['default']['default'] = array (
-  'database' => 'groups',
-  'username' => 'groups',
-  'password' => 'groups',
-  'prefix' => '',
-  'host' => 'localhost',
-  'port' => '3306',
-  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
-  'driver' => 'mysql',
-);
 $settings['hash_salt'] = 'g4DmM0qyBHDGZU0yA6YZwa0jLwfys6KXQ4yfWUE7giP-EsxiPP2ClhPIf4vX4yS0iCQly7hyXg';

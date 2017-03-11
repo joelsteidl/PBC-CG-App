@@ -1,18 +1,18 @@
-uuid: 47cd31f3-a03e-4108-a2fd-235aeb87b7af
+uuid: 63108867-213d-41a6-8541-b3fbf8a910ff
 langcode: en
 status: true
 dependencies:
+  config:
+    - block_visibility_groups.block_visibility_group.admin_pages
   module:
     - block_visibility_groups
     - system
   theme:
     - bootstrap
-_core:
-  default_config_hash: fNNLN48MSGSLiqwIFywCuxH2Dk_IxDbaP0kYhg_IPrg
-id: bootstrap_content
+id: mainpagecontent
 theme: bootstrap
-region: sidebar_first
-weight: -7
+region: content
+weight: 0
 provider: null
 plugin: system_main_block
 settings:
@@ -24,10 +24,5 @@ visibility:
   condition_group:
     id: condition_group
     negate: false
-    block_visibility_group: ''
-    context_mapping: {  }
-  request_path:
-    id: request_path
-    pages: "/node/add/*\r\n/node/*/edit\r\n/find/individual/*"
-    negate: true
+    block_visibility_group: admin_pages
     context_mapping: {  }

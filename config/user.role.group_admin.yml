@@ -1,0 +1,15 @@
+uuid: 80befb80-b159-4480-aabc-f8190664f7cd
+langcode: en
+status: true
+dependencies: {  }
+id: group_admin
+label: 'Group Admin'
+weight: 2
+is_admin: null
+permissions:
+  - 'create group content'
+  - 'view group revisions'
+  - 'edit any group_connection content'
+  - 'access content'
+  - 'administer users'
+  - 'access user profiles'

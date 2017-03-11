@@ -154,3 +154,58 @@ function pbc_groups_form_node_individual_edit_form_alter(&$form, FormStateInterf
   drupal_set_message(t('Please do not edit individuals here. Please edit their information on <a href="@url" target="_blank">Planning Center</a>.', ['@url' => $url]), 'warning', FALSE);
   $form['field_planning_center_id']['#disabled'] = TRUE;
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function pbc_groups_form_node_group_connection_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  drupal_set_message(t('You may edit the status for this person.'), 'warning', FALSE);
+  $form['field_group']['#disabled'] = TRUE;
+  $form['field_individual']['#disabled'] = TRUE;
+}
+
+/**
+ * Implements hook_node_access().
+ *
+ * Handle who can view various content types
+ * Drupal does not do this per content type
+ * See c4l_class.module for the class content type access.
+ * See c4l_student.module for the student content type access.
+ */
+// function c4l_profiles_node_access(Node $node, $operation, AccountProxy $account) {
+//   // Allow specific paths for anyone.
+//   $allowed = [
+//     '/credits',
+//   ];
+//   if (Role::hasRole($account, 'anonymous') && $operation === 'view') {
+//     if (in_array($node->url(), $allowed)) {
+//       return AccessResult::allowed();
+//     }
+//     return AccessResult::forbidden();
+//   }
+//
+//   $type = $node->getType();
+//   // Class and Student content types are handled in other modules.
+//   $types = [
+//     'article' => ['school_admin', 'staff', 'teacher'],
+//     'page' => ['parent_guardian', 'school_admin', 'staff', 'teacher'],
+//     'black_line_master' => ['staff', 'teacher'],
+//     'handbook_page' => ['school_admin', 'staff', 'teacher'],
+//     'learning_center' => ['school_admin', 'staff', 'teacher'],
+//     'learning_center_activity' => ['school_admin', 'staff', 'teacher'],
+//     'learning_objective' => ['school_admin', 'staff', 'teacher'],
+//     'lesson' => ['school_admin', 'staff', 'teacher'],
+//     'ongoing_assessment' => ['school_admin', 'staff', 'teacher'],
+//     'site_documentation' => ['staff'],
+//     'welcome_song' => ['staff', 'teacher'],
+//   ];
+//
+//   if (isset($types[$type]) && $operation === 'view') {
+//     // Always add administrator role.
+//     $types[$type][] = 'administrator';
+//     if (Role::hasAnyRole($account, $types[$type])) {
+//       return AccessResult::allowed();
+//     }
+//     return AccessResult::forbidden();
+//   }
+// }

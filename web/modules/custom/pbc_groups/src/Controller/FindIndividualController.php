@@ -43,16 +43,14 @@ class FindIndividualController extends ControllerBase {
    * @return string
    *   Return Hello string.
    */
-  public function getContent(NodeInterface $redirect, $firstname, $lastname) {
-    $defaults = [
-      'firstname' => $firstname,
-      'lastname' => $lastname,
-      'redirect' => $redirect->id(),
-    ];
+  public function getContent() {
     $build = [];
-    $build['individual_search'] = views_embed_view('search_individuals', 'block_1');
-
-    $build['add_individual']['form'] = $this->formBuilder->getForm('Drupal\pbc_groups\Form\AddIndividualForm', $defaults);
+    $build['search_heading'] = [
+      '#prefix' => '<h3>',
+      '#markup' => $this->t('Search existing people'),
+      '#suffix' => '</h3>',
+    ];
+    $build['individual_search'] = views_embed_view('search_individuals', 'block_2');
 
     return $build;
   }

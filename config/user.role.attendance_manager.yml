@@ -1,0 +1,9 @@
+uuid: b0965ac6-dff4-4c2c-a22a-2baa3de590bf
+langcode: en
+status: true
+dependencies: {  }
+id: attendance_manager
+label: 'Attendance manager'
+weight: 3
+is_admin: null
+permissions: {  }

@@ -1,0 +1,45 @@
+uuid: 0e5a1657-e76b-45d2-9d97-b228721a323e
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.groups
+  module:
+    - block_visibility_groups
+    - system
+    - user
+    - views
+  theme:
+    - bootstrap
+id: views_block__groups_block_1
+theme: bootstrap
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:groups-block_1'
+settings:
+  id: 'views_block:groups-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: '/user/*'
+    negate: false
+    context_mapping: {  }
+  user_role:
+    id: user_role
+    roles:
+      group_admin: group_admin
+      administrator: administrator
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'

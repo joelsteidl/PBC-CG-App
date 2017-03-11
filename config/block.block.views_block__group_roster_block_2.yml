@@ -1,28 +1,34 @@
-uuid: d8ac8d5f-99b1-44e5-ad69-711b5942df96
+uuid: cf235110-c445-419a-8e6d-89c825a499f9
 langcode: en
 status: true
 dependencies:
   config:
     - views.view.group_roster
   module:
+    - block_visibility_groups
     - node
     - views
   theme:
     - bootstrap
-id: views_block__group_roster_block_1
+id: views_block__group_roster_block_2
 theme: bootstrap
 region: content
-weight: -7
+weight: 0
 provider: null
-plugin: 'views_block:group_roster-block_1'
+plugin: 'views_block:group_roster-block_2'
 settings:
-  id: 'views_block:group_roster-block_1'
+  id: 'views_block:group_roster-block_2'
   label: ''
   provider: views
   label_display: visible
   views_label: ''
   items_per_page: none
 visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''
+    context_mapping: {  }
   node_type:
     id: node_type
     bundles:

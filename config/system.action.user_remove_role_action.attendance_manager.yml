@@ -1,0 +1,14 @@
+uuid: 66dfde6a-8389-4dc2-8450-1f8f87d85843
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.attendance_manager
+  module:
+    - user
+id: user_remove_role_action.attendance_manager
+label: 'Remove the Attendance manager role from the selected users'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: attendance_manager

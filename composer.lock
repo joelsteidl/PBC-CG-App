@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "22780c7d67eeb6cc10cabf2277381bdc",
+    "content-hash": "297e26f8e44435596ba0cf99caf918f8",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1122,6 +1122,53 @@
             }
         },
         {
+            "name": "drupal/block_visibility_groups",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/block_visibility_groups",
+                "reference": "8.x-1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/block_visibility_groups-8.x-1.1.zip",
+                "reference": null,
+                "shasum": "664732995ec5c67c6478f9c2bffaa1c0a18b95de"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.1",
+                    "datestamp": "1472414339"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "tedbow",
+                    "homepage": "https://www.drupal.org/user/240860"
+                }
+            ],
+            "description": "My Awesome Module",
+            "homepage": "http://drupal.org/project/block_visibility_groups",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/block_visibility_groups",
+                "issues": "http://drupal.org/project/issues/block_visibility_groups"
+            }
+        },
+        {
             "name": "drupal/bootstrap",
             "version": "3.2.0",
             "source": {
@@ -1795,7 +1842,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/pathauto-8.x-1.0-rc1.zip",
-                "reference": null,
+                "reference": "8.x-1.0-rc1",
                 "shasum": "2460339ac8739317b3c4e66e9ce7142cc02adac3"
             },
             "require": {

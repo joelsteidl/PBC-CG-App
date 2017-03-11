@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.group.field_attendance_manager
     - field.field.node.group.field_group_status
     - field.field.node.group.field_meeting_day
+    - field.field.node.group.field_neighborhood
     - node.type.group
 id: node.group.default
 targetEntityType: node
@@ -27,6 +28,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+  field_neighborhood:
+    weight: 26
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   title:
     type: string_textfield
     weight: 0

@@ -1,0 +1,14 @@
+uuid: 538aff57-a085-4373-9acb-e2d1548f6293
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.group_admin
+  module:
+    - user
+id: user_add_role_action.group_admin
+label: 'Add the Group Admin role to the selected users'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: group_admin

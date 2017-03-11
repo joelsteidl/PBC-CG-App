@@ -1,0 +1,14 @@
+uuid: 9a80c1e1-8be6-4735-9be1-a8a5d2596a41
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.attendance_manager
+  module:
+    - user
+id: user_add_role_action.attendance_manager
+label: 'Add the Attendance manager role to the selected users'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: attendance_manager

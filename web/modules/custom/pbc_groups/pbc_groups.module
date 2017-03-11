@@ -5,8 +5,9 @@
  * Contains cremat_student.module.
  */
 
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\ViewExecutable;
 
 /**
@@ -138,4 +139,18 @@ function pbc_groups_views_pre_view(ViewExecutable $view, $display_id, array &$ar
     // Pass in group id.
     $args[] = $node->field_group->target_id;
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function pbc_groups_form_node_individual_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $url = 'https://people.planningcenteronline.com/people';
+  if (isset($form['field_planning_center_id']['widget'][0]['value']['#default_value'])) {
+    $pcoId = $form['field_planning_center_id']['widget'][0]['value']['#default_value'];
+    $url = 'https://people.planningcenteronline.com/people/AC' . $pcoId;
+  }
+
+  drupal_set_message(t('Please do not edit individuals here. Please edit their information on <a href="@url" target="_blank">Planning Center</a>.', ['@url' => $url]), 'warning', FALSE);
+  $form['field_planning_center_id']['#disabled'] = TRUE;
 }

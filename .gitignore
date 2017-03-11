@@ -15,7 +15,7 @@ web/.editorconfig
 web/.eslintignore
 web/.eslintrc
 web/.gitattributes
-# web/.htaccess
+web/.htaccess
 web/autoload.php
 web/index.php
 web/robots.txt

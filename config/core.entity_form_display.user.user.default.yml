@@ -13,23 +13,23 @@ bundle: user
 mode: default
 content:
   account:
-    weight: -10
-  contact:
-    weight: 5
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
   field_first_name:
-    weight: 6
+    weight: 0
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
   field_last_name:
-    weight: 7
+    weight: 1
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-  language:
-    weight: 0
-hidden: {  }
+hidden:
+  contact: true
+  language: true

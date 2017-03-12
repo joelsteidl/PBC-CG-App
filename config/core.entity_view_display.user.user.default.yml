@@ -13,19 +13,18 @@ bundle: user
 mode: default
 content:
   field_first_name:
-    weight: 6
+    weight: 0
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_last_name:
-    weight: 7
+    weight: 1
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  member_for:
-    weight: 5
-hidden: {  }
+hidden:
+  member_for: true

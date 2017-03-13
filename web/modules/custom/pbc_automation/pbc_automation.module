@@ -68,7 +68,16 @@ function pbc_automation_cron() {
     // 1. Attendance not created for the current week.
     // 2. It is after 8PM of day of the meeting.
     $day = $group->field_meeting_day->getString();
-    $dayDate = new DrupalDateTime($day . '8pm this week');
+    $days = [
+      'Sunday' => 'last saturday 8pm + 1 day',
+      'Monday' => 'last saturday 8pm + 2 days',
+      'Tuesday' => 'last saturday 8pm + 3 days',
+      'Wednesday' => 'last saturday 8pm + 4 days',
+      'Thursday' => 'last saturday 8pm + 5 days',
+      'Friday' => 'last saturday 8pm + 6 days',
+      'Saturday' => 'last saturday 8pm + 7 days',
+    ];
+    $dayDate = new DrupalDateTime($days[$day]);
     $meetingTime = $dayDate->format('U');
     if ($attendance == 0 && $nowTime > $meetingTime) {
       $groupAttendValues = [

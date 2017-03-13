@@ -78,6 +78,14 @@ class PcoTasks implements PcoTasksInterface {
       'field_planning_center_id' => $pcoRecord->id,
     ];
 
+    // Membership.
+    if (!empty($pcoRecord->attributes->membership)) {
+      $membership = $pcoRecord->attributes->membership;
+      if ($tid = $this->groupsUtility->getTidByName('membership', $membership)) {
+        $values['field_membership'] = $tid;
+      }
+    }
+
     // Handle Email Address.
     if (isset($pcoRecord->relationships->emails->data[0]->id)) {
       $emailId = $pcoRecord->relationships->emails->data[0]->id;
@@ -111,13 +119,6 @@ class PcoTasks implements PcoTasksInterface {
     }
 
     return $values;
-  }
-
-  /**
-   * { @inheritdoc }
-   */
-  public function buildPcoPersonData(NodeInterface $node) {
-    // maybe deprecate.
   }
 
   /**
@@ -301,6 +302,7 @@ class PcoTasks implements PcoTasksInterface {
     ];
     $request = $this->pcoApiClient->connect('get', 'people/v2/people', $query, []);
     $results = json_decode($request);
+    kint($results);
     return $results->data;
   }
 

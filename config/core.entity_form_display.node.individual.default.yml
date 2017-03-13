@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.individual.field_ethnicity
     - field.field.node.individual.field_first_name
     - field.field.node.individual.field_last_name
+    - field.field.node.individual.field_membership
     - field.field.node.individual.field_neighborhood
     - field.field.node.individual.field_planning_center_id
     - node.type.individual
@@ -29,7 +30,7 @@ content:
     third_party_settings: {  }
     type: email_default
   field_ethnicity:
-    weight: 5
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -47,13 +48,18 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-  field_neighborhood:
+  field_membership:
     weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
+  field_neighborhood:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
   field_planning_center_id:
-    weight: 6
+    weight: 7
     settings:
       placeholder: ''
     third_party_settings: {  }

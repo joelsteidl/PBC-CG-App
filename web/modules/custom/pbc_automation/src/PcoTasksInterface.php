@@ -53,17 +53,6 @@ interface PcoTasksInterface {
   public function createPcoPerson(NodeInterface $node);
 
   /**
-   * Builds data for creating a person in PCO.
-   *
-   * @param Drupal\node\NodeInterface $node
-   *   Node object.
-   *
-   * @return array
-   *   Array that PCO Person is expecting.
-   */
-  public function buildPcoPersonData(NodeInterface $node);
-
-  /**
    * Create a new email in Planning Center.
    *
    * @param Drupal\node\NodeInterface $node

@@ -62,6 +62,7 @@ class GroupsUtility implements GroupsUtilityInterface {
       'field_email_address',
       'field_below_poverty_line',
       'field_ethnicity',
+      'field_membership',
       'field_neighborhood',
     ];
     foreach ($values as $key => $value) {

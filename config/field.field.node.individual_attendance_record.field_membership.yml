@@ -1,0 +1,28 @@
+uuid: 34129011-868e-4c57-a446-7fed83eefe9e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_membership
+    - node.type.individual_attendance_record
+    - taxonomy.vocabulary.membership
+id: node.individual_attendance_record.field_membership
+field_name: field_membership
+entity_type: node
+bundle: individual_attendance_record
+label: Membership
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      membership: membership
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

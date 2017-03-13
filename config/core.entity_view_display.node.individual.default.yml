@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.individual.field_ethnicity
     - field.field.node.individual.field_first_name
     - field.field.node.individual.field_last_name
+    - field.field.node.individual.field_membership
     - field.field.node.individual.field_neighborhood
     - field.field.node.individual.field_planning_center_id
     - node.type.individual
@@ -54,6 +55,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_membership:
+    weight: 108
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
   field_neighborhood:
     weight: 106
     label: above

@@ -1,0 +1,23 @@
+uuid: 07dd776c-17c2-4c44-9300-b7f917018628
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_below_poverty_line
+    - node.type.individual_attendance_record
+id: node.individual_attendance_record.field_below_poverty_line
+field_name: field_below_poverty_line
+entity_type: node
+bundle: individual_attendance_record
+label: 'Below Poverty Line'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

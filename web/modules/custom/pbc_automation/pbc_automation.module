@@ -39,13 +39,15 @@ function pbc_automation_cron() {
   $now = new DrupalDateTime('now');
   $nowDate = $now->format('Y-m-d');
   $nowTime = $now->format('U');
+
   // TODO: move some of this to a class.
   // Get the start date for the current week.
-  $start = new DrupalDateTime('sunday last week');
+  // http://stackoverflow.com/a/17438928
+  $start = new DrupalDateTime('last saturday + 1 day');
   $startDate = $start->format('Y-m-d');
 
   // Get the end date for the current week.
-  $end = new DrupalDateTime('saturday this week');
+  $end = new DrupalDateTime('last saturday + 7 days');
   $endDate = $end->format('Y-m-d');
 
   // Load all the published groups.
@@ -94,6 +96,7 @@ function pbc_automation_cron() {
     }
   }
 
+  // Sync data from Planning Center Online.
   if ($results = $task->getPcoUpdatedPeople()) {
     foreach ($results as $result) {
       $task->createOrUpdateNode($result);

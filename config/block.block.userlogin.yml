@@ -1,39 +1,33 @@
-uuid: 3a76d71f-0eff-4dce-9a92-c3028716ec35
+uuid: 8e83ef35-0c95-4f84-9fef-3f1698b42e31
 langcode: en
 status: true
 dependencies:
-  config:
-    - views.view.groups
   module:
     - system
     - user
-    - views
   theme:
     - cg
-id: views_block__groups_block_1
+id: userlogin
 theme: cg
-region: content
-weight: -7
+region: sidebar_first
+weight: -9
 provider: null
-plugin: 'views_block:groups-block_1'
+plugin: user_login_block
 settings:
-  id: 'views_block:groups-block_1'
-  label: ''
-  provider: views
+  id: user_login_block
+  label: Login
+  provider: user
   label_display: visible
-  views_label: ''
-  items_per_page: none
 visibility:
   request_path:
     id: request_path
-    pages: '/user/*'
+    pages: /cg-access-denied
     negate: false
     context_mapping: {  }
   user_role:
     id: user_role
     roles:
-      group_admin: group_admin
-      administrator: administrator
+      anonymous: anonymous
     negate: false
     context_mapping:
       user: '@user.current_user_context:current_user'

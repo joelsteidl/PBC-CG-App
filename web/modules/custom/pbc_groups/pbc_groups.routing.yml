@@ -22,3 +22,25 @@ pbc_groups.manage_groups_api_create:
     parameters:
       redirect:
         type: entity:node
+
+pbc_groups.access_denied_content:
+  path: '/cg-access-denied'
+  defaults:
+    _controller: '\Drupal\pbc_groups\Controller\AccessDenied::content'
+    _title: 'Access Denied'
+  requirements:
+    _permission: 'access content'
+
+pbc_groups.record_attendance_controller_callback:
+  path: 'group/add/individual-attendance-record/{group_connection}/{group_attendance_record}/{in_attendance}'
+  defaults:
+    _controller: '\Drupal\pbc_groups\Controller\RecordAttendanceController::callback'
+    _title: 'Record Attendance'
+  options:
+    parameters:
+      group_connection:
+        type: entity:node
+      group_attendance_record:
+        type: entity:node
+  requirements:
+    _permission: 'access content'

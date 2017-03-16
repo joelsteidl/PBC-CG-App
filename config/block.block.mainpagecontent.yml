@@ -1,18 +1,15 @@
-uuid: 63108867-213d-41a6-8541-b3fbf8a910ff
+uuid: 07cf41ec-33d5-4c4a-abb7-5c2b9dc33388
 langcode: en
 status: true
 dependencies:
-  config:
-    - block_visibility_groups.block_visibility_group.admin_pages
   module:
-    - block_visibility_groups
     - system
   theme:
-    - bootstrap
+    - cg
 id: mainpagecontent
-theme: bootstrap
+theme: cg
 region: content
-weight: 0
+weight: -9
 provider: null
 plugin: system_main_block
 settings:
@@ -20,9 +17,4 @@ settings:
   label: 'Main page content'
   provider: system
   label_display: '0'
-visibility:
-  condition_group:
-    id: condition_group
-    negate: false
-    block_visibility_group: admin_pages
-    context_mapping: {  }
+visibility: {  }

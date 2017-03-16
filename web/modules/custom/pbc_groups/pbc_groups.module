@@ -15,6 +15,11 @@ use Drupal\views\ViewExecutable;
  */
 function pbc_groups_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
   if ($entity->bundle() === 'group_attendance_record' && $view_mode === 'full') {
+    $build['heading'] = [
+      '#prefix' => '<h2>',
+      '#markup' => t('1. Who attended this week?'),
+      '#suffix' => '</h2>',
+    ];
     $form_builder = Drupal::service('form_builder');
     $build['management_form']['#weight'] = 20;
     $build['management_form']['form'] = $form_builder->getForm('Drupal\pbc_groups\Form\ManageAttendanceForm');
@@ -115,21 +120,12 @@ function pbc_groups_node_insert(EntityInterface $entity) {
     ->execute();
 
   foreach ($connections as $connection) {
-    $connectionNode = $storage->load($connection);
-    $individual = $connectionNode->field_individual->entity;
-    $indAttendanceValues = [
-      'type' => 'individual_attendance_record',
-      'field_group_attendance_record' => $entity->id(),
-      'field_in_attendance' => 0,
-      'field_group_connection' => $connection,
-      'field_group_connection_status' => $connectionNode->field_group_connection_status->target_id,
-      'field_neighborhood' => $individual->field_neighborhood->target_id,
-      'field_membership' => $individual->field_membership->target_id,
-      'field_below_poverty_line' => $individual->field_below_poverty_line->value,
-    ];
-
-    // Create individual_attendance_record node.
-    $utility->createNode($indAttendanceValues);
+    $group_connection = $storage->load($connection);
+    $group_attendance_record = $entity;
+    if ($indAttendanceValues = $utility->buildIndivdualAttendanceNodeValues($group_connection, $group_attendance_record, 0)) {
+      // Create individual_attendance_record node.
+      $utility->createNode($indAttendanceValues);
+    }
   }
 }
 
@@ -174,10 +170,8 @@ function pbc_groups_form_node_group_connection_edit_form_alter(&$form, FormState
  *
  * Handle who can view various content types
  * Drupal does not do this per content type
- * See c4l_class.module for the class content type access.
- * See c4l_student.module for the student content type access.
  */
-// function c4l_profiles_node_access(Node $node, $operation, AccountProxy $account) {
+// function pbc_groups_node_access(Node $node, $operation, AccountProxy $account) {
 //   // Allow specific paths for anyone.
 //   $allowed = [
 //     '/credits',
@@ -194,15 +188,6 @@ function pbc_groups_form_node_group_connection_edit_form_alter(&$form, FormState
 //   $types = [
 //     'article' => ['school_admin', 'staff', 'teacher'],
 //     'page' => ['parent_guardian', 'school_admin', 'staff', 'teacher'],
-//     'black_line_master' => ['staff', 'teacher'],
-//     'handbook_page' => ['school_admin', 'staff', 'teacher'],
-//     'learning_center' => ['school_admin', 'staff', 'teacher'],
-//     'learning_center_activity' => ['school_admin', 'staff', 'teacher'],
-//     'learning_objective' => ['school_admin', 'staff', 'teacher'],
-//     'lesson' => ['school_admin', 'staff', 'teacher'],
-//     'ongoing_assessment' => ['school_admin', 'staff', 'teacher'],
-//     'site_documentation' => ['staff'],
-//     'welcome_song' => ['staff', 'teacher'],
 //   ];
 //
 //   if (isset($types[$type]) && $operation === 'view') {
@@ -214,3 +199,11 @@ function pbc_groups_form_node_group_connection_edit_form_alter(&$form, FormState
 //     return AccessResult::forbidden();
 //   }
 // }
+//
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function pbc_groups_menu_links_discovered_alter(&$links) {
+  $links['user.page']['title'] = t('Dashboard');
+}

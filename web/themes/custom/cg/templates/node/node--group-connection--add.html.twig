@@ -1,0 +1,21 @@
+{%
+  set classes = [
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+<article{{ attributes.addClass(classes) }}>
+  <div class="pull-right">
+    {{ content.nid }}
+  </div>
+  <h3>
+    {{ node.field_individual.entity.getTitle() }}
+  </h3>
+  <div>{{ node.field_individual.entity.field_email_address.getString() }}</div>
+  <em>{{ node.field_group_connection_status.entity.getName() }}</em>
+
+</article>

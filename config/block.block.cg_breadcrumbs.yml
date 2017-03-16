@@ -1,0 +1,22 @@
+uuid: f66bc720-1666-477f-a367-d552fc718a89
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - cg
+_core:
+  default_config_hash: wDR9JKEATSWldBjw8du8s3G2zjEYeQf88nlld11hMLo
+id: cg_breadcrumbs
+theme: cg
+region: header
+weight: -6
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  provider: system
+  label_display: '0'
+visibility: {  }

@@ -1,20 +1,18 @@
-uuid: ea2df0a4-f3b5-4426-9188-50523c2bef71
+uuid: 387c5763-0581-4976-a9b1-b33e67e1b005
 langcode: en
 status: true
 dependencies:
   config:
     - views.view.recent_group_attendance
   module:
-    - block_visibility_groups
     - system
-    - user
     - views
   theme:
-    - bootstrap
+    - cg
 id: views_block__recent_group_attendance_block_1
-theme: bootstrap
+theme: cg
 region: content
-weight: 0
+weight: -6
 provider: null
 plugin: 'views_block:recent_group_attendance-block_1'
 settings:
@@ -25,20 +23,8 @@ settings:
   views_label: ''
   items_per_page: none
 visibility:
-  condition_group:
-    id: condition_group
-    negate: false
-    block_visibility_group: ''
-    context_mapping: {  }
   request_path:
     id: request_path
     pages: '/user/*'
     negate: false
     context_mapping: {  }
-  user_role:
-    id: user_role
-    roles:
-      authenticated: authenticated
-    negate: false
-    context_mapping:
-      user: '@user.current_user_context:current_user'

@@ -73,6 +73,8 @@ class ManageAttendanceForm extends FormBase {
       ->condition('type', 'individual_attendance_record')
       ->condition('field_group_attendance_record', $groupAttendance->id())
       ->condition('status', 1)
+      ->sort('field_group_connection_status.entity.weight', 'ASC')
+      ->sort('field_group_connection.entity.field_individual.entity.field_last_name', 'ASC')
       ->execute();
 
     if (!count($records)) {
@@ -91,8 +93,7 @@ class ManageAttendanceForm extends FormBase {
 
     $form['attendance'] = [
       '#type' => 'checkboxes',
-      '#title' => $this->t('In Attendance'),
-      '#description' => $this->t('Mark everyone that was present.'),
+      '#title' => $this->t('Mark everyone that was present.'),
       '#options' => $options,
       '#default_value' => $defaults,
       '#weight' => 1,

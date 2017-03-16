@@ -4,6 +4,7 @@ namespace Drupal\pbc_groups;
 
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\pbc_automation\PcoTasks;
+use Drupal\node\NodeInterface;
 
 /**
  * Class GroupsUtility.
@@ -116,6 +117,25 @@ class GroupsUtility implements GroupsUtilityInterface {
   public function buildNodeValues($values) {
     // Add some defaults.
     $values['status'] = 1;
+
+    return $values;
+  }
+
+  /**
+   * { @inheritdoc }
+   */
+  public function buildIndivdualAttendanceNodeValues(NodeInterface $group_connection, NodeInterface $group_attendance_record, bool $in_attendance) {
+    $individual = $group_connection->field_individual->entity;
+    $values = [
+      'type' => 'individual_attendance_record',
+      'field_group_attendance_record' => $group_attendance_record->id(),
+      'field_in_attendance' => $in_attendance,
+      'field_group_connection' => $group_connection->id(),
+      'field_group_connection_status' => $group_connection->field_group_connection_status->target_id,
+      'field_neighborhood' => $individual->field_neighborhood->target_id,
+      'field_membership' => $individual->field_membership->target_id,
+      'field_below_poverty_line' => $individual->field_below_poverty_line->value,
+    ];
 
     return $values;
   }

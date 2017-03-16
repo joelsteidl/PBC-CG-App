@@ -1,0 +1,67 @@
+<?php
+
+/**
+ * @file
+ * Bootstrap sub-theme.
+ *
+ * Place your custom PHP code in this file.
+ */
+
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+
+function cg_preprocess_views_view_field(&$variables) {
+  if ($variables['view']->id() != 'group_guests') {
+    return FALSE;
+  }
+  $field_name = $variables['field']->realField;
+  // TODO: limit to this view.
+  if ($field_name != 'nothing') {
+    return FALSE;
+  }
+
+  $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('node');
+  $group_connection_node = $variables['row']->_entity;
+  $group_attend_nid = $variables['output']->__toString();
+
+  $attendance = $storage->getQuery()->count()
+    ->condition('type', 'individual_attendance_record')
+    ->condition('status', 1)
+    ->condition('field_group_attendance_record', $group_attend_nid)
+    ->condition('field_group_connection', $group_connection_node->id())
+    ->execute();
+
+  $output = [
+    '#prefix' => '<span class="label label-success">',
+    '#markup' => '&#10003; Added',
+    '#suffix' => '</span>',
+  ];
+  if ($attendance == 0) {
+    $url = Url::fromRoute(
+      'pbc_groups.record_attendance_controller_callback',
+      [
+        'group_connection' => $group_connection_node->id(),
+        'group_attendance_record' => $group_attend_nid,
+        'in_attendance' => 1,
+      ],
+      [
+        'attributes' => [
+          'class' => ['use-ajax', 'btn', 'btn-info']
+        ]
+      ]
+    );
+
+    $name = 'Person';
+    if ($group_connection_node->field_individual->entity && !$group_connection_node->field_individual->entity->field_first_name->isEmpty()) {
+      $name = $group_connection_node->field_individual->entity->field_first_name->getString();
+    }
+    $link_text = t(
+      'Add @name',
+      [
+        '@name' => $name
+      ]
+    );
+    $output = Link::fromTextAndUrl($link_text, $url)->toRenderable();
+  }
+  $variables['output'] = $output;
+}

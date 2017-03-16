@@ -1,0 +1,37 @@
+uuid: c41b61b7-8c35-4fe0-81db-18f873bf01ef
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - pbc_groups
+    - user
+  theme:
+    - cg
+id: cg_findindividualblock
+theme: cg
+region: sidebar_second
+weight: -7
+provider: null
+plugin: find_individual_block
+settings:
+  id: find_individual_block
+  label: 'Add Someone New'
+  provider: pbc_groups
+  label_display: visible
+visibility:
+  user_role:
+    id: user_role
+    roles:
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+  node_type:
+    id: node_type
+    bundles:
+      group: group
+      group_attendance_record: group_attendance_record
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

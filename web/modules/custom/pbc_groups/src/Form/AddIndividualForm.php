@@ -156,15 +156,10 @@ class AddIndividualForm extends FormBase {
 
     if ($redirectNode->getType() === 'group_attendance_record') {
 
-      $indAttendanceValues = [
-        'type' => 'individual_attendance_record',
-        'field_group_attendance_record' => $redirectNode->id(),
-        'field_in_attendance' => 1,
-        'field_group_connection' => $groupConnection->id(),
-      ];
-
+      if ($indAttendanceValues = $this->pbcGroupsUtility->buildIndivdualAttendanceNodeValues($groupConnection, $redirectNode, 1)) {
       // Create individual_attendance_record node.
-      $this->groupsUtility->createNode($indAttendanceValues);
+        $this->pbcGroupsUtility->createNode($indAttendanceValues);
+      }
     }
 
     // Redirect to the correct place.

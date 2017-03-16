@@ -1,22 +1,22 @@
-uuid: 59bd73c3-0e7e-4e24-82e1-9c41ac05cede
+uuid: 2ee3c2dc-9531-4f0a-84ac-8bb436a6937b
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.group_roster
+    - views.view.group_guests
   module:
     - node
     - views
   theme:
     - cg
-id: views_block__group_roster_block_2
+id: cg_views_block__group_guests_block_1
 theme: cg
-region: content
+region: sidebar_second
 weight: -8
 provider: null
-plugin: 'views_block:group_roster-block_2'
+plugin: 'views_block:group_guests-block_1'
 settings:
-  id: 'views_block:group_roster-block_2'
+  id: 'views_block:group_guests-block_1'
   label: ''
   provider: views
   label_display: visible
@@ -26,7 +26,7 @@ visibility:
   node_type:
     id: node_type
     bundles:
-      group: group
+      group_attendance_record: group_attendance_record
     negate: false
     context_mapping:
       node: '@node.node_route_context:node'

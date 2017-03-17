@@ -78,6 +78,7 @@ class AddIndividualForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Status'),
       '#options' => $this->groupsUtility->termsToOptions('group_membership_status'),
+      '#default_value' => $defaults['status'],
     ];
 
     $form['field_below_poverty_line'] = [
@@ -142,31 +143,17 @@ class AddIndividualForm extends FormBase {
     }
 
     // Create individual node.
-    $individual = $this->groupsUtility->createNode($individualValues);
-
-    $groupConnectValues = [
-      'type' => 'group_connection',
-      'field_group' => $groupId,
-      'field_individual' => $individual->id(),
-      'field_group_connection_status' => $form_state->getValue('field_group_connection_status'),
-    ];
-
-    // Create group_connection node.
-    $groupConnection = $this->groupsUtility->createNode($groupConnectValues);
-
-    if ($redirectNode->getType() === 'group_attendance_record') {
-
-      if ($indAttendanceValues = $this->pbcGroupsUtility->buildIndivdualAttendanceNodeValues($groupConnection, $redirectNode, 1)) {
-      // Create individual_attendance_record node.
-        $this->pbcGroupsUtility->createNode($indAttendanceValues);
-      }
+    if ($individual = $this->groupsUtility->createNode($individualValues)) {
+      // Redirect to the correct place.
+      $form_state->setRedirect(
+        'pbc_groups.add_group_connection_controller',
+        [
+          'redirect' => $this->redirect,
+          'individual' => $individual->id(),
+          'status' => $form_state->getValue('field_group_connection_status')
+        ]
+      );
     }
-
-    // Redirect to the correct place.
-    $form_state->setRedirect(
-      'entity.node.canonical',
-      ['node' => $this->redirect]
-    );
 
   }
 

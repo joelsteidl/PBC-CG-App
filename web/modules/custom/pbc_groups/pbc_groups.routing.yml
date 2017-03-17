@@ -1,6 +1,6 @@
 
 pbc_groups.find_individual_controller_getContent:
-  path: '/find/individual/{redirect}/{firstname}/{lastname}'
+  path: '/find/individual/{redirect}/{firstname}/{lastname}/{status}'
   defaults:
     _controller: '\Drupal\pbc_groups\Controller\FindIndividualController::getContent'
     _title: 'Find People'
@@ -10,26 +10,6 @@ pbc_groups.find_individual_controller_getContent:
     parameters:
       redirect:
         type: entity:node
-
-pbc_groups.manage_groups_api_create:
-  path: '/api/create/node/{redirect}'
-  defaults:
-    _controller: '\Drupal\pbc_groups\Controller\ManageGroupsApi::add'
-    _title: 'Groups API'
-  requirements:
-    _permission: 'access content'
-  options:
-    parameters:
-      redirect:
-        type: entity:node
-
-pbc_groups.access_denied_content:
-  path: '/cg-access-denied'
-  defaults:
-    _controller: '\Drupal\pbc_groups\Controller\AccessDenied::content'
-    _title: 'Access Denied'
-  requirements:
-    _permission: 'access content'
 
 pbc_groups.record_attendance_controller_callback:
   path: 'group/add/individual-attendance-record/{group_connection}/{group_attendance_record}/{in_attendance}'
@@ -41,6 +21,20 @@ pbc_groups.record_attendance_controller_callback:
       group_connection:
         type: entity:node
       group_attendance_record:
+        type: entity:node
+  requirements:
+    _permission: 'access content'
+
+pbc_groups.add_group_connection_controller:
+  path: '/group/add/group-connection/{redirect}/{individual}/{status}'
+  defaults:
+    _controller: '\Drupal\pbc_groups\Controller\CreateGroupConnectionController::add'
+    _title: 'Create Group Connection'
+  options:
+    parameters:
+      redirect:
+        type: entity:node
+      individual:
         type: entity:node
   requirements:
     _permission: 'access content'

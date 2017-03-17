@@ -134,10 +134,15 @@ function pbc_automation_mail($key, &$message, $params) {
 function pbc_automation_send_attendance_link(&$message, $params) {
   $user = $params['user'];
   $attendance = $params['group_attendance_record'];
-  $options = ['absolute' => TRUE];
+  $options = [
+    'absolute' => TRUE,
+    'query' => [
+      'destination' => 'node/' . $attendance->id(),
+    ],
+  ];
   $url = Url::fromRoute(
-    'entity.node.canonical',
-    ['node' => $attendance->id()],
+    'user.login',
+    [],
     $options
   );
   $link = Link::fromTextAndUrl($url->toString(), $url)->toString();

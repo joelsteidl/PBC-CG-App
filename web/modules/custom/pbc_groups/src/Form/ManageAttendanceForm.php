@@ -91,6 +91,12 @@ class ManageAttendanceForm extends FormBase {
       }
     }
 
+    $form['notice'] = [
+      '#prefix' => '<div class="alert alert-warning">',
+      '#markup' => '<strong>Attention!</strong> Please be sure to click "Update Attendance" before leaving this page.',
+      '#suffix' => '</div>'
+    ];
+
     $form['attendance'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Mark everyone that was present.'),
@@ -123,14 +129,16 @@ class ManageAttendanceForm extends FormBase {
     $records = $form_state->getValue('attendance');
 
     foreach ($records as $nid => $record) {
-      $attendance = 0;
+      $attendance = 1;
       $node = $storage->load($nid);
-      if ($record != 0) {
-        $attendance = 1;
+      if ($record == 0) {
+        $attendance = 0;
       }
       $node->field_in_attendance->setValue($attendance);
       $node->save();
     }
+
+    drupal_set_message(t('Thanks for updating your attendance!'), 'status', FALSE);
   }
 
 }

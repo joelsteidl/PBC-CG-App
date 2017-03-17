@@ -11,6 +11,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\pbc_groups\GroupsUtilityInterface;
 
 /**
  * Class FindIndividualForm.
@@ -27,10 +28,18 @@ class FindIndividualForm extends FormBase {
   protected $currentRouteMatch;
 
   /**
+   * Drupal\pbc_groups\GroupsUtilityInterface.
+   *
+   * @var \Drupal\pbc_groups\GroupsUtilityInterface;
+   */
+  protected $groupsUtility;
+
+  /**
    * Constructor.
    */
-  public function __construct(RouteMatchInterface $currentRouteMatch) {
+  public function __construct(RouteMatchInterface $currentRouteMatch, GroupsUtilityInterface $groups_utility) {
     $this->currentRouteMatch = $currentRouteMatch;
+    $this->groupsUtility = $groups_utility;
   }
 
   /**
@@ -38,7 +47,8 @@ class FindIndividualForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('current_route_match')
+      $container->get('current_route_match'),
+      $container->get('pbc_groups.utility')
     );
   }
 
@@ -68,9 +78,16 @@ class FindIndividualForm extends FormBase {
       '#weight' => 2,
     ];
 
+    $form['status'] = [
+      '#type' => 'select',
+      '#weight' => 3,
+      '#title' => $this->t('Status'),
+      '#options' => $this->groupsUtility->termsToOptions('group_membership_status'),
+    ];
+
     $form['submit'] = [
       '#type' => 'submit',
-      '#weight' => 3,
+      '#weight' => 4,
       '#value' => $this->t('Add Person'),
     ];
 
@@ -94,6 +111,7 @@ class FindIndividualForm extends FormBase {
       'redirect' => $node->id(),
       'firstname' => $form_state->getValue('firstname'),
       'lastname' => $form_state->getValue('lastname'),
+      'status' => $form_state->getValue('status')
     ];
 
     $options = [

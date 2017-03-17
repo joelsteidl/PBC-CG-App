@@ -12,8 +12,8 @@ use Drupal\Core\Form\FormBuilder;
  * Provides a 'AddIndividual' block.
  *
  * @Block(
- *  id = "add_individual",
- *  admin_label = @Translation("Add new person"),
+ *  id = "add_individual_block",
+ *  admin_label = @Translation("Add Someone New"),
  * )
  */
 class AddIndividual extends BlockBase implements ContainerFactoryPluginInterface {
@@ -73,6 +73,7 @@ class AddIndividual extends BlockBase implements ContainerFactoryPluginInterface
       'firstname' => $route->getParameter('firstname'),
       'lastname' => $route->getParameter('lastname'),
       'redirect' => $route->getParameter('redirect')->id(),
+      'status' => $route->getParameter('status')
     ];
     $build['add_individual']['form'] = $this->formBuilder->getForm('Drupal\pbc_groups\Form\AddIndividualForm', $defaults);
 

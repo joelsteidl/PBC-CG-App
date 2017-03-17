@@ -47,7 +47,7 @@ class FindIndividualController extends ControllerBase {
     $build = [];
     $build['search_heading'] = [
       '#prefix' => '<h3>',
-      '#markup' => $this->t('Search existing people'),
+      '#markup' => $this->t('Search Existing People'),
       '#suffix' => '</h3>',
     ];
     $build['individual_search'] = views_embed_view('search_individuals', 'block_2');

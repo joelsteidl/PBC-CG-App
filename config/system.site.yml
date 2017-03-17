@@ -3,7 +3,7 @@ name: 'PBC Community Groups'
 mail: admin@providencedenver.org
 slogan: ''
 page:
-  403: /cg-access-denied
+  403: ''
   404: ''
   front: /user
 admin_compact_mode: false

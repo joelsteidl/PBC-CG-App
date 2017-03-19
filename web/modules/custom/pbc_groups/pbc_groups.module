@@ -9,6 +9,7 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\ViewExecutable;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Implements hook_entity_view().
@@ -31,16 +32,22 @@ function pbc_groups_entity_view(array &$build, EntityInterface $entity, EntityVi
  * Implements hook_ENTITY_TYPE_presave().
  */
 function pbc_groups_node_presave(EntityInterface $entity) {
+
+  $date = Drupal::service('date.formatter');
   $title = NULL;
 
   // Decide what to populate the title field with.
   switch ($entity->getType()) {
     case 'group_attendance_record':
-      $title = $entity->field_group->entity->getTitle() . ' attendance for ' . $entity->field_meeting_date->value;
+      $timestamp = new DrupalDateTime($entity->field_meeting_date->value);
+      $timestamp = $timestamp->format('U');
+      $title = $entity->field_group->entity->getTitle() . ' attendance for ' . $date->format($timestamp, 'short');
       break;
 
     case 'individual_attendance_record':
-      $title = 'Attendance for ' . $entity->field_group_connection->entity->getTitle() . ' for ' . $entity->field_group_attendance_record->entity->field_meeting_date->value;
+      $timestamp = new DrupalDateTime($entity->field_group_attendance_record->entity->field_meeting_date->value);
+      $timestamp = $timestamp->format('U');
+      $title = 'Attendance for ' . $entity->field_group_connection->entity->getTitle() . ' for ' . $date->format($timestamp, 'short');
       break;
 
     case 'group_connection':

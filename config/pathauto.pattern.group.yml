@@ -1,0 +1,22 @@
+uuid: 008f367c-6ecb-496c-ba8a-cbe6da9534bd
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: group
+label: Group
+type: 'canonical_entities:node'
+pattern: 'group/[node:nid]'
+selection_criteria:
+  70cf719b-6460-4ae3-a8b6-d7ddacf0b123:
+    id: node_type
+    bundles:
+      group: group
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 70cf719b-6460-4ae3-a8b6-d7ddacf0b123
+selection_logic: and
+weight: -5
+relationships: {  }

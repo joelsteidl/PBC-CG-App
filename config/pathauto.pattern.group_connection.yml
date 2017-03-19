@@ -1,0 +1,22 @@
+uuid: 0b7280cd-8569-44eb-895f-4f4f6c3eadfc
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: group_connection
+label: 'Group Connection'
+type: 'canonical_entities:node'
+pattern: 'group/[node:field_group:target_id]/connection/[node:nid]/individual/[node:field_individual:target_id]'
+selection_criteria:
+  0a98bb2c-351c-4a85-8ee4-8abdb0a154dc:
+    id: node_type
+    bundles:
+      group_connection: group_connection
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 0a98bb2c-351c-4a85-8ee4-8abdb0a154dc
+selection_logic: and
+weight: -5
+relationships: {  }

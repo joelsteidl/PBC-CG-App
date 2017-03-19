@@ -7,6 +7,7 @@ module:
   ckeditor: 0
   config: 0
   contact: 0
+  ctools: 0
   datetime: 0
   dblog: 0
   devel: 0
@@ -35,11 +36,13 @@ module:
   taxonomy: 0
   telephone: 0
   text: 0
+  token: 0
   toolbar: 0
   update: 0
   user: 0
   views: 0
   views_ui: 0
+  pathauto: 1
   minimal: 1000
 theme:
   stark: 0

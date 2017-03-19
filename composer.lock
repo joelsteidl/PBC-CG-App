@@ -1131,7 +1131,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/block_visibility_groups-8.x-1.1.zip",
-                "reference": null,
+                "reference": "8.x-1.1",
                 "shasum": "664732995ec5c67c6478f9c2bffaa1c0a18b95de"
             },
             "require": {

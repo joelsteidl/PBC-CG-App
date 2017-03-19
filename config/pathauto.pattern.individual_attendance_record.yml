@@ -1,0 +1,22 @@
+uuid: 7d54263b-c31b-488d-a7a5-6aefad1af038
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: individual_attendance_record
+label: 'Individual Attendance Record'
+type: 'canonical_entities:node'
+pattern: 'group/[node:field_group:target_id]/attendance/[node:nid]/connection/[node:field_group_connection:target_id]'
+selection_criteria:
+  1085928c-cf5d-4532-ad85-c50b53fcc88d:
+    id: node_type
+    bundles:
+      individual_attendance_record: individual_attendance_record
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 1085928c-cf5d-4532-ad85-c50b53fcc88d
+selection_logic: and
+weight: -5
+relationships: {  }

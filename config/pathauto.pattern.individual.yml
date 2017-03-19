@@ -1,0 +1,22 @@
+uuid: 437b6dbb-934f-46e7-b6ad-980851bc024e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: individual
+label: Individual
+type: 'canonical_entities:node'
+pattern: 'individual/[node:nid]/pco/[node:field_planning_center_id]'
+selection_criteria:
+  e837a52a-95ec-4fcf-9fbd-e42046b1f101:
+    id: node_type
+    bundles:
+      individual: individual
+    negate: false
+    context_mapping:
+      node: node
+    uuid: e837a52a-95ec-4fcf-9fbd-e42046b1f101
+selection_logic: and
+weight: -5
+relationships: {  }

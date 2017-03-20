@@ -64,14 +64,14 @@ class ManageAttendanceForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $storage = $this->entityTypeManager->getStorage('node');
-    $groupAttendance = $this->currentRouteMatch->getParameter('node');
+    $this->groupAttendance = $this->currentRouteMatch->getParameter('node');
 
     $options = [];
     $defaults = [];
 
     $records = $storage->getQuery()
       ->condition('type', 'individual_attendance_record')
-      ->condition('field_group_attendance_record', $groupAttendance->id())
+      ->condition('field_group_attendance_record', $this->groupAttendance->id())
       ->condition('status', 1)
       ->sort('field_group_connection_status.entity.weight', 'ASC')
       ->sort('field_group_connection.entity.field_individual.entity.field_last_name', 'ASC')
@@ -139,6 +139,12 @@ class ManageAttendanceForm extends FormBase {
     }
 
     drupal_set_message(t('Thanks for updating your attendance!'), 'status', FALSE);
+    $form_state->setRedirect(
+      'pbc_groups.group_attendance_finished_controller_content',
+      [
+        'group' => $this->groupAttendance->field_group->target_id,
+        'attendance' => $this->groupAttendance->id(),
+      ]
+    );
   }
-
 }

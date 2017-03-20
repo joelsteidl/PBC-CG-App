@@ -1,0 +1,38 @@
+uuid: 33d9e186-9e48-4818-85e9-ca4562e54104
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.group_attendance_review
+  module:
+    - system
+    - user
+    - views
+  theme:
+    - cg
+id: views_block__group_attendance_review_block_1
+theme: cg
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:group_attendance_review-block_1'
+settings:
+  id: 'views_block:group_attendance_review-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: '/group/*/attendance/*/finished'
+    negate: false
+    context_mapping: {  }
+  user_role:
+    id: user_role
+    roles:
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'

@@ -38,3 +38,15 @@ pbc_groups.add_group_connection_controller:
         type: entity:node
   requirements:
     _permission: 'access content'
+
+pbc_groups.group_attendance_finished_controller_content:
+  path: '/group/{group}/attendance/{attendance}/finished'
+  defaults:
+    _controller: '\Drupal\pbc_groups\Controller\GroupAttendanceFinishedController::content'
+    _title: 'Thanks! Take a second to review...'
+  options:
+    parameters:
+      attendance:
+        type: entity:node
+  requirements:
+    _permission: 'access content'

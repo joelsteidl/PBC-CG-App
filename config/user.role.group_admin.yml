@@ -13,3 +13,4 @@ permissions:
   - 'access content'
   - 'administer users'
   - 'access user profiles'
+  - 'edit any group content'

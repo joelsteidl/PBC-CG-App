@@ -5,6 +5,7 @@ dependencies:
   module:
     - node
     - pbc_groups
+    - system
     - user
   theme:
     - cg
@@ -35,3 +36,8 @@ visibility:
     negate: false
     context_mapping:
       node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    pages: "/node/add/group\r\n/node/add/group_attendance_record"
+    negate: true
+    context_mapping: {  }

@@ -62,6 +62,19 @@ class CreateGroupConnectionController extends ControllerBase {
       $groupId = $redirect->id();
     }
 
+    // TODO: add to a utlity service.
+    $connections = $storage->getQuery()->count()
+      ->condition('type', 'group_connection')
+      ->condition('status', 1)
+      ->condition('field_group', $groupId)
+      ->condition('field_individual', $individual->id())
+      ->execute();
+
+    if ($connections > 0) {
+      drupal_set_message($this->t('@name is already part of this group. Duplicates are not allowed. ', ['@name' => $individual->getTitle()]), 'error', FALSE);
+      return $this->redirect('entity.node.canonical', ['node' => $redirect->id()]);
+    }
+
     // Create group connection.
     $groupConnectValues = [
       'type' => 'group_connection',

@@ -9,7 +9,7 @@ _core:
 id: cg_local_tasks
 theme: cg
 region: header
-weight: -6
+weight: -9
 provider: null
 plugin: local_tasks_block
 settings:

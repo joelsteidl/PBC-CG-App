@@ -9,7 +9,7 @@ _core:
 id: cg_page_title
 theme: cg
 region: header
-weight: 0
+weight: -8
 provider: null
 plugin: page_title_block
 settings:

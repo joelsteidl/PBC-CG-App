@@ -9,7 +9,7 @@ _core:
 id: cg_local_actions
 theme: cg
 region: header
-weight: -6
+weight: -10
 provider: null
 plugin: local_actions_block
 settings:

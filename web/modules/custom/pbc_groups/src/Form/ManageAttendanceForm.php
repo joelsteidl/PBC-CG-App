@@ -75,6 +75,7 @@ class ManageAttendanceForm extends FormBase {
       ->condition('status', 1)
       ->sort('field_group_connection_status.entity.weight', 'ASC')
       ->sort('field_group_connection.entity.field_individual.entity.field_last_name', 'ASC')
+      ->sort('field_group_connection.entity.field_individual.entity.field_first_name', 'ASC')
       ->execute();
 
     if (!count($records)) {

@@ -76,7 +76,7 @@ class GroupAttendanceReviewBlock extends BlockBase implements ContainerFactoryPl
     );
 
     $build['link'] = [
-      '#prefix' => '<div class="text-center" style="margin-top: 20px;">',
+      '#prefix' => '<div class="text-center bt">',
       'link' => Link::fromTextAndUrl($this->t('Edit Attendance'), $url)->toRenderable(),
       '#suffix' => '</div>',
     ];

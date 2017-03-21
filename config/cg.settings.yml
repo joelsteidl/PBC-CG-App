@@ -6,6 +6,16 @@ favicon:
   path: ''
   url: 'http://groups.dev/themes/custom/cg/favicon.ico'
   use_default: true
+region_wells:
+  navigation: ''
+  navigation_collapsible: ''
+  header: ''
+  highlighted: ''
+  help: ''
+  content: ''
+  sidebar_first: well
+  sidebar_second: well
+  footer: ''
 features:
   comment_user_picture: true
   comment_user_verification: true
@@ -15,14 +25,4 @@ logo:
   path: ''
   url: ''
   use_default: true
-region_wells:
-  navigation: ''
-  navigation_collapsible: ''
-  header: ''
-  highlighted: ''
-  help: ''
-  content: ''
-  sidebar_first: ''
-  sidebar_second: well
-  footer: ''
 table: ''

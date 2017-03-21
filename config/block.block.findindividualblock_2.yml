@@ -1,0 +1,28 @@
+uuid: 7532a3e2-654f-460f-a319-134cf61d156c
+langcode: en
+status: true
+dependencies:
+  module:
+    - ctools
+    - pbc_groups
+  theme:
+    - cg
+id: findindividualblock_2
+theme: cg
+region: sidebar_second
+weight: 0
+provider: null
+plugin: find_individual_block
+settings:
+  id: find_individual_block
+  label: 'Add Someone New'
+  provider: pbc_groups
+  label_display: visible
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      group: group
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

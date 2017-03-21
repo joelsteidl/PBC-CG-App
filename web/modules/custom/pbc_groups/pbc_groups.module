@@ -18,7 +18,7 @@ function pbc_groups_entity_view(array &$build, EntityInterface $entity, EntityVi
   if ($entity->bundle() === 'group_attendance_record' && $view_mode === 'full') {
     $build['heading'] = [
       '#prefix' => '<h2>',
-      '#markup' => t('1. Who attended this week?'),
+      '#markup' => t('2. Who attended this week?'),
       '#suffix' => '</h2>',
     ];
     $form_builder = Drupal::service('form_builder');

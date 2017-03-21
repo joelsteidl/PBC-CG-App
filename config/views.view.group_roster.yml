@@ -594,7 +594,7 @@ display:
             -
               field: field_group_connection_status
               rendered: true
-              rendered_strip: true
+              rendered_strip: false
           row_class: list-group-item
           default_row_class: true
           type: ul
@@ -861,8 +861,8 @@ display:
           label: ''
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: "{% if  field_group_connection_status__target_id == 1 %}\n<span class=\"label label-success\">{{ field_group_connection_status }}</span>\n{% elseif  field_group_connection_status__target_id == 2 %}\n<span class=\"label label-danger\">{{ field_group_connection_status }}</span>\n{% else %}\n<span class=\"label label-warning\">{{ field_group_connection_status }}</span>\n{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -887,14 +887,14 @@ display:
             trim: false
             preserve_tags: ''
             html: false
-          element_type: em
+          element_type: ''
           element_class: ''
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
-          element_wrapper_type: ''
+          element_wrapper_type: '0'
           element_wrapper_class: ''
-          element_default_classes: true
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false

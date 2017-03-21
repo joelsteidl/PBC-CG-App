@@ -11,7 +11,7 @@ dependencies:
 id: addsomeonenew
 theme: cg
 region: sidebar_second
-weight: 0
+weight: -10
 provider: null
 plugin: add_individual_block
 settings:

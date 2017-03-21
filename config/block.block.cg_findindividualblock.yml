@@ -11,8 +11,8 @@ dependencies:
     - cg
 id: cg_findindividualblock
 theme: cg
-region: sidebar_second
-weight: -7
+region: sidebar_first
+weight: -8
 provider: null
 plugin: find_individual_block
 settings:
@@ -31,7 +31,6 @@ visibility:
   node_type:
     id: node_type
     bundles:
-      group: group
       group_attendance_record: group_attendance_record
     negate: false
     context_mapping:

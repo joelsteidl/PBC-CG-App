@@ -1,3 +1,11 @@
 /**
  * Place your custom styles here.
  */
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.bt {
+  margin-top: 15px;
+}

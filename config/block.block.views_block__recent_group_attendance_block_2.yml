@@ -1,0 +1,38 @@
+uuid: 333a756f-4212-4c46-9d1a-0e073d4291d9
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.recent_group_attendance
+  module:
+    - system
+    - user
+    - views
+  theme:
+    - cg
+id: views_block__recent_group_attendance_block_2
+theme: cg
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:recent_group_attendance-block_2'
+settings:
+  id: 'views_block:recent_group_attendance-block_2'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: '/user/*'
+    negate: false
+    context_mapping: {  }
+  user_role:
+    id: user_role
+    roles:
+      group_admin: group_admin
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'

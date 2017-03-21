@@ -11,10 +11,18 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 
 function cg_preprocess_views_view_field(&$variables) {
-  if ($variables['view']->id() != 'group_guests') {
+  $field_name = $variables['field']->realField;
+  if ($variables['view']->id() === 'group_roster') {
+    $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('user');
+    $user = $storage->load(Drupal::currentUser()->id());
+    $roles = $user->getRoles();
+    if ($field_name === 'field_planning_center_id_value' && !in_array('group_admin', $roles)) {
+      unset($variables['output']);
+    }
+  }
+  elseif ($variables['view']->id() != 'group_guests') {
     return FALSE;
   }
-  $field_name = $variables['field']->realField;
   // TODO: limit to this view.
   if ($field_name != 'nothing') {
     return FALSE;

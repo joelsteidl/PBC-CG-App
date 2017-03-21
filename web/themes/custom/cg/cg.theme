@@ -46,7 +46,7 @@ function cg_preprocess_views_view_field(&$variables) {
       ],
       [
         'attributes' => [
-          'class' => ['use-ajax', 'btn', 'btn-info']
+          'class' => ['use-ajax', 'btn', 'btn-default']
         ]
       ]
     );

@@ -37,6 +37,6 @@ visibility:
       node: '@node.node_route_context:node'
   request_path:
     id: request_path
-    pages: "/node/add/group\r\n/node/add/group_attendance_record"
+    pages: "/node/*/edit\r\n/node/add/*"
     negate: true
     context_mapping: {  }

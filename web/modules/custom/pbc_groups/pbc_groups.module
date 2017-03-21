@@ -10,6 +10,9 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\ViewExecutable;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Session\AccountProxy;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_entity_view().
@@ -170,6 +173,7 @@ function pbc_groups_form_node_group_connection_edit_form_alter(&$form, FormState
   drupal_set_message(t('You may edit the status for this person.'), 'warning', FALSE);
   $form['field_group']['#disabled'] = TRUE;
   $form['field_individual']['#disabled'] = TRUE;
+  $form['revision_information']['#access'] = FALSE;
 }
 
 /**
@@ -178,35 +182,39 @@ function pbc_groups_form_node_group_connection_edit_form_alter(&$form, FormState
  * Handle who can view various content types
  * Drupal does not do this per content type
  */
-// function pbc_groups_node_access(Node $node, $operation, AccountProxy $account) {
-//   // Allow specific paths for anyone.
-//   $allowed = [
-//     '/credits',
-//   ];
-//   if (Role::hasRole($account, 'anonymous') && $operation === 'view') {
-//     if (in_array($node->url(), $allowed)) {
-//       return AccessResult::allowed();
-//     }
-//     return AccessResult::forbidden();
-//   }
-//
-//   $type = $node->getType();
-//   // Class and Student content types are handled in other modules.
-//   $types = [
-//     'article' => ['school_admin', 'staff', 'teacher'],
-//     'page' => ['parent_guardian', 'school_admin', 'staff', 'teacher'],
-//   ];
-//
-//   if (isset($types[$type]) && $operation === 'view') {
-//     // Always add administrator role.
-//     $types[$type][] = 'administrator';
-//     if (Role::hasAnyRole($account, $types[$type])) {
-//       return AccessResult::allowed();
-//     }
-//     return AccessResult::forbidden();
-//   }
-// }
-//
+function pbc_groups_node_access(NodeInterface $node, $op, AccountProxy $account) {
+  $roles = $account->getRoles();
+  $type = $node->getType();
+  $types = [
+    'group',
+    'group_attendance_record',
+    'group_connection',
+  ];
+  if (in_array('attendance_manager', $roles) && in_array($type, $types)) {
+    switch ($type) {
+      case 'group':
+        if ($op === 'view' && $account->id() === $node->field_attendance_manager->target_id) {
+          return AccessResult::allowed()->cachePerUser();
+        }
+        break;
+
+      case 'group_attendance_record':
+        if ($op === 'view' && $account->id() === $node->field_group->entity->field_attendance_manager->target_id) {
+          return AccessResult::allowed()->cachePerUser();
+        }
+        break;
+
+      case 'group_connection':
+        if (($op === 'view' || $op === 'update') && $account->id() === $node->field_group->entity->field_attendance_manager->target_id) {
+          return AccessResult::allowed()->cachePerUser();
+        }
+        break;
+    }
+
+    return AccessResult::forbidden()->cachePerUser();
+  }
+  return AccessResult::neutral();
+}
 
 /**
  * Implements hook_form_FORM_ID_alter().

@@ -6,6 +6,7 @@ dependencies:
     - views.view.group_roster
   module:
     - node
+    - system
     - views
   theme:
     - cg
@@ -30,3 +31,8 @@ visibility:
     negate: false
     context_mapping:
       node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    pages: "/node/*/edit\r\n/node/add/*"
+    negate: true
+    context_mapping: {  }

@@ -43,14 +43,22 @@ class FindIndividualController extends ControllerBase {
    * @return string
    *   Return Hello string.
    */
-  public function getContent() {
+  public function getContent(NodeInterface $redirect) {
     $build = [];
     $build['search_heading'] = [
       '#prefix' => '<h3>',
       '#markup' => $this->t('Search Existing People'),
       '#suffix' => '</h3>',
     ];
-    $build['individual_search'] = views_embed_view('search_individuals', 'block_2');
+    $build['individual_search'] = [
+      'view' => views_embed_view('search_individuals', 'block_2'),
+      '#cache' => [
+        'tags' => [
+          'node:' . $redirect->id(),
+          'url.path',
+        ],
+      ],
+    ];
 
     return $build;
   }

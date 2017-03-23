@@ -56,6 +56,7 @@ class FindIndividualController extends ControllerBase {
         'tags' => [
           'node:' . $redirect->id(),
           'url.path',
+          'node_list',
         ],
       ],
     ];

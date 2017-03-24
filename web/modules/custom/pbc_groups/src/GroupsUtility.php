@@ -54,20 +54,40 @@ class GroupsUtility implements GroupsUtilityInterface {
    * { @inheritdoc }
    */
   public function updateNode($values, $nid) {
+    $fields = [];
     $storage = $this->entityTypeManager->getStorage('node');
     $node = $storage->load($nid);
 
-    $fields = [
-      'field_first_name',
-      'field_last_name',
-      'field_email_address',
-      'field_below_poverty_line',
-      'field_ethnicity',
-      'field_membership',
-      'field_neighborhood',
-    ];
+    switch ($node->getType()) {
+      case 'individual_attendance_record':
+        $fields = [
+          'field_in_attendance',
+        ];
+        break;
+
+      case 'individual':
+        $fields = [
+          'field_first_name',
+          'field_last_name',
+          'field_email_address',
+          'field_below_poverty_line',
+          'field_ethnicity',
+          'field_membership',
+          'field_neighborhood',
+        ];
+        break;
+
+      case 'group_attendance_record':
+        $fields = [
+          'field_notes',
+          'field_meeting_status',
+        ];
+        break;
+
+    }
+
     foreach ($values as $key => $value) {
-      if (in_array($key, $fields) && !empty($value)) {
+      if (in_array($key, $fields)) {
         $node->{$key}->setValue($value);
       }
     }

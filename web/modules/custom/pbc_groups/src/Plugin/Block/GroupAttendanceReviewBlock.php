@@ -62,7 +62,6 @@ class GroupAttendanceReviewBlock extends BlockBase implements ContainerFactoryPl
     $build = [];
 
     $groupAttendance = $this->currentRouteMatch->getParameter('attendance');
-    $build['text']['#markup'] = $this->t('Thanks for taking the time to complete attendnace for your group. If everything looks good, you are all set for this week.');
     $url = Url::fromRoute(
       'entity.node.canonical',
       [

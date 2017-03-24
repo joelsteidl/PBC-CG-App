@@ -43,7 +43,7 @@ pbc_groups.group_attendance_finished_controller_content:
   path: '/group/{group}/attendance/{attendance}/finished'
   defaults:
     _controller: '\Drupal\pbc_groups\Controller\GroupAttendanceFinishedController::content'
-    _title: 'Thanks! Take a second to review...'
+    _title: 'Thanks!'
   options:
     parameters:
       attendance:

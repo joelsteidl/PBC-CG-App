@@ -12,6 +12,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\pbc_groups\GroupsUtilityInterface;
 
 /**
  * Class ManageAttendanceForm.
@@ -19,6 +20,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @package Drupal\pbc_groups\Form
  */
 class ManageAttendanceForm extends FormBase {
+
+  /**
+   * Drupal\pbc_groups\GroupsUtilityInterface.
+   *
+   * @var \Drupal\pbc_groups\GroupsUtilityInterface;
+   */
+  protected $groupsUtility;
 
   /**
    * Entity type manager.
@@ -37,9 +45,10 @@ class ManageAttendanceForm extends FormBase {
   /**
    * Constructor.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, RouteMatchInterface $currentRouteMatch) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, RouteMatchInterface $currentRouteMatch, GroupsUtilityInterface $groups_utility) {
     $this->entityTypeManager = $entityTypeManager;
     $this->currentRouteMatch = $currentRouteMatch;
+    $this->groupsUtility = $groups_utility;
   }
 
   /**
@@ -48,7 +57,8 @@ class ManageAttendanceForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
-      $container->get('current_route_match')
+      $container->get('current_route_match'),
+      $container->get('pbc_groups.utility')
     );
   }
 
@@ -95,7 +105,26 @@ class ManageAttendanceForm extends FormBase {
     $form['notice'] = [
       '#prefix' => '<div class="alert alert-warning">',
       '#markup' => '<strong>Attention!</strong> Please be sure to click "Update Attendance" before leaving this page.',
-      '#suffix' => '</div>'
+      '#suffix' => '</div>',
+      '#weight' => 0,
+    ];
+
+    $form['attendance_prefix'] = [
+      '#markup' => '<div class="row"><aside class="col-sm-6" role="complementary">',
+      '#weight' => 1,
+    ];
+
+    $status = 1;
+    if (!$this->groupAttendance->field_meeting_status->isEmpty()) {
+      $status = $this->groupAttendance->field_meeting_status->value;
+    }
+
+    $form['field_meeting_status'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Did you meet this week?'),
+      '#options' => [1 => $this->t('Yes'), 0 => $this->t('No')],
+      '#default_value' => $status,
+      '#weight' => 3,
     ];
 
     $form['attendance'] = [
@@ -103,13 +132,40 @@ class ManageAttendanceForm extends FormBase {
       '#title' => $this->t('Mark everyone that was present.'),
       '#options' => $options,
       '#default_value' => $defaults,
-      '#weight' => 1,
+      '#weight' => 3,
     ];
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#weight' => 2,
+      '#weight' => 4,
       '#value' => $this->t('Update Attendance'),
+    ];
+
+    $form['attendance_suffix'] = [
+      '#markup' => '</aside>',
+      '#weight' => 5,
+    ];
+
+    $form['extra_prefix'] = [
+      '#markup' => '<aside class="col-sm-2" role="complementary">',
+      '#weight' => 6,
+    ];
+
+    $notes = '';
+    if (!$this->groupAttendance->field_notes->isEmpty()) {
+      $notes = $this->groupAttendance->field_notes->getString();
+    }
+    $form['field_notes'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Notes'),
+      '#default_value' => $notes,
+      '#description' => $this->t('Pass along any important information from this week.'),
+      '#weight' => 7,
+    ];
+
+    $form['extra_suffix'] = [
+      '#markup' => '</aside></div>',
+      '#weight' => 8,
     ];
 
     return $form;
@@ -126,20 +182,28 @@ class ManageAttendanceForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $storage = $this->entityTypeManager->getStorage('node');
     $records = $form_state->getValue('attendance');
 
+    // Update individual attendance records.
     foreach ($records as $nid => $record) {
-      $attendance = 1;
-      $node = $storage->load($nid);
-      if ($record == 0) {
-        $attendance = 0;
+      $values = [];
+      $attendance = 0;
+      if ($record != 0) {
+        $attendance = 1;
       }
-      $node->field_in_attendance->setValue($attendance);
-      $node->save();
+      $values['field_in_attendance'] = $attendance;
+      $this->groupsUtility->updateNode($values, $nid);
     }
 
-    drupal_set_message(t('Thanks for updating your attendance!'), 'status', FALSE);
+    // Update group attendance values.
+    $groupAttendValues = [
+      'field_notes' => $form_state->getValue('field_notes'),
+      'field_meeting_status' => $form_state->getValue('field_meeting_status'),
+    ];
+    $this->groupsUtility->updateNode($groupAttendValues, $this->groupAttendance->id());
+
+    drupal_set_message(t('Your attendance has been updated. You can review below.'), 'status', FALSE);
+
     $form_state->setRedirect(
       'pbc_groups.group_attendance_finished_controller_content',
       [
@@ -148,4 +212,5 @@ class ManageAttendanceForm extends FormBase {
       ]
     );
   }
+
 }

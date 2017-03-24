@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.group_attendance_record.field_group
     - field.field.node.group_attendance_record.field_meeting_date
+    - field.field.node.group_attendance_record.field_meeting_status
     - field.field.node.group_attendance_record.field_notes
     - node.type.group_attendance_record
   module:
@@ -24,8 +25,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
-  field_notes:
+  field_meeting_status:
     weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_notes:
+    weight: 3
     settings:
       rows: 5
       placeholder: ''

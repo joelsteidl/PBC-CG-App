@@ -6,6 +6,8 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Form\FormBuilder;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 /**
  * Class FindIndividualController.
@@ -43,8 +45,29 @@ class FindIndividualController extends ControllerBase {
    * @return string
    *   Return Hello string.
    */
-  public function getContent() {
+  public function getContent(NodeInterface $redirect) {
+    drupal_set_message($this->t('Please help us prevent duplicate people! Take a second and scan through this list before adding a new person. Thanks!'), 'warning', FALSE);
+
     $build = [];
+
+    $url = Url::fromRoute(
+      'entity.node.canonical',
+      [
+        'node' => $redirect->id(),
+      ],
+      [
+        'attributes' => [
+          'class' => ['btn', 'btn-link']
+        ]
+      ]
+    );
+
+    $build['cancel'] = [
+      // '#prefix' => '<div class="pull-right">',
+      'link' => Link::fromTextAndUrl($this->t('&larr; Cancel'), $url)->toRenderable(),
+      // '#suffix' => '</div>',
+    ];
+
     $build['search_heading'] = [
       '#prefix' => '<h3>',
       '#markup' => $this->t('Search Existing People'),

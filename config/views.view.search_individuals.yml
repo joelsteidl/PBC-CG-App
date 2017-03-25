@@ -263,7 +263,7 @@ display:
             trim_whitespace: false
             alt: ''
             rel: ''
-            link_class: 'btn btn-info btn-md'
+            link_class: 'btn btn-success btn-md'
             prefix: ''
             suffix: ''
             target: ''
@@ -403,7 +403,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: email_mailto
+          type: basic_string
           settings: {  }
           group_column: value
           group_columns: {  }
@@ -547,21 +547,8 @@ display:
           group_type: group
           admin_label: ''
           empty: false
-          content: 'Displaying @start - @end of @total possible matches.'
+          content: '<p><em>Displaying @start - @end of @total possible matches.</em></p>'
           plugin_id: result
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: false
-          tokenize: false
-          content:
-            value: 'Please help us prevent duplicate people! Take a second and scan through this list before adding a new person. Thanks!'
-            format: plain_text
-          plugin_id: text
       footer: {  }
       empty:
         area:

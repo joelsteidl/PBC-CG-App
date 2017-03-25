@@ -110,7 +110,7 @@ class ManageAttendanceForm extends FormBase {
     ];
 
     $form['attendance_prefix'] = [
-      '#markup' => '<div class="row"><aside class="col-sm-6" role="complementary">',
+      '#markup' => '<div class="row"><aside class="col-md-6" role="complementary">',
       '#weight' => 1,
     ];
 
@@ -147,7 +147,7 @@ class ManageAttendanceForm extends FormBase {
     ];
 
     $form['extra_prefix'] = [
-      '#markup' => '<aside class="col-sm-2" role="complementary">',
+      '#markup' => '<aside class="col-md-6" role="complementary">',
       '#weight' => 6,
     ];
 
@@ -157,7 +157,7 @@ class ManageAttendanceForm extends FormBase {
     }
     $form['field_notes'] = [
       '#type' => 'textarea',
-      '#title' => $this->t('Notes'),
+      '#title' => $this->t('Notes / Reason for not meeting.'),
       '#default_value' => $notes,
       '#description' => $this->t('Pass along any important information from this week.'),
       '#weight' => 7,

@@ -3,9 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_attendance_manager
     - field.storage.node.field_group_status
     - field.storage.node.field_meeting_day
+    - field.storage.user.field_first_name
+    - field.storage.user.field_last_name
     - node.type.group
     - user.role.administrator
     - user.role.group_admin
@@ -252,18 +253,81 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_attendance_manager:
-          id: field_attendance_manager
-          table: node__field_attendance_manager
-          field: field_attendance_manager
-          relationship: none
+        field_first_name:
+          id: field_first_name
+          table: user__field_first_name
+          field: field_first_name
+          relationship: field_attendance_manager
           group_type: group
           admin_label: ''
-          label: 'Attendance Manager'
-          exclude: false
+          label: ''
+          exclude: true
           alter:
             alter_text: false
             text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_last_name:
+          id: field_last_name
+          table: user__field_last_name
+          field: field_last_name
+          relationship: field_attendance_manager
+          group_type: group
+          admin_label: ''
+          label: 'Attendance Manager: '
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{ field_first_name }} {{ field_last_name }}'
             make_link: false
             path: ''
             absolute: false
@@ -292,7 +356,7 @@ display:
           element_class: ''
           element_label_type: strong
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -300,11 +364,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
+          click_sort_column: value
+          type: string
           settings:
-            link: true
-          group_column: target_id
+            link_to_entity: false
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -487,7 +551,7 @@ display:
           empty: false
           tokenize: false
           content:
-            value: '<a href="/node/add/group" class="btn btn-info">Add new group</a>'
+            value: '<a href="/node/add/group" class="btn btn-success">Add new group</a>'
             format: limited_html
           plugin_id: text
       footer: {  }
@@ -512,9 +576,10 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_attendance_manager'
         - 'config:field.storage.node.field_group_status'
         - 'config:field.storage.node.field_meeting_day'
+        - 'config:field.storage.user.field_first_name'
+        - 'config:field.storage.user.field_last_name'
   block_1:
     display_plugin: block
     id: block_1
@@ -530,6 +595,7 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_attendance_manager'
         - 'config:field.storage.node.field_group_status'
         - 'config:field.storage.node.field_meeting_day'
+        - 'config:field.storage.user.field_first_name'
+        - 'config:field.storage.user.field_last_name'

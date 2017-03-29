@@ -150,7 +150,7 @@ function pbc_automation_send_attendance_link(&$message, $params) {
     '<p>' . t('Hi @name!,', ['@name' => $user->field_first_name->getString()]) . '</p>',
     '<p>This is your friendly CG robot reminding you to record your attendance this week!</p>',
     '<p><strong>' . t('Link:') . '</strong> ' . $link . '</p>',
-    '<p>' . t('Questions? Please get in touch with Caleb Johnson.') . '</p>',
+    '<p>Questions? Please email <a href="mailto:cghelp@providencedenver.org">cghelp@providencedenver.org</a></p>',
     '<p>' . t('Sincerely,') . '</p>',
     '<p>' . t('The CG Attendance Robot') . '</p>'
   ];

@@ -104,14 +104,9 @@ class ManageAttendanceForm extends FormBase {
 
     $form['notice'] = [
       '#prefix' => '<div class="alert alert-warning">',
-      '#markup' => '<strong>Attention!</strong> Please be sure to click "Update Attendance" before leaving this page.',
+      '#markup' => '<strong>Attention!</strong> Please be sure to click "Save" before leaving this page.',
       '#suffix' => '</div>',
       '#weight' => 0,
-    ];
-
-    $form['attendance_prefix'] = [
-      '#markup' => '<div class="row"><aside class="col-md-6" role="complementary">',
-      '#weight' => 1,
     ];
 
     $status = 1;
@@ -124,7 +119,7 @@ class ManageAttendanceForm extends FormBase {
       '#title' => $this->t('Did you meet this week?'),
       '#options' => [1 => $this->t('Yes'), 0 => $this->t('No')],
       '#default_value' => $status,
-      '#weight' => 3,
+      '#weight' => 1,
     ];
 
     $form['attendance'] = [
@@ -132,40 +127,26 @@ class ManageAttendanceForm extends FormBase {
       '#title' => $this->t('Mark everyone that was present.'),
       '#options' => $options,
       '#default_value' => $defaults,
-      '#weight' => 3,
-    ];
-
-    $form['submit'] = [
-      '#type' => 'submit',
-      '#weight' => 4,
-      '#value' => $this->t('Update Attendance'),
-    ];
-
-    $form['attendance_suffix'] = [
-      '#markup' => '</aside>',
-      '#weight' => 5,
-    ];
-
-    $form['extra_prefix'] = [
-      '#markup' => '<aside class="col-md-6" role="complementary">',
-      '#weight' => 6,
+      '#weight' => 2,
     ];
 
     $notes = '';
     if (!$this->groupAttendance->field_notes->isEmpty()) {
       $notes = $this->groupAttendance->field_notes->getString();
     }
+
     $form['field_notes'] = [
       '#type' => 'textarea',
-      '#title' => $this->t('Notes / Reason for not meeting.'),
+      '#title' => $this->t('Notes'),
       '#default_value' => $notes,
       '#description' => $this->t('Pass along any important information from this week.'),
-      '#weight' => 7,
+      '#weight' => 3,
     ];
 
-    $form['extra_suffix'] = [
-      '#markup' => '</aside></div>',
-      '#weight' => 8,
+    $form['submit'] = [
+      '#type' => 'submit',
+      '#weight' => 4,
+      '#value' => $this->t('Save'),
     ];
 
     return $form;

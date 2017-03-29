@@ -10,6 +10,11 @@
   margin-top: 15px;
 }
 
+.submit-attendance {
+  padding-top: 15px;
+  clear: both;
+}
+
 .view-header {
   padding-bottom: 15px;
 }

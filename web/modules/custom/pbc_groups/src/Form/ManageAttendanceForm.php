@@ -136,7 +136,7 @@ class ManageAttendanceForm extends FormBase {
     }
 
     $form['field_notes'] = [
-      '#prefix' => '<div class="col-md-6">',
+      '#prefix' => '<div class="col-sm-8">',
       '#type' => 'textarea',
       '#title' => $this->t('Notes'),
       '#default_value' => $notes,

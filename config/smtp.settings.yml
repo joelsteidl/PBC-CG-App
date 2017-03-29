@@ -5,7 +5,7 @@ smtp_port: '465'
 smtp_protocol: ssl
 smtp_username: providencedenver
 smtp_password: 'send 12000 per MONTH'
-smtp_from: cg@providencedenver.org
+smtp_from: cghelp@providencedenver.org
 smtp_fromname: 'PBC Community Groups'
 smtp_allowhtml: '1'
 smtp_test_address: ''

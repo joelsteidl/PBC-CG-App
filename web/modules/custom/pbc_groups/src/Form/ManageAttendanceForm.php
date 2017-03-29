@@ -147,9 +147,11 @@ class ManageAttendanceForm extends FormBase {
     ];
 
     $form['submit'] = [
+      '#prefix' => '<div class="bt">',
       '#type' => 'submit',
       '#weight' => 4,
       '#value' => $this->t('Save'),
+      '#suffix' => '</div>',
     ];
 
     return $form;

@@ -140,6 +140,8 @@ class ManageAttendanceForm extends FormBase {
       '#title' => $this->t('Notes'),
       '#default_value' => $notes,
       '#description' => $this->t('Pass along any important information from this week.'),
+      '#attributes' => ['class' => ['col-md-6']],
+      '#rows' => 3,
       '#weight' => 3,
     ];
 

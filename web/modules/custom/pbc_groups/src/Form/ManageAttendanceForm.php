@@ -13,6 +13,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\pbc_groups\GroupsUtilityInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Class ManageAttendanceForm.
@@ -79,10 +80,24 @@ class ManageAttendanceForm extends FormBase {
     $options = [];
     $defaults = [];
 
+    // Set a timestamp when the form loads.
+    $now = new DrupalDateTime('now');
+    $now = $now->format('U');
+    $input = &$form_state->getUserInput();
+    if (isset($input['now'])) {
+      $now = $input['now'];
+    }
+
+    $form['now'] = [
+      '#type' => 'hidden',
+      '#value' => $now,
+    ];
+
     $records = $storage->getQuery()
       ->condition('type', 'individual_attendance_record')
       ->condition('field_group_attendance_record', $this->groupAttendance->id())
       ->condition('status', 1)
+      ->condition('created', $now, '<')
       ->sort('field_group_connection_status.entity.weight', 'ASC')
       ->sort('field_group_connection.entity.field_individual.entity.field_last_name', 'ASC')
       ->sort('field_group_connection.entity.field_individual.entity.field_first_name', 'ASC')

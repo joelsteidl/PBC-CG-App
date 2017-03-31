@@ -97,6 +97,8 @@ class PcoClient implements PcoClientInterface {
 
   /**
    * Throttle response.
+   *
+   * 100 per 60s allowed.
    */
   private function throttle($headers) {
     print_r($headers['X-PCO-API-Request-Rate-Count'][0]);

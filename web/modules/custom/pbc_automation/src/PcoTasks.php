@@ -56,13 +56,17 @@ class PcoTasks implements PcoTasksInterface {
       ->execute();
 
     // If a record exists, just update it.
-    $values = $this->convertPcoToNode($pcoRecord);
-
     if (count($individual)) {
       $nid = array_shift($individual);
-      $this->groupsUtility->updateNode($values, $nid);
+      $node = $storage->load($nid);
+      // Only update records that have updated since the last time.
+      if ($node->field_pco_updated->getString() != $pcoRecord->attributes->updated_at) {
+        $values = $this->convertPcoToNode($pcoRecord);
+        $this->groupsUtility->updateNode($values, $nid);
+      }
     }
     else {
+      $values = $this->convertPcoToNode($pcoRecord);
       $this->groupsUtility->createNode($values);
     }
   }

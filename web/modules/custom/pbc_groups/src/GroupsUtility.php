@@ -74,6 +74,7 @@ class GroupsUtility implements GroupsUtilityInterface {
           'field_ethnicity',
           'field_membership',
           'field_neighborhood',
+          'field_pco_updated',
         ];
         break;
 

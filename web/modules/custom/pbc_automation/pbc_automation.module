@@ -112,11 +112,13 @@ function pbc_automation_cron() {
   do {
     $offset = Drupal::state()->get('pbc_automation_offset');
 
-    if ($results = $task->getPcoUpdatedPeople($offset, 15)) {
+    if ($results = $task->getPcoUpdatedPeople($offset, 20)) {
       if (isset($results->meta->next)) {
+        print_r($results->meta->next);
         Drupal::state()->set('pbc_automation_next', 1);
       }
       else {
+        print 'no next';
         Drupal::state()->set('pbc_automation_next', 0);
       }
 
@@ -134,8 +136,7 @@ function pbc_automation_cron() {
       // No results returned.
       Drupal::state()->set('pbc_automation_next', 0);
     }
-    sleep(60);
-  } while ($offset);
+  } while (Drupal::state()->get('pbc_automation_next'));
 }
 
 /**

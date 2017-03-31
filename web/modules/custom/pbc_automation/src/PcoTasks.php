@@ -76,6 +76,7 @@ class PcoTasks implements PcoTasksInterface {
       'field_first_name' => $pcoRecord->attributes->first_name,
       'field_last_name' => $pcoRecord->attributes->last_name,
       'field_planning_center_id' => $pcoRecord->id,
+      'field_pco_updated' => $pcoRecord->attributes->updated_at,
     ];
 
     // Membership.
@@ -93,27 +94,32 @@ class PcoTasks implements PcoTasksInterface {
     }
 
     // Handle Field Data.
-    if (isset($pcoRecord->relationships->field_data->data)) {
-      $fields = $pcoRecord->relationships->field_data->data;
-      foreach ($fields as $field) {
-        $data = $this->getPcoFieldData($pcoRecord->id, $field->id);
+    if ($fieldData = $this->getPcoFieldData($pcoRecord->id)) {
+      kint($fieldData);
+      foreach ($fieldData as $itemData) {
+        $id = $itemData->relationships->field_definition->data->id;
+        $value = $itemData->attributes->value;
 
-        switch ($data['field_name']) {
-          case 'ethnicity':
-            if ($tid = $this->groupsUtility->getTidByName('ethnicity', $data['field_value'])) {
+        switch ($id) {
+          // field_below_poverty_line.
+          case '118307':
+            $values['field_below_poverty_line'] = $value;
+            break;
+
+          // field_ethnicity.
+          case '118308':
+            if ($tid = $this->groupsUtility->getTidByName('ethnicity', $value)) {
               $values['field_ethnicity'] = $tid;
             }
             break;
 
-          case 'neighborhood':
-            if ($tid = $this->groupsUtility->getTidByName('neighborhood', $data['field_value'])) {
+          // field_neighborhood.
+          case '118309':
+            if ($tid = $this->groupsUtility->getTidByName('neighborhood', $value)) {
               $values['field_neighborhood'] = $tid;
             }
             break;
 
-          case 'below_poverty_line':
-            $values['field_below_poverty_line'] = $data['field_value'];
-            break;
         }
       }
     }
@@ -234,16 +240,16 @@ class PcoTasks implements PcoTasksInterface {
   /**
    * { @inheritdoc }
    */
-  public function getPcoFieldData($personId, $fieldId) {
+  public function getPcoFieldData($personId) {
     $query = ['include' => 'field_definition'];
-    $endpoint = 'people/v2/people/' . $personId . '/field_data/' . $fieldId;
+    $endpoint = 'people/v2/people/' . $personId . '/field_data/';
     $request = $this->pcoApiClient->connect('get', $endpoint, $query, []);
-    $response = json_decode($request);
-    $data = [];
-    $data['field_name'] = $response->included[0]->attributes->slug;
-    $data['field_value'] = $response->data->attributes->value;
+    $results = json_decode($request);
+    if (count($results->data)) {
+      return $results->data;
+    }
 
-    return $data;
+    return FALSE;
   }
 
   /**

@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.individual.field_last_name
     - field.field.node.individual.field_membership
     - field.field.node.individual.field_neighborhood
+    - field.field.node.individual.field_pco_updated
     - field.field.node.individual.field_planning_center_id
     - node.type.individual
 id: node.individual.default
@@ -58,6 +59,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+  field_pco_updated:
+    weight: 26
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_planning_center_id:
     weight: 7
     settings:

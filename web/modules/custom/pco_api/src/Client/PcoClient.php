@@ -74,6 +74,8 @@ class PcoClient implements PcoClientInterface {
       return FALSE;
     }
 
+    $headers = $response->getHeaders();
+    $this->throttle($headers);
     // TODO: Possibly allow returning the whole body.
     return $response->getBody()->getContents();
   }
@@ -91,6 +93,17 @@ class PcoClient implements PcoClientInterface {
       $options['query'] = $query;
     }
     return $options;
+  }
+
+  /**
+   * Throttle response.
+   */
+  private function throttle($headers) {
+    print_r($headers['X-PCO-API-Request-Rate-Count'][0]);
+    if ($headers['X-PCO-API-Request-Rate-Count'][0] > 99) {
+      return sleep(60);
+    }
+    return TRUE;
   }
 
   /**

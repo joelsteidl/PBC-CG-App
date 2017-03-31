@@ -1,0 +1,19 @@
+uuid: 2e880df8-29ec-4d8c-9f28-d166dd8a8837
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pco_updated
+    - node.type.individual
+id: node.individual.field_pco_updated
+field_name: field_pco_updated
+entity_type: node
+bundle: individual
+label: 'PCO Updated'
+description: 'Date last updated in PCO'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.individual.field_last_name
     - field.field.node.individual.field_membership
     - field.field.node.individual.field_neighborhood
+    - field.field.node.individual.field_pco_updated
     - field.field.node.individual.field_planning_center_id
     - node.type.individual
   module:
@@ -69,6 +70,13 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_pco_updated:
+    weight: 109
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_planning_center_id:
     weight: 104
     label: above

@@ -272,14 +272,15 @@ class PcoTasks implements PcoTasksInterface {
   /**
    * { @inheritdoc }
    */
-  public function getPcoUpdatedPeople() {
+  public function getPcoUpdatedPeople($offset, $perPage) {
     // Refresh the PCO list.
     // See https://people.planningcenteronline.com/lists/195220
     $listId = 195220;
     $this->refreshPcoUpdateList($listId);
     $query = [
-      'per_page' => 99,
+      'per_page' => $perPage,
       'include' => 'emails,field_data',
+      'offset' => $offset,
     ];
     // Grab results from the updated list.
     $request = $this->pcoApiClient->connect('get', 'people/v2/lists/' . $listId . '/people', $query, []);
@@ -288,7 +289,7 @@ class PcoTasks implements PcoTasksInterface {
       return FALSE;
     }
 
-    return $results->data;
+    return $results;
   }
 
   /**
@@ -302,7 +303,7 @@ class PcoTasks implements PcoTasksInterface {
     ];
     $request = $this->pcoApiClient->connect('get', 'people/v2/people', $query, []);
     $results = json_decode($request);
-    kint($results);
+
     return $results->data;
   }
 

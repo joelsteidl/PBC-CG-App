@@ -28,7 +28,7 @@ interface PcoTasksInterface {
    * @return array
    *   array of PCO records.
    */
-  public function getPcoUpdatedPeople();
+  public function getPcoUpdatedPeople($offset, $perPage);
 
   /**
    * Given a PCO record, convert it to node data.

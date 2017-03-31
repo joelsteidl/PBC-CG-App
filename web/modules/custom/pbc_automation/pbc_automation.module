@@ -106,14 +106,36 @@ function pbc_automation_cron() {
   }
 
   // Sync data from Planning Center Online.
-  if ($results = $task->getPcoUpdatedPeople()) {
-    foreach ($results as $result) {
-      $task->createOrUpdateNode($result);
-    }
-    // Set a last updated date.
-    Drupal::state()->set('pbc_automation_sync', $nowDate);
-  }
+  Drupal::state()->set('pbc_automation_next', 1);
+  Drupal::state()->set('pbc_automation_offset', 0);
 
+  do {
+    $offset = Drupal::state()->get('pbc_automation_offset');
+
+    if ($results = $task->getPcoUpdatedPeople($offset, 15)) {
+      if (isset($results->meta->next)) {
+        Drupal::state()->set('pbc_automation_next', 1);
+      }
+      else {
+        Drupal::state()->set('pbc_automation_next', 0);
+      }
+
+      if (isset($results->meta->next->offset)) {
+        Drupal::state()->set('pbc_automation_offset', $results->meta->next->offset);
+      }
+
+      foreach ($results->data as $result) {
+        $task->createOrUpdateNode($result);
+      }
+      // Set a last updated date.
+      Drupal::state()->set('pbc_automation_sync', $nowDate);
+    }
+    else {
+      // No results returned.
+      Drupal::state()->set('pbc_automation_next', 0);
+    }
+    sleep(60);
+  } while ($offset);
 }
 
 /**

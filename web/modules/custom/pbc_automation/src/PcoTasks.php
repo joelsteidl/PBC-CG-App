@@ -60,10 +60,10 @@ class PcoTasks implements PcoTasksInterface {
       $nid = array_shift($individual);
       $node = $storage->load($nid);
       // Only update records that have updated since the last time.
-      // if ($node->field_pco_updated->getString() != $pcoRecord->attributes->updated_at) {
+      if ($node->field_pco_updated->getString() != $pcoRecord->attributes->updated_at) {
         $values = $this->convertPcoToNode($pcoRecord);
         $this->groupsUtility->updateNode($values, $nid);
-      // }
+      }
     }
     else {
       $values = $this->convertPcoToNode($pcoRecord);

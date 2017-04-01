@@ -60,10 +60,10 @@ class PcoTasks implements PcoTasksInterface {
       $nid = array_shift($individual);
       $node = $storage->load($nid);
       // Only update records that have updated since the last time.
-      if ($node->field_pco_updated->getString() != $pcoRecord->attributes->updated_at) {
+      // if ($node->field_pco_updated->getString() != $pcoRecord->attributes->updated_at) {
         $values = $this->convertPcoToNode($pcoRecord);
         $this->groupsUtility->updateNode($values, $nid);
-      }
+      // }
     }
     else {
       $values = $this->convertPcoToNode($pcoRecord);
@@ -84,7 +84,7 @@ class PcoTasks implements PcoTasksInterface {
     ];
 
     // Membership.
-    if (!empty($pcoRecord->attributes->membership)) {
+    if (isset($pcoRecord->attributes->membership)) {
       $membership = $pcoRecord->attributes->membership;
       if ($tid = $this->groupsUtility->getTidByName('membership', $membership)) {
         $values['field_membership'] = $tid;
@@ -99,7 +99,6 @@ class PcoTasks implements PcoTasksInterface {
 
     // Handle Field Data.
     if ($fieldData = $this->getPcoFieldData($pcoRecord->id)) {
-      kint($fieldData);
       foreach ($fieldData as $itemData) {
         $id = $itemData->relationships->field_definition->data->id;
         $value = $itemData->attributes->value;
@@ -107,7 +106,11 @@ class PcoTasks implements PcoTasksInterface {
         switch ($id) {
           // field_below_poverty_line.
           case '118307':
-            $values['field_below_poverty_line'] = $value;
+            $poverty = 0;
+            if ($value) {
+              $poverty = 1;
+            }
+            $values['field_below_poverty_line'] = $poverty;
             break;
 
           // field_ethnicity.

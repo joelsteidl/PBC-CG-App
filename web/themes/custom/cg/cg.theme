@@ -73,3 +73,12 @@ function cg_preprocess_views_view_field(&$variables) {
   }
   $variables['output'] = $output;
 }
+
+function cg_preprocess_block(&$variables) {
+  $route = Drupal::routeMatch();
+  if ($route->getRouteName() === 'entity.node.canonical' && $route->getParameter('node')->getType() === 'group_attendance_record') {
+    if ($variables['plugin_id'] === 'find_individual_block') {
+      $variables['attributes']['class'][] = 'collapse';
+    }
+  }
+}

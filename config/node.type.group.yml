@@ -6,8 +6,9 @@ dependencies:
     - menu_ui
 third_party_settings:
   menu_ui:
-    available_menus: {  }
-    parent: ''
+    available_menus:
+      - account
+    parent: 'account:menu_link_content:4e3a2e3f-72fc-48b4-b96b-b6b08a5adbc3'
 name: Group
 type: group
 description: 'A community group.'

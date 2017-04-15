@@ -601,7 +601,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          empty: false
+          empty: true
           tokenize: false
           content:
             value: "<div class=\"text-center\">\n<a data-toggle=\"collapse\" href=\"#block-cg-findindividualblock\"class=\"btn btn-success\">Add Someone New</a>\n</div>"

@@ -17,11 +17,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_group_connection_status:
     weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
   field_individual:
     type: entity_reference_autocomplete
     weight: 1
@@ -30,6 +32,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   path: true

@@ -7,10 +7,10 @@ label: 'Group Admin'
 weight: 2
 is_admin: null
 permissions:
-  - 'create group content'
-  - 'view group revisions'
-  - 'edit any group_connection content'
   - 'access content'
-  - 'administer users'
   - 'access user profiles'
+  - 'administer users'
+  - 'create group content'
   - 'edit any group content'
+  - 'edit any group_connection content'
+  - 'view group revisions'

@@ -4,6 +4,15 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.individual.field_below_poverty_line
+    - field.field.node.individual.field_email_address
+    - field.field.node.individual.field_ethnicity
+    - field.field.node.individual.field_first_name
+    - field.field.node.individual.field_last_name
+    - field.field.node.individual.field_membership
+    - field.field.node.individual.field_neighborhood
+    - field.field.node.individual.field_pco_updated
+    - field.field.node.individual.field_planning_center_id
     - node.type.individual
   module:
     - user
@@ -14,4 +23,14 @@ mode: teaser
 content:
   links:
     weight: 100
-hidden: {  }
+    region: content
+hidden:
+  field_below_poverty_line: true
+  field_email_address: true
+  field_ethnicity: true
+  field_first_name: true
+  field_last_name: true
+  field_membership: true
+  field_neighborhood: true
+  field_pco_updated: true
+  field_planning_center_id: true

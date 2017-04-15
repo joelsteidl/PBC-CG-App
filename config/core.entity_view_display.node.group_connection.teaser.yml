@@ -4,6 +4,9 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.group_connection.field_group
+    - field.field.node.group_connection.field_group_connection_status
+    - field.field.node.group_connection.field_individual
     - node.type.group_connection
   module:
     - user
@@ -14,4 +17,8 @@ mode: teaser
 content:
   links:
     weight: 100
-hidden: {  }
+    region: content
+hidden:
+  field_group: true
+  field_group_connection_status: true
+  field_individual: true

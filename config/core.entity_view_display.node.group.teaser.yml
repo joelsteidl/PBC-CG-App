@@ -4,6 +4,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.group.field_attendance_manager
+    - field.field.node.group.field_group_status
+    - field.field.node.group.field_meeting_day
+    - field.field.node.group.field_neighborhood
     - node.type.group
   module:
     - user
@@ -14,4 +18,9 @@ mode: teaser
 content:
   links:
     weight: 100
-hidden: {  }
+    region: content
+hidden:
+  field_attendance_manager: true
+  field_group_status: true
+  field_meeting_day: true
+  field_neighborhood: true

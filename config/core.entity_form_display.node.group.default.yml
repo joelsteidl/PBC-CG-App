@@ -18,21 +18,25 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_group_status:
     weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
   field_meeting_day:
     weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_neighborhood:
     weight: 26
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   title:
     type: string_textfield
     weight: 0
@@ -40,6 +44,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   path: true

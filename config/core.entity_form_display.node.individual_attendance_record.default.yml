@@ -22,6 +22,7 @@ content:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
   field_group_attendance_record:
     weight: 1
     settings:
@@ -30,6 +31,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_group_connection:
     weight: 2
     settings:
@@ -38,6 +40,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_group_connection_status:
     weight: 26
     settings:
@@ -46,11 +49,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_in_attendance:
     weight: 0
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
   field_membership:
     weight: 29
     settings:
@@ -59,6 +64,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_neighborhood:
     weight: 27
     settings:
@@ -67,6 +73,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
 hidden:
   created: true
   path: true

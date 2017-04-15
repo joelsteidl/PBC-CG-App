@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
+    - ctools
     - pbc_groups
     - system
     - user
@@ -25,18 +25,21 @@ visibility:
     id: user_role
     roles:
       authenticated: authenticated
+      group_admin: group_admin
+      attendance_manager: attendance_manager
+      administrator: administrator
     negate: false
     context_mapping:
       user: '@user.current_user_context:current_user'
-  node_type:
-    id: node_type
-    bundles:
-      group_attendance_record: group_attendance_record
-    negate: false
-    context_mapping:
-      node: '@node.node_route_context:node'
   request_path:
     id: request_path
     pages: "/node/*/edit\r\n/node/add/*"
     negate: true
     context_mapping: {  }
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      group_attendance_record: group_attendance_record
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

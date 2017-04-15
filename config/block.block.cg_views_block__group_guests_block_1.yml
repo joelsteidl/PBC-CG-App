@@ -5,6 +5,7 @@ dependencies:
   config:
     - views.view.group_guests
   module:
+    - ctools
     - node
     - views
   theme:
@@ -22,9 +23,17 @@ settings:
   label_display: visible
   views_label: ''
   items_per_page: none
+  context_mapping: {  }
 visibility:
   node_type:
     id: node_type
+    bundles:
+      group_attendance_record: group_attendance_record
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
     bundles:
       group_attendance_record: group_attendance_record
     negate: false

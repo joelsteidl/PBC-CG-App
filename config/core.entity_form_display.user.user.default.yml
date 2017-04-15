@@ -6,6 +6,7 @@ dependencies:
     - field.field.user.user.field_first_name
     - field.field.user.user.field_last_name
   module:
+    - path
     - user
 id: user.user.default
 targetEntityType: user
@@ -16,6 +17,7 @@ content:
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_first_name:
     weight: 0
     settings:
@@ -23,6 +25,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_last_name:
     weight: 1
     settings:
@@ -30,6 +33,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   contact: true
   language: true

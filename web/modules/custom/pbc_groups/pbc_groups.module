@@ -148,7 +148,7 @@ function pbc_groups_views_pre_view(ViewExecutable $view, $display_id, array &$ar
       return FALSE;
     }
     // Pass in group id.
-    $args[] = $node->field_group->target_id;
+    $args = [$node->field_group->target_id, $node->id()];
   }
 }
 

@@ -23,6 +23,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
   field_email_address:
     weight: 2
     settings:
@@ -30,11 +31,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: email_default
+    region: content
   field_ethnicity:
     weight: 6
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_first_name:
     weight: 0
     settings:
@@ -42,6 +45,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_last_name:
     weight: 1
     settings:
@@ -49,16 +53,19 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_membership:
     weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_neighborhood:
     weight: 5
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_pco_updated:
     weight: 26
     settings:
@@ -66,12 +73,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_planning_center_id:
     weight: 7
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
 hidden:
   created: true
   path: true

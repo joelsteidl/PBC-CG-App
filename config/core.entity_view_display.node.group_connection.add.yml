@@ -22,6 +22,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_individual:
     weight: 0
     label: hidden
@@ -29,6 +30,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
 hidden:
   field_group: true
   links: true

@@ -29,12 +29,14 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+    region: content
   field_email_address:
     weight: 103
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_ethnicity:
     weight: 107
     label: above
@@ -42,6 +44,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_first_name:
     weight: 101
     label: above
@@ -49,6 +52,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_last_name:
     weight: 102
     label: above
@@ -56,6 +60,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_membership:
     weight: 108
     label: above
@@ -63,6 +68,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_neighborhood:
     weight: 106
     label: above
@@ -70,6 +76,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_pco_updated:
     weight: 109
     label: above
@@ -77,6 +84,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_planning_center_id:
     weight: 104
     label: above
@@ -85,6 +93,8 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_integer
+    region: content
   links:
     weight: 100
+    region: content
 hidden: {  }

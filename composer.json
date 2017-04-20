@@ -66,6 +66,11 @@
       "web/profiles/contrib/{$name}": ["type:drupal-profile"],
       "web/themes/contrib/{$name}": ["type:drupal-theme"]
     },
+    "patches": {
+      "drupal/core": {
+        "Views exposed filter date picker": "https://www.drupal.org/files/issues/2648950-85.patch"
+      }
+    },
     "drupal-scaffold": {
       "source": "https://raw.githubusercontent.com/pantheon-systems/drops-8/{version}/{path}"
     }

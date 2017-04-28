@@ -1,0 +1,39 @@
+uuid: 22fce1f4-6577-4f4e-b8fc-22d2d865f3e9
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.recent_group_attendance
+  module:
+    - ctools
+    - system
+    - views
+  theme:
+    - cg
+id: views_block__recent_group_attendance_block_3
+theme: cg
+region: sidebar_second
+weight: 0
+provider: null
+plugin: 'views_block:recent_group_attendance-block_3'
+settings:
+  id: 'views_block:recent_group_attendance-block_3'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      group: group
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    pages: 'node/*/edit'
+    negate: true
+    context_mapping: {  }

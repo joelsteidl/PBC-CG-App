@@ -14,11 +14,19 @@ $config_directories = array(
 );
 
 /**
- * If there is a local settings file, then include it
+ * If there is a local settings file, then include it.
  */
 $local_settings = __DIR__ . "/settings.local.php";
 if (file_exists($local_settings)) {
   include $local_settings;
+}
+
+/**
+ * If there is a prod settings file, then include it.
+ */
+$prod_settings = __DIR__ . "/settings.prod.php";
+if (file_exists($prod_settings)) {
+  include $prod_settings;
 }
 
 /**

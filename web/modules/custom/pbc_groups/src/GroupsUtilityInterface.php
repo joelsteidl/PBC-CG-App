@@ -77,12 +77,12 @@ interface GroupsUtilityInterface {
    *   Drupal\node\NodeInterface;
    * @param object $group_attendance_record
    *   Drupal\node\NodeInterface;
-   * @param bool $in_attendance
+   * @param $in_attendance
    *   Bool 0 or 1
    *
    * @return array
    *   An array of values to create a node with.
    */
-  public function buildIndivdualAttendanceNodeValues(NodeInterface $group_connection, NodeInterface $group_attendance_record, bool $in_attendance);
+  public function buildIndivdualAttendanceNodeValues(NodeInterface $group_connection, NodeInterface $group_attendance_record, $in_attendance);
 
 }

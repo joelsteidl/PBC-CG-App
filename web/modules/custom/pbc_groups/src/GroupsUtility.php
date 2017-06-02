@@ -145,7 +145,7 @@ class GroupsUtility implements GroupsUtilityInterface {
   /**
    * { @inheritdoc }
    */
-  public function buildIndivdualAttendanceNodeValues(NodeInterface $group_connection, NodeInterface $group_attendance_record, bool $in_attendance) {
+  public function buildIndivdualAttendanceNodeValues(NodeInterface $group_connection, NodeInterface $group_attendance_record, $in_attendance) {
     $individual = $group_connection->field_individual->entity;
     $values = [
       'type' => 'individual_attendance_record',

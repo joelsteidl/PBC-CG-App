@@ -9,7 +9,7 @@ dependencies:
     - field.storage.node.field_notes
     - node.type.group_attendance_record
     - user.role.administrator
-    - user.role.attendance_manager
+    - user.role.group_admin
   module:
     - datetime
     - node
@@ -33,7 +33,7 @@ display:
         type: role
         options:
           role:
-            attendance_manager: attendance_manager
+            group_admin: group_admin
             administrator: administrator
       cache:
         type: tag
@@ -498,8 +498,8 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
-              group_admin: '0'
               attendance_manager: '0'
+              group_admin: '0'
               administrator: '0'
           is_grouped: false
           group_info:

@@ -4,13 +4,14 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_group
+    - field.storage.node.field_group_meeting_status
     - field.storage.node.field_meeting_date
-    - field.storage.node.field_meeting_status
     - node.type.group_attendance_record
     - user.role.authenticated
   module:
     - datetime
     - node
+    - options
     - user
 id: recent_group_attendance
 label: 'Recent Group Attendance'
@@ -689,14 +690,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_meeting_status:
-          id: field_meeting_status
-          table: node__field_meeting_status
-          field: field_meeting_status
+        field_group_meeting_status:
+          id: field_group_meeting_status
+          table: node__field_group_meeting_status
+          field: field_group_meeting_status
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Did you meet?'
+          label: 'Did you meet? '
           exclude: false
           alter:
             alter_text: false
@@ -729,7 +730,7 @@ display:
           element_class: ''
           element_label_type: strong
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -738,11 +739,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: boolean
-          settings:
-            format: yes-no
-            format_custom_true: ''
-            format_custom_false: ''
+          type: list_default
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -802,5 +800,5 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
+        - 'config:field.storage.node.field_group_meeting_status'
         - 'config:field.storage.node.field_meeting_date'
-        - 'config:field.storage.node.field_meeting_status'

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.group_attendance_record.field_group
+    - field.field.node.group_attendance_record.field_group_meeting_status
     - field.field.node.group_attendance_record.field_meeting_date
     - field.field.node.group_attendance_record.field_meeting_status
     - field.field.node.group_attendance_record.field_notes
@@ -17,6 +18,12 @@ mode: default
 content:
   field_group:
     weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_group_meeting_status:
+    weight: 26
     settings: {  }
     third_party_settings: {  }
     type: options_select

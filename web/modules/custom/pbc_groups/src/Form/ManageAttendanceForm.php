@@ -124,18 +124,17 @@ class ManageAttendanceForm extends FormBase {
       '#weight' => 0,
     ];
 
-    $status = 1;
-    if (!$this->groupAttendance->field_meeting_status->isEmpty()) {
-      $status = $this->groupAttendance->field_meeting_status->value;
-    }
-
-    $form['field_meeting_status'] = [
+    $form['field_group_meeting_status'] = [
       '#type' => 'radios',
       '#title' => $this->t('Did you meet this week?'),
-      '#options' => [1 => $this->t('Yes'), 0 => $this->t('No')],
-      '#default_value' => $status,
+      '#options' => ['yes' => $this->t('Yes'), 'no' => $this->t('No')],
+      '#required' => TRUE,
       '#weight' => 1,
     ];
+
+    if (!$this->groupAttendance->field_group_meeting_status->isEmpty() || $this->groupAttendance->field_group_meeting_status->value != 'not_submitted') {
+      $form['field_group_meeting_status']['#default_value'] = $this->groupAttendance->field_group_meeting_status->value;
+    }
 
     $form['attendance'] = [
       '#type' => 'checkboxes',
@@ -199,7 +198,7 @@ class ManageAttendanceForm extends FormBase {
     // Update group attendance values.
     $groupAttendValues = [
       'field_notes' => $form_state->getValue('field_notes'),
-      'field_meeting_status' => $form_state->getValue('field_meeting_status'),
+      'field_group_meeting_status' => $form_state->getValue('field_group_meeting_status'),
     ];
     $this->groupsUtility->updateNode($groupAttendValues, $this->groupAttendance->id());
 

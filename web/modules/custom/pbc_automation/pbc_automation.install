@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Contains pbc_automation.install.
+ */
+
+/**
+ * Update Group Attendance Field Values.
+ */
+function pbc_automation_update_8101() {
+  $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('node');
+
+  // Status is No.
+  $records = $storage->loadByProperties([
+    'type' => 'group_attendance_record',
+    'field_meeting_status' => 0,
+  ]);
+
+  foreach ($records as $record) {
+    $record->field_group_meeting_status->setValue('no');
+    $record->save();
+  }
+
+  // Status is Yes.
+  $records = $storage->loadByProperties([
+    'type' => 'group_attendance_record',
+    'field_meeting_status' => 1,
+  ]);
+
+  foreach ($records as $record) {
+    $status = 'not_submitted';
+    // Check if anyone is in attendance.
+    $attendance = $storage->getQuery()->count()
+      ->condition('type', 'individual_attendance_record')
+      ->condition('field_in_attendance', 1)
+      ->condition('field_group_attendance_record', $record->id())
+      ->execute();
+    // Mark as yes.
+    if ($attendance > 0) {
+      $status = 'yes';
+    }
+    $record->field_group_meeting_status->setValue($status);
+    $record->save();
+  }
+}

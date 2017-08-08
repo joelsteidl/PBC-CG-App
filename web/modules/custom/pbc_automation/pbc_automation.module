@@ -50,10 +50,11 @@ function pbc_automation_cron() {
   $end = new DrupalDateTime('last saturday + 7 days');
   $endDate = $end->format('Y-m-d');
 
-  // Load all the published groups.
+  // Load all the published & active groups.
   $groups = $storage->loadByProperties([
     'type' => 'group',
     'status' => 1,
+    'field_group_status' => 'Active',
   ]);
 
   foreach ($groups as $group) {

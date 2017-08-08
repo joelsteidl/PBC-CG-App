@@ -1,0 +1,23 @@
+uuid: 197841d0-3a0d-4dfe-b07e-21636de52603
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_group_meeting_status
+    - node.type.group_attendance_record
+  module:
+    - options
+id: node.group_attendance_record.field_group_meeting_status
+field_name: field_group_meeting_status
+entity_type: node
+bundle: group_attendance_record
+label: 'Did you meet?'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: not_submitted
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,25 +1,25 @@
-uuid: d3cdf197-52b6-447c-a58e-15f7770b1f3d
+uuid: 2e3c8d18-a7a2-489d-9c05-c384ed16db35
 langcode: en
 status: true
 dependencies:
   module:
     - node
     - options
-id: node.field_group_status
-field_name: field_group_status
+id: node.field_group_meeting_status
+field_name: field_group_meeting_status
 entity_type: node
 type: list_string
 settings:
   allowed_values:
     -
-      value: Active
-      label: Active
+      value: not_submitted
+      label: 'Not Submitted'
     -
-      value: Inactive
-      label: Inactive
+      value: 'yes'
+      label: 'Yes'
     -
-      value: Retired
-      label: Retired
+      value: 'no'
+      label: 'No'
   allowed_values_function: ''
 module: options
 locked: false

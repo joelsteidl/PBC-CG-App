@@ -35,4 +35,4 @@ jobs:
 
       - deploy:
           name: Maybe Deploy
-          command: ssh pbc_cg@cg.providencedenver.org 'cd /home/pbc_cg/dev.cg.providencedenver.org && git pull origin master && composer install && cd /home/pbc_cg/dev.cg.providencedenver.org/web && drush cim -y'
+          command: ssh -o "StrictHostKeyChecking no" pbc_cg@cg.providencedenver.org 'cd /home/pbc_cg/dev.cg.providencedenver.org && git pull origin master && composer install && cd /home/pbc_cg/dev.cg.providencedenver.org/web && drush cim -y'

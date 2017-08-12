@@ -33,5 +33,6 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
-      # run tests!
-      - run: phpunit
+      - deploy:
+          name: Maybe Deploy
+          command: ssh pbc_cg@cg.providencedenver.org 'cd /home/pbc_cg/dev.cg.providencedenver.org && git pull origin master && composer install && cd /home/pbc_cg/dev.cg.providencedenver.org/web && drush cim -y'

@@ -1,0 +1,4 @@
+services:
+  pbc_reports.utility:
+    class: Drupal\pbc_reports\ReportsUtility
+    arguments: ['@entity_type.manager']

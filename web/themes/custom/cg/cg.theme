@@ -12,6 +12,19 @@ use Drupal\Core\Url;
 
 function cg_preprocess_views_view_field(&$variables) {
   $field_name = $variables['field']->realField;
+  if ($variables['view']->id() === 'report_simple') {
+    if ($field_name === 'nothing') {
+      $attendance_node = $variables['row']->_entity;
+      $utility = Drupal::service('pbc_reports.utility');
+      $in_attendance = $utility->getAttendanceByGroup($attendance_node->id(), 1);
+      $active_in_group = $utility->getGroupParticipants($attendance_node->field_group->target_id, 1);
+      // TODO: make percent method.
+      $percent = $in_attendance / $active_in_group;
+      $percent = number_format($percent * 100, 0) . '%';
+
+      $variables['output'] = $percent;
+    }
+  }
   if ($variables['view']->id() === 'group_roster') {
     $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('user');
     $user = $storage->load(Drupal::currentUser()->id());

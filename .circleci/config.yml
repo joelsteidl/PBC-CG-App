@@ -39,5 +39,5 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               ssh -o "StrictHostKeyChecking no" pbc_cg@cg.providencedenver.org 'cd ${PROD_ROOT}] %> && git pull origin dev && composer install && cd ${PROD_ROOT}/web && drush --root=${PROD_ROOT}/web cim -y && git checkout .htaccess';
             else
-              ssh -o "StrictHostKeyChecking no" pbc_cg@dev.cg.providencedenver.org 'cd /home/pbc_cg/dev.cg.providencedenver.org && git fetch --all && git checkout ${CIRCLE_BRANCH} && composer install && cd /home/pbc_cg/dev.cg.providencedenver.org/web && drush --root=/home/pbc_cg/dev.cg.providencedenver.org/web cim -y && git checkout .htaccess';
+              ./deploy_other.sh
             fi;

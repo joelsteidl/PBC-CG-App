@@ -36,8 +36,6 @@ jobs:
       - deploy:
           name: Deploy
           command:
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ssh -o "StrictHostKeyChecking no" pbc_cg@cg.providencedenver.org 'cd ${PROD_ROOT}] %> && git pull origin dev && composer install && cd ${PROD_ROOT}/web && drush --root=${PROD_ROOT}/web cim -y && git checkout .htaccess';
-            else
+            if [ "${CIRCLE_BRANCH}" == "reporting" ]; then
               ./deploy_other.sh
             fi;

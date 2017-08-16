@@ -29,15 +29,15 @@ class ReportsUtility implements ReportsUtilityInterface {
   /**
    * { @inheritdoc }
    */
-  public function getAttendanceByGroup($groupAttendanceId, $status) {
+  public function getAttendanceByGroup($groupAttendanceId, $attendanceStatus, $connectionStatus) {
     $storage = $this->entityTypeManager->getStorage('node');
 
     // TODO: dynamically pass in status of group connection.
     $count = $storage->getQuery()->count()
       ->condition('type', 'individual_attendance_record')
       ->condition('field_group_attendance_record', $groupAttendanceId)
-      ->condition('field_in_attendance', $status)
-      ->condition('field_group_connection.entity.field_group_connection_status', 1)
+      ->condition('field_in_attendance', $attendanceStatus)
+      ->condition('field_group_connection.entity.field_group_connection_status', $connectionStatus)
       ->condition('status', 1)
       ->execute();
 
@@ -58,6 +58,15 @@ class ReportsUtility implements ReportsUtilityInterface {
       ->execute();
 
     return $count;
+  }
+
+  /**
+   * { @inheritdoc }
+   */
+  public function createPercent($dividend, $divisor) {
+    $quotient = $dividend / $divisor;
+    $percent = number_format($quotient * 100, 0) . '%';
+    return $percent;
   }
 
 }

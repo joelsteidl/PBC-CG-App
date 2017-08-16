@@ -16,11 +16,10 @@ function cg_preprocess_views_view_field(&$variables) {
     if ($field_name === 'nothing') {
       $attendance_node = $variables['row']->_entity;
       $utility = Drupal::service('pbc_reports.utility');
-      $in_attendance = $utility->getAttendanceByGroup($attendance_node->id(), 1);
+      $in_attendance = $utility->getAttendanceByGroup($attendance_node->id(), 1, 1);
       $active_in_group = $utility->getGroupParticipants($attendance_node->field_group->target_id, 1);
-      // TODO: make percent method. Pass in two numbers.
-      $percent = $in_attendance / $active_in_group;
-      $percent = number_format($percent * 100, 0) . '%';
+
+      $percent = $utility->createPercent($in_attendance, $active_in_group);
 
       $variables['output'] = $percent;
     }

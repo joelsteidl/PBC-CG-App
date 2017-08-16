@@ -29,6 +29,7 @@ module:
   path: 0
   pbc_automation: 0
   pbc_groups: 0
+  pbc_reports: 0
   pco_api: 0
   serialization: 0
   smtp: 0

@@ -16,13 +16,15 @@ interface ReportsUtilityInterface {
    *
    * @param int $groupAttendanceId
    *   Group attendance NID.
-   * @param bool $status
+   * @param bool $attendanceStatus
    *   Boolean...0 or 1.
+   * @param int $connectionStatus
+   *   Statuses: Active (1), Guest (3), Inactive (2)
    *
    * @return int
    *   the number of records.
    */
-  public function getAttendanceByGroup($groupAttendanceId, $status);
+  public function getAttendanceByGroup($groupAttendanceId, $attendanceStatus, $connectionStatus);
 
   /**
    * Given a Group Attendance NID, get group_connection records.
@@ -36,5 +38,18 @@ interface ReportsUtilityInterface {
    *   the number of records.
    */
   public function getGroupParticipants($groupId, $status);
+
+  /**
+   * Given a dividenc and divisor, create a percent.
+   *
+   * @param int $dividence
+   *   A number.
+   * @param int $divisor
+   *   A number.
+   *
+   * @return string
+   *   A percent.
+   */
+  public function createPercent($dividend, $divisor);
 
 }

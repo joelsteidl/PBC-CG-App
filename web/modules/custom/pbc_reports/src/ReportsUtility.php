@@ -47,6 +47,27 @@ class ReportsUtility implements ReportsUtilityInterface {
   /**
    * { @inheritdoc }
    */
+  public function getGroupAttendance($groupId = '', $status) {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+
+    $count = $storage->getQuery()->count()
+      ->condition('type', 'group_attendance_record')
+      ->condition('field_group_meeting_status', $status)
+      ->condition('status', 1);
+
+    // Alter query...
+    // Date and Group ID
+    if ($groupId) {
+      $count->condition('field_group', $groupId);
+    }
+
+    return $count->execute();
+  }
+
+  /**
+   * { @inheritdoc }
+   */
   public function getGroupParticipants($groupId, $status) {
     $storage = $this->entityTypeManager->getStorage('node');
 

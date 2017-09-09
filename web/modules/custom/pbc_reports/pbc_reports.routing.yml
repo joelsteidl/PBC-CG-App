@@ -1,0 +1,7 @@
+pbc_reports.reporting_dashboard:
+  path: '/reports/dashboard'
+  defaults:
+    _controller: '\Drupal\pbc_reports\Controller\ReportingDashboardController::index'
+    _title: 'Reporting Dashboard'
+  requirements:
+    _permission: 'access content'

@@ -52,4 +52,6 @@ interface ReportsUtilityInterface {
    */
   public function createPercent($dividend, $divisor);
 
+  public function getGroupAttendance($groupId = '', $status);
+
 }

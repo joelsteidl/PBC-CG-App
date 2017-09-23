@@ -8,6 +8,7 @@ module:
   ckeditor: 0
   config: 0
   contact: 0
+  csv_serialization: 0
   ctools: 0
   datetime: 0
   dblog: 0
@@ -31,6 +32,7 @@ module:
   pbc_groups: 0
   pbc_reports: 0
   pco_api: 0
+  rest: 0
   serialization: 0
   smtp: 0
   syslog: 0

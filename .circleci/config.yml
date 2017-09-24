@@ -13,5 +13,10 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "dev" ]; then
-              ssh -o "StrictHostKeyChecking no" ${USER}@dev.cg.providencedenver.org 'cd /home/pbc_cg/dev.cg.providencedenver.org && touch circleworksnowagain.txt'
+              ssh -o "StrictHostKeyChecking no" ${USER}@${DEV_DOMAIN} '
+              cd /home/pbc_cg/dev.cg.providencedenver.org &&
+              git pull origin dev &&
+              composer install &&
+              cd web &&
+              drush --root=/home/pbc_cg/dev.cg.providencedenver.org/web cim -y'
             fi

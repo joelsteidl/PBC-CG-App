@@ -18,7 +18,6 @@ dependencies:
     - user.role.administrator
     - user.role.group_admin
   module:
-    - null
     - csv_serialization
     - datetime
     - node

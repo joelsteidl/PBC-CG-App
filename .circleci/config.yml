@@ -7,4 +7,4 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run: ssh -o "StrictHostKeyChecking no" pbc_cg@dev.cg.providencedenver.org && touch circleworks.txt
+      - run: ssh -o "StrictHostKeyChecking no" pbc_cg@dev.cg.providencedenver.org && /home/pbc_cg/dev.cg.providencedenver.org && touch circleworks.txt

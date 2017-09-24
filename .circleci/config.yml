@@ -7,6 +7,11 @@ jobs:
     working_directory: ~/repo
     branches:
       only:
+        - master
         - dev
     steps:
-      - run: ssh -o "StrictHostKeyChecking no" ${USER}@dev.cg.providencedenver.org 'cd /home/pbc_cg/dev.cg.providencedenver.org && touch circleworksnow.txt'
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
+              ssh -o "StrictHostKeyChecking no" ${USER}@dev.cg.providencedenver.org 'cd /home/pbc_cg/dev.cg.providencedenver.org && touch circleworksnowagain.txt'
+            fi

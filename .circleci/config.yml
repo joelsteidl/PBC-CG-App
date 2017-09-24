@@ -9,4 +9,4 @@ jobs:
       only:
         - dev
     steps:
-      - run: ssh -o "StrictHostKeyChecking no" pbc_cg@dev.cg.providencedenver.org 'cd /home/pbc_cg/dev.cg.providencedenver.org && touch circleworks.txt'
+      - run: ssh -o "StrictHostKeyChecking no" $USER@dev.cg.providencedenver.org 'cd $DEV_ROOT && touch circleworks.txt'

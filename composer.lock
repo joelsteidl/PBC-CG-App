@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "33ec15ed9a792ba4b45bfc9bdae70f42",
+    "content-hash": "024641970e51685c9d04ac366218ab6a",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2133,6 +2133,53 @@
             "homepage": "https://www.drupal.org/project/token",
             "support": {
                 "source": "http://cgit.drupalcode.org/token"
+            }
+        },
+        {
+            "name": "drupal/views_rest_feed",
+            "version": "1.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/views_rest_feed",
+                "reference": "8.x-1.0-alpha1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_rest_feed-8.x-1.0-alpha1.zip",
+                "reference": "8.x-1.0-alpha1",
+                "shasum": "25b1eb80e79e60e4ddbaa8627ff61c482ebc0960"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha1",
+                    "datestamp": "1447898351",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "grasmash",
+                    "homepage": "https://www.drupal.org/user/455714"
+                }
+            ],
+            "description": "Provides \"REST Export Feed\" view display type.",
+            "homepage": "https://www.drupal.org/project/views_rest_feed",
+            "support": {
+                "source": "http://cgit.drupalcode.org/views_rest_feed"
             }
         },
         {
@@ -5336,7 +5383,8 @@
         "drupal/devel": 5,
         "drupal/token": 5,
         "drupal/smtp": 10,
-        "drupal/pathauto": 5
+        "drupal/pathauto": 5,
+        "drupal/views_rest_feed": 15
     },
     "prefer-stable": true,
     "prefer-lowest": false,

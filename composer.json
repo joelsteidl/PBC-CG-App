@@ -27,7 +27,8 @@
     "drupal/smtp": "^1.0@beta",
     "drupal/pathauto": "^1.0@RC",
     "drupal/csv_serialization": "^1.0",
-    "webflo/drupal-finder": "^0.3.0"
+    "webflo/drupal-finder": "^0.3.0",
+    "drupal/views_rest_feed": "^1.0@alpha"
   },
   "conflict": {
       "drupal/drupal": "*"

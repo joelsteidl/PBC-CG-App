@@ -18,12 +18,14 @@ dependencies:
     - user.role.administrator
     - user.role.group_admin
   module:
+    - null
     - csv_serialization
     - datetime
     - node
     - rest
     - serialization
     - user
+    - views_rest_feed
 id: attendance_data
 label: 'Attendance Data'
 module: views
@@ -1162,56 +1164,66 @@ display:
         - 'config:field.storage.node.field_meeting_status'
         - 'config:field.storage.node.field_membership'
         - 'config:field.storage.node.field_neighborhood'
-  rest_export_1:
-    display_plugin: rest_export
-    id: rest_export_1
-    display_title: 'REST export'
-    position: 2
+  rest_export_attachment_1:
+    display_plugin: rest_export_attachment
+    id: rest_export_attachment_1
+    display_title: 'REST export feed'
+    position: 3
     display_options:
       display_extenders: {  }
+      displays:
+        page_1: page_1
+        default: 0
       path: admin/reports/export/csv
-      style:
-        type: serializer
-        options:
-          formats:
-            csv: csv
+      auth:
+        - user
       row:
         type: data_field
         options:
           field_options:
             field_group:
-              alias: Group
-              raw_output: false
+              alias: ''
+              raw_output: 0
             field_first_name:
-              alias: FirstName
-              raw_output: false
+              alias: ''
+              raw_output: 0
             field_last_name:
-              alias: LastName
-              raw_output: false
+              alias: ''
+              raw_output: 0
             field_meeting_status:
-              alias: MeetingStatus
-              raw_output: false
+              alias: ''
+              raw_output: 0
             field_meeting_date:
-              alias: MeetingDate
-              raw_output: false
+              alias: ''
+              raw_output: 0
             field_in_attendance:
-              alias: InAttendance
-              raw_output: false
+              alias: ''
+              raw_output: 0
             field_group_connection_status:
-              alias: Status
-              raw_output: false
+              alias: ''
+              raw_output: 0
             field_membership:
-              alias: Membership
-              raw_output: false
+              alias: ''
+              raw_output: 0
             field_below_poverty_line:
-              alias: BelowPovertyLine
-              raw_output: false
+              alias: ''
+              raw_output: 0
             field_ethnicity:
-              alias: Ethnicity
-              raw_output: false
+              alias: ''
+              raw_output: 0
             field_neighborhood:
-              alias: Neighborhood
-              raw_output: false
+              alias: ''
+              raw_output: 0
+      style:
+        type: serializer
+        options:
+          formats:
+            csv: csv
+      pager:
+        type: some
+        options:
+          items_per_page: '500'
+          offset: '0'
     cache_metadata:
       max-age: -1
       contexts:

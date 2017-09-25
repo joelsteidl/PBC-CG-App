@@ -16,7 +16,7 @@ jobs:
               ssh -o "StrictHostKeyChecking no" ${USER}@${DEV_DOMAIN} '
               cd /home/pbc_cg/dev.cg.providencedenver.org &&
               git pull origin dev &&
-              php bin/composer.phar install &&
+              composer install &&
               cd web &&
               drush --root=/home/pbc_cg/dev.cg.providencedenver.org/web cim -y'
             fi

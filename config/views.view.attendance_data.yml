@@ -1174,8 +1174,7 @@ display:
         page_1: page_1
         default: 0
       path: admin/reports/export/csv
-      auth:
-        - user
+      auth: {  }
       row:
         type: data_field
         options:

@@ -46,7 +46,7 @@ class PcoTasks implements PcoTasksInterface {
   /**
    * { @inheritdoc }
    */
-  public function createOrUpdateNode($pcoRecord) {
+  public function createOrUpdateNode($pcoRecord, $force = FALSE) {
     $storage = $this->entityTypeManager->getStorage('node');
 
     $individual = $storage->getQuery()
@@ -60,7 +60,8 @@ class PcoTasks implements PcoTasksInterface {
       $nid = array_shift($individual);
       $node = $storage->load($nid);
       // Only update records that have updated since the last time.
-      if ($node->field_pco_updated->getString() != $pcoRecord->attributes->updated_at) {
+      // TODO: create override
+      if (($node->field_pco_updated->getString() != $pcoRecord->attributes->updated_at) || $force) {
         $values = $this->convertPcoToNode($pcoRecord);
         $this->groupsUtility->updateNode($values, $nid);
       }
@@ -106,10 +107,14 @@ class PcoTasks implements PcoTasksInterface {
         switch ($id) {
           // field_below_poverty_line.
           case '118307':
-            $poverty = 0;
-            if ($value) {
+            $poverty = '';
+            if ($value === 'true') {
               $poverty = 1;
             }
+            elseif ($value === 'false') {
+              $poverty = 0;
+            }
+
             $values['field_below_poverty_line'] = $poverty;
             break;
 
@@ -285,10 +290,31 @@ class PcoTasks implements PcoTasksInterface {
   /**
    * { @inheritdoc }
    */
-  public function getPcoUpdatedPeople($offset, $perPage) {
+  public function getPcoPeopleFromList($offset, $perPage, $listId) {
     // Refresh the PCO list.
-    // See https://people.planningcenteronline.com/lists/195220
-    $listId = 195220;
+    $this->refreshPcoUpdateList($listId);
+    $query = [
+      'per_page' => $perPage,
+      'include' => 'emails,field_data',
+      'offset' => $offset,
+    ];
+    // Grab results from the updated list.
+    $request = $this->pcoApiClient->connect('get', 'people/v2/lists/' . $listId . '/people', $query, []);
+    $results = json_decode($request);
+    if (!count($results->data)) {
+      return FALSE;
+    }
+
+    return $results;
+  }
+
+  /**
+   * { @inheritdoc }
+   */
+  public function getAllPcoPeople($offset, $perPage) {
+    // Refresh the PCO list.
+    // See https://people.planningcenteronline.com/lists/198379
+    $listId = 198379;
     $this->refreshPcoUpdateList($listId);
     $query = [
       'per_page' => $perPage,

@@ -18,5 +18,17 @@ jobs:
               git pull origin dev &&
               composer install &&
               cd web &&
-              drush --root=/home/pbc_cg/dev.cg.providencedenver.org/web cim -y'
+              drush --root=/home/pbc_cg/dev.cg.providencedenver.org/web cim -y &&
+              git checkout .htaccess
+              '
+            fi
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ssh -o "StrictHostKeyChecking no" ${USER}@${DEV_DOMAIN} '
+              cd /home/pbc_cg/cg.providencedenver.org &&
+              git pull origin master &&
+              composer install &&
+              cd web &&
+              drush --root=/home/pbc_cg/cg.providencedenver.org/web cim -y &&
+              git checkout .htaccess
+              '
             fi

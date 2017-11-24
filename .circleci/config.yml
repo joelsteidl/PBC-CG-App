@@ -1,41 +1,32 @@
-# PHP CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-php/ for more details
-#
 version: 2
+
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: alexwijn/docker-git-php-composer
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mysql:9.4
-
     working_directory: ~/repo
-
+    branches:
+      only:
+        - master
+        - dev
     steps:
-      - checkout
-
-      # Download and cache dependencies
-      # - restore_cache:
-      #     keys:
-      #     - v1-dependencies-{{ checksum "composer.json" }}
-          # fallback to using the latest cache if no exact match is found
-          # - v1-dependencies-
-
-      # - run: composer install -n --prefer-dist
-
-      # - save_cache:
-      #     paths:
-      #       - ./vendor
-      #     key: v1-dependencies-{{ checksum "composer.json" }}
-
       - deploy:
-          name: Deploy
-          command:
-            if [ "${CIRCLE_BRANCH}" == "reporting" ]; then
-              ./deploy_other.sh
-            fi;
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
+              ssh -o "StrictHostKeyChecking no" ${USER}@${DEV_DOMAIN} '
+              cd /home/pbc_cg/dev.cg.providencedenver.org &&
+              git pull origin dev &&
+              composer install &&
+              cd web &&
+              drush --root=/home/pbc_cg/dev.cg.providencedenver.org/web cim -y && drush --root=/home/pbc_cg/dev.cg.providencedenver.org/web updb -y
+              '
+            fi
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ssh -o "StrictHostKeyChecking no" ${USER}@${DEV_DOMAIN} '
+              cd /home/pbc_cg/cg.providencedenver.org &&
+              git pull origin master &&
+              composer install &&
+              cd web &&
+              drush --root=/home/pbc_cg/cg.providencedenver.org/web cim -y && drush --root=/home/pbc_cg/cg.providencedenver.org/web updb -y
+              '
+            fi

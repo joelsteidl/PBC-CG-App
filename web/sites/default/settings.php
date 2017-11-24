@@ -10,7 +10,7 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
  * Place the config directory outside of the Drupal root.
  */
 $config_directories = array(
-  CONFIG_SYNC_DIRECTORY => dirname(DRUPAL_ROOT) . '/config',
+  CONFIG_SYNC_DIRECTORY => dirname(DRUPAL_ROOT) . '/config/sync',
 );
 
 /**
@@ -38,3 +38,13 @@ if (file_exists($prod_settings)) {
 $settings['install_profile'] = 'minimal';
 
 $settings['hash_salt'] = 'g4DmM0qyBHDGZU0yA6YZwa0jLwfys6KXQ4yfWUE7giP-EsxiPP2ClhPIf4vX4yS0iCQly7hyXg';
+
+// Redirect to https if not on local.
+if ($_SERVER['HTTP_HOST'] != 'groups.dev' && php_sapi_name() != 'cli') {
+  if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off") {
+    $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: ' . $redirect);
+    exit();
+  }
+}

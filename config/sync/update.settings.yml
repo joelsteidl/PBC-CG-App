@@ -1,6 +1,6 @@
 check:
   disabled_extensions: false
-  interval_days: 1
+  interval_days: 7
 fetch:
   url: ''
   max_attempts: 2
@@ -8,6 +8,6 @@ fetch:
 notification:
   emails:
     - admin@providencedenver.org
-  threshold: all
+  threshold: security
 _core:
   default_config_hash: 2QzULf0zovJQx3J06Y9rufzzfi-CY2CTTlEfJJh2Qyw

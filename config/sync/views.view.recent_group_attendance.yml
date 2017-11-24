@@ -458,6 +458,7 @@ display:
       tags:
         - 'config:field.storage.node.field_group'
         - 'config:field.storage.node.field_meeting_date'
+        - extensions
   block_1:
     display_plugin: block
     id: block_1
@@ -486,6 +487,7 @@ display:
       tags:
         - 'config:field.storage.node.field_group'
         - 'config:field.storage.node.field_meeting_date'
+        - extensions
   block_2:
     display_plugin: block
     id: block_2
@@ -527,6 +529,7 @@ display:
       tags:
         - 'config:field.storage.node.field_group'
         - 'config:field.storage.node.field_meeting_date'
+        - extensions
   block_3:
     display_plugin: block
     id: block_3
@@ -802,3 +805,4 @@ display:
       tags:
         - 'config:field.storage.node.field_group_meeting_status'
         - 'config:field.storage.node.field_meeting_date'
+        - extensions

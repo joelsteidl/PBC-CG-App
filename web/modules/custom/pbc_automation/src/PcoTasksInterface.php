@@ -20,7 +20,7 @@ interface PcoTasksInterface {
    * @return node object
    *   a node object.
    */
-  public function createOrUpdateNode($pcoRecord);
+  public function createOrUpdateNode($pcoRecord, $force);
 
   /**
    * Given a date, return PCO records that have been updated since then.
@@ -28,7 +28,7 @@ interface PcoTasksInterface {
    * @return array
    *   array of PCO records.
    */
-  public function getPcoUpdatedPeople($offset, $perPage);
+  public function getPcoPeopleFromList($offset, $perPage, $listId);
 
   /**
    * Given a PCO record, convert it to node data.

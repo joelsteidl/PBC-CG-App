@@ -1,7 +1,7 @@
 uuid: 78cd0e8f-60d4-4634-befb-3484df2e3f99
 name: 'PBC Community Groups'
 mail: admin@providencedenver.org
-slogan: ''
+slogan: 'A Drupal 8 Web Application for tracking attendance.'
 page:
   403: ''
   404: ''

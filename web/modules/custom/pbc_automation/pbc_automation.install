@@ -44,3 +44,20 @@ function pbc_automation_update_8102() {
     $record->save();
   }
 }
+
+/**
+ * Fix field_below_poverty_line for individual attendance records.
+ */
+function pbc_automation_update_8105() {
+  $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('node');
+
+  $records = $storage->loadByProperties([
+    'type' => 'individual_attendance_record',
+  ]);
+
+  foreach ($records as $record) {
+    $poverty = $record->field_group_connection->entity->field_individual->entity->field_below_poverty_line->value;
+    $record->field_below_poverty_line->setValue($poverty);
+    $record->save();
+  }
+}

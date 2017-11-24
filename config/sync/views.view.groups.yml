@@ -1,18 +1,21 @@
-uuid: 501d246a-bc39-4a26-8fa4-54f8f68276a9
+uuid: bd2aff31-d7c0-4980-b864-ee54e6f166e5
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_first_name
-    - field.storage.node.field_group_connection_status
-    - field.storage.node.field_in_attendance
-    - field.storage.node.field_last_name
-    - node.type.individual_attendance_record
+    - field.storage.node.field_group_status
+    - field.storage.node.field_meeting_day
+    - field.storage.user.field_first_name
+    - field.storage.user.field_last_name
+    - node.type.group
+    - user.role.administrator
+    - user.role.group_admin
   module:
     - node
+    - options
     - user
-id: group_attendance_review
-label: 'Group Attendance Review'
+id: groups
+label: Groups
 module: views
 description: ''
 tag: ''
@@ -27,11 +30,13 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            group_admin: group_admin
+            administrator: administrator
       cache:
-        type: none
+        type: tag
         options: {  }
       query:
         type: views_query
@@ -57,30 +62,33 @@ display:
           items_per_page: 0
           offset: 0
       style:
-        type: default
+        type: html_list
         options:
           grouping:
             -
-              field: field_in_attendance
+              field: field_group_status
               rendered: true
               rendered_strip: false
           row_class: list-group-item
           default_row_class: true
+          type: ul
+          wrapper_class: item-list
+          class: list-group
       row:
         type: fields
       fields:
-        field_in_attendance:
-          id: field_in_attendance
-          table: node__field_in_attendance
-          field: field_in_attendance
+        nid:
+          id: nid
+          table: node_field_data
+          field: nid
           relationship: none
           group_type: group
           admin_label: ''
           label: ''
-          exclude: false
+          exclude: true
           alter:
-            alter_text: true
-            text: "{% if field_in_attendance__value %}\n<span class=\"label label-success\">&#10003; Present</span>\n{% else %}\n<span class=\"label label-danger\">&#10006; Absent</span>\n{% endif %}"
+            alter_text: false
+            text: ''
             make_link: false
             path: ''
             absolute: false
@@ -110,19 +118,18 @@ display:
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
-          element_wrapper_type: div
-          element_wrapper_class: pull-right
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
           empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: boolean
+          type: number_integer
           settings:
-            format: boolean
-            format_custom_true: 'In Attendance'
-            format_custom_false: Absent
+            thousand_separator: ''
+            prefix_suffix: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -133,12 +140,128 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: nid
+          plugin_id: field
+        nothing:
+          id: nothing
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: 'Edit Group'
+            make_link: true
+            path: 'node/{{ nid }}/edit'
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: 'btn btn-default btn-md'
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: div
+          element_wrapper_class: pull-right
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
+          plugin_id: custom
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: false
+            ellipsis: false
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: h4
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: node
+          entity_field: title
           plugin_id: field
         field_first_name:
           id: field_first_name
-          table: node__field_first_name
+          table: user__field_first_name
           field: field_first_name
-          relationship: field_individual
+          relationship: field_attendance_manager
           group_type: group
           admin_label: ''
           label: ''
@@ -199,12 +322,12 @@ display:
           plugin_id: field
         field_last_name:
           id: field_last_name
-          table: node__field_last_name
+          table: user__field_last_name
           field: field_last_name
-          relationship: field_individual
+          relationship: field_attendance_manager
           group_type: group
           admin_label: ''
-          label: ''
+          label: 'Attendance Manager: '
           exclude: false
           alter:
             alter_text: true
@@ -233,9 +356,9 @@ display:
             trim: false
             preserve_tags: ''
             html: false
-          element_type: h4
+          element_type: span
           element_class: ''
-          element_label_type: ''
+          element_label_type: strong
           element_label_class: ''
           element_label_colon: false
           element_wrapper_type: ''
@@ -260,10 +383,10 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_group_connection_status:
-          id: field_group_connection_status
-          table: node__field_group_connection_status
-          field: field_group_connection_status
+        field_meeting_day:
+          id: field_meeting_day
+          table: node__field_meeting_day
+          field: field_meeting_day
           relationship: none
           group_type: group
           admin_label: ''
@@ -296,7 +419,7 @@ display:
             trim: false
             preserve_tags: ''
             html: false
-          element_type: em
+          element_type: ''
           element_class: ''
           element_label_type: ''
           element_label_class: ''
@@ -308,11 +431,72 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_group_status:
+          id: field_group_status
+          table: node__field_group_status
+          field: field_group_status
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: "{% if field_group_status == 'Active' %}\n<span class=\"label label-success\">&#10003; Active</span>\n{% elseif field_group_status == 'Inactive' %}\n<span class=\"label label-warning\">&#9873; Inactive</span>\n{% else %}\n<span class=\"label label-danger\">&#10006; Retired</span>\n{% endif %}"
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: em
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: false
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -340,133 +524,67 @@ display:
           table: node_field_data
           field: type
           value:
-            individual_attendance_record: individual_attendance_record
+            group: group
           entity_type: node
           entity_field: type
           plugin_id: bundle
       sorts:
-        field_in_attendance_value:
-          id: field_in_attendance_value
-          table: node__field_in_attendance
-          field: field_in_attendance_value
+        title:
+          id: title
+          table: node_field_data
+          field: title
           relationship: none
           group_type: group
           admin_label: ''
-          order: DESC
-          exposed: false
-          expose:
-            label: ''
-          plugin_id: standard
-        field_group_connection_status_target_id:
-          id: field_group_connection_status_target_id
-          table: node__field_group_connection_status
-          field: field_group_connection_status_target_id
-          relationship: field_group_connection
-          group_type: group
-          admin_label: ''
           order: ASC
           exposed: false
           expose:
             label: ''
+          entity_type: node
+          entity_field: title
           plugin_id: standard
-        field_last_name_value:
-          id: field_last_name_value
-          table: node__field_last_name
-          field: field_last_name_value
-          relationship: field_individual
+      title: Groups
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
           group_type: group
           admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
-          plugin_id: standard
-        field_first_name_value:
-          id: field_first_name_value
-          table: node__field_first_name
-          field: field_first_name_value
-          relationship: field_individual
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
-          plugin_id: standard
-      title: ''
-      header: {  }
+          empty: false
+          tokenize: false
+          content:
+            value: '<a href="/node/add/group" class="btn btn-success">Add new group</a>'
+            format: limited_html
+          plugin_id: text
       footer: {  }
       empty: {  }
       relationships:
-        field_group_connection:
-          id: field_group_connection
-          table: node__field_group_connection
-          field: field_group_connection
+        field_attendance_manager:
+          id: field_attendance_manager
+          table: node__field_attendance_manager
+          field: field_attendance_manager
           relationship: none
           group_type: group
-          admin_label: 'field_group_connection: Content'
+          admin_label: 'field_attendance_manager: User'
           required: false
           plugin_id: standard
-        field_individual:
-          id: field_individual
-          table: node__field_individual
-          field: field_individual
-          relationship: field_group_connection
-          group_type: group
-          admin_label: 'field_individual: Content'
-          required: false
-          plugin_id: standard
-      arguments:
-        field_group_attendance_record_target_id:
-          id: field_group_attendance_record_target_id
-          table: node__field_group_attendance_record
-          field: field_group_attendance_record_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          default_action: default
-          exception:
-            value: all
-            title_enable: false
-            title: All
-          title_enable: false
-          title: ''
-          default_argument_type: raw
-          default_argument_options:
-            index: 3
-            use_alias: false
-          default_argument_skip_url: false
-          summary_options:
-            base_path: ''
-            count: true
-            items_per_page: 25
-            override: false
-          summary:
-            sort_order: asc
-            number_of_records: 0
-            format: default_summary
-          specify_validation: false
-          validate:
-            type: none
-            fail: 'not found'
-          validate_options: {  }
-          break_phrase: false
-          not: false
-          plugin_id: numeric
+      arguments: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
-        - 'config:field.storage.node.field_first_name'
-        - 'config:field.storage.node.field_group_connection_status'
-        - 'config:field.storage.node.field_in_attendance'
-        - 'config:field.storage.node.field_last_name'
+        - 'config:field.storage.node.field_group_status'
+        - 'config:field.storage.node.field_meeting_day'
+        - 'config:field.storage.user.field_first_name'
+        - 'config:field.storage.user.field_last_name'
+        - extensions
   block_1:
     display_plugin: block
     id: block_1
@@ -479,11 +597,11 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
-        - 'config:field.storage.node.field_first_name'
-        - 'config:field.storage.node.field_group_connection_status'
-        - 'config:field.storage.node.field_in_attendance'
-        - 'config:field.storage.node.field_last_name'
+        - 'config:field.storage.node.field_group_status'
+        - 'config:field.storage.node.field_meeting_day'
+        - 'config:field.storage.user.field_first_name'
+        - 'config:field.storage.user.field_last_name'
+        - extensions

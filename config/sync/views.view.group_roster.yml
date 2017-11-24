@@ -560,6 +560,7 @@ display:
         - 'config:field.storage.node.field_first_name'
         - 'config:field.storage.node.field_group_connection_status'
         - 'config:field.storage.node.field_last_name'
+        - extensions
   block_1:
     display_plugin: block
     id: block_1
@@ -580,6 +581,7 @@ display:
         - 'config:field.storage.node.field_first_name'
         - 'config:field.storage.node.field_group_connection_status'
         - 'config:field.storage.node.field_last_name'
+        - extensions
   block_2:
     display_plugin: block
     id: block_2
@@ -991,3 +993,4 @@ display:
         - 'config:field.storage.node.field_group_connection_status'
         - 'config:field.storage.node.field_last_name'
         - 'config:field.storage.node.field_planning_center_id'
+        - extensions

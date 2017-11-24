@@ -48,6 +48,13 @@ content:
     third_party_settings: {  }
     type: string_textarea
     region: content
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
+    third_party_settings: {  }
+    region: content
 hidden:
   created: true
   path: true

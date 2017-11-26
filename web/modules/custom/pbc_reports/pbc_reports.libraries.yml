@@ -1,0 +1,14 @@
+attendance-by-week:
+  version: 1.x
+  css:
+    theme:
+      css/attendance-by-week.css: {}
+  js:
+    js/attendance-by-week.js: {}
+
+high-charts:
+  version: 6.x
+  js:
+    https://code.highcharts.com/highcharts.js: { type: external }
+    https://code.highcharts.com/modules/series-label.js: { type: external }
+    https://code.highcharts.com/modules/exporting.js: { type: external }

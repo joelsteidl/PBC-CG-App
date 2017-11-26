@@ -50,8 +50,19 @@ interface ReportsUtilityInterface {
    * @return string
    *   A percent.
    */
-  public function createPercent($dividend, $divisor);
+  public function createPercent($dividend, $divisor, $format = TRUE);
 
   public function getGroupAttendance($groupId = '', $status);
 
+  public function getCategoryLabels($dates);
+
+  public function getDatesbyWeek($startDate, $endDate);
+
+  public function getDaysBetween($startDate, $endDate);
+
+  public function getAttendanceRecord($group, $startDate, $endDate);
+
+  public function getAttendancePercent($attendanceRecord);
+
+  public function getSeriesData($dates);
 }

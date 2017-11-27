@@ -3,3 +3,7 @@
       width: 100% !important;
   }
 }
+
+.report-config-form {
+  clear: both;
+}

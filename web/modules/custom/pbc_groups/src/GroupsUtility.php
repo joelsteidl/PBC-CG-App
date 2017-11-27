@@ -161,4 +161,39 @@ class GroupsUtility implements GroupsUtilityInterface {
     return $values;
   }
 
+  /**
+   * { @inheritdoc }
+   */
+  public function getGroupNodes($status = NULL, $return = 'id') {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    $groups = $storage->getQuery()
+      ->condition('type', 'group')
+      ->condition('status', 1)
+      ->sort('field_group_status', 'ASC')
+      ->sort('title', 'ASC');
+
+    if ($status) {
+      $groups->condition('field_group_status', $status);
+    }
+
+    $groups = $groups->execute();
+
+    if (!$groups) {
+      return FALSE;
+    }
+
+    // Load all the published & active groups.
+    if ($return === 'id') {
+      return array_shift($groups);
+    }
+    elseif ($return === 'object') {
+      return $storage->loadMultiple($groups);
+    }
+    else {
+      return FALSE;
+    }
+
+  }
+
 }

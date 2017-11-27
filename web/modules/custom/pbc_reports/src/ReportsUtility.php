@@ -109,15 +109,10 @@ class ReportsUtility implements ReportsUtilityInterface {
   /**
    * { @inheritdoc }
    */
-  public function getSeriesData($dates) {
+  public function getSeriesData($groups, $dates) {
     $storage = $this->entityTypeManager->getStorage('node');
 
-    // Load all the published & active groups.
-    $groups = $storage->loadByProperties([
-      'type' => 'group',
-      'status' => 1,
-      'field_group_status' => 'Active',
-    ]);
+    $groups = $storage->loadMultiple($groups);
 
     $seriesData = [];
     $delta = 0;

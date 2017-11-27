@@ -85,4 +85,17 @@ interface GroupsUtilityInterface {
    */
   public function buildIndivdualAttendanceNodeValues(NodeInterface $group_connection, NodeInterface $group_attendance_record, $in_attendance);
 
+  /**
+   * Gets group nodes.
+   *
+   * @param string $status
+   *   String.
+   *
+   * @param string $return
+   *   String.
+   *
+   * @return array
+   *   An array of node objects.
+   */
+  public function getGroupNodes($status = NULL, $return = 'id');
 }

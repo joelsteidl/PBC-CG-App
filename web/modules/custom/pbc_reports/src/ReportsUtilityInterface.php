@@ -64,5 +64,5 @@ interface ReportsUtilityInterface {
 
   public function getAttendancePercent($attendanceRecord);
 
-  public function getSeriesData($dates);
+  public function getSeriesData($groups, $dates);
 }

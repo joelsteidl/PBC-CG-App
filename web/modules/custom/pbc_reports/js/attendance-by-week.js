@@ -55,9 +55,7 @@ Drupal.behaviors.HighChartsBehavior = {
                 }
             }]
         }
-
     });
-
   }
 };
 })(jQuery, Drupal, drupalSettings);

@@ -81,6 +81,11 @@ class ReportingWeekController extends ControllerBase {
 
     if (empty($groups) || empty($startInput) || empty($endInput)) {
       $build['report_config']['form'] = $this->formBuilder->getForm('Drupal\pbc_reports\Form\ReportConfigForm');
+      $build['#attached'] = [
+        'library' => [
+          'pbc_reports/base-styles',
+        ],
+      ];
       return $build;
     }
 

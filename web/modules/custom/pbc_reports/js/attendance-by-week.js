@@ -10,7 +10,7 @@ Drupal.behaviors.HighChartsBehavior = {
             text: 'CG Attendance'
         },
         subtitle: {
-            text: 'Source: thesolarfoundation.com'
+            text: 'Based on active group members.'
         },
         xAxis: {
             categories: settingsLabels
@@ -34,10 +34,18 @@ Drupal.behaviors.HighChartsBehavior = {
         },
 
         tooltip: {
-            formatter: function () {
-                return 'The value for <b>' + this.x +
-                    '</b> is <b>' + this.y + '</b>' + this.point.extra;
-            }
+          // formatter: function () {
+          //     return this.x + ': ' + this.y + '%' + '</br>' + this.point.extra;
+          // }
+          shared: false,
+          formatter: function() {
+            // Get extra data.
+            var extra = this.series.options.extra;
+            // Find index of the current point.
+            var index = this.series.data.indexOf(this.point);
+            var display = '<b>' + this.x + '</b><br/>' + this.y + '%' + ' - ' + extra[index];
+            return display;
+          }
         },
         series: settingsSeriesData,
 

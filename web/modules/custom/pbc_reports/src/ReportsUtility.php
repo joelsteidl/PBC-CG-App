@@ -122,11 +122,27 @@ class ReportsUtility implements ReportsUtilityInterface {
         $attendanceRecord = $this->getAttendanceRecord($group, $date['start_query'], $date['end_query']);
         if (!$attendanceRecord) {
           $seriesData[$delta]['data'][] = 0;
-          $seriesData[$delta]['extra'][] = 'No Data';
+          $seriesData[$delta]['extra'][] = 'No Attendance Record';
         }
         else {
+          // TODO: Move to method.
+          $reason = $attendanceRecord->field_group_meeting_status->getString();
+          $status = '';
+          switch ($reason) {
+            case 'no':
+              $status = 'Did not Meet';
+              break;
+
+            case 'not_submitted':
+              $status = 'Did not Submit';
+              break;
+
+            case 'yes':
+              $status = 'Group Met';
+              break;
+          }
           $seriesData[$delta]['data'][] = $this->getAttendancePercent($attendanceRecord);
-          $seriesData[$delta]['extra'][] = $attendanceRecord->field_group_meeting_status->getString();
+          $seriesData[$delta]['extra'][] = $status;
         }
       }
       $delta++;

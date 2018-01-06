@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Routing\CurrentRouteMatch;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\Core\Cache\Cache;
 
 /**
  * Provides a 'GroupAttendanceReviewBlock' block.
@@ -55,6 +56,7 @@ class GroupAttendanceReviewBlock extends BlockBase implements ContainerFactoryPl
       $container->get('current_route_match')
     );
   }
+
   /**
    * {@inheritdoc}
    */
@@ -81,6 +83,21 @@ class GroupAttendanceReviewBlock extends BlockBase implements ContainerFactoryPl
     ];
 
     return $build;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+   public function getCacheTags() {
+     $groupAttendance = $this->currentRouteMatch->getParameter('attendance');
+     return Cache::mergeTags(parent::getCacheTags(), ['node:' . $groupAttendance->id()]);
+   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    return Cache::mergeContexts(parent::getCacheContexts(), ['route']);
   }
 
 }

@@ -16,7 +16,7 @@ jobs:
               ssh -o "StrictHostKeyChecking no" ${USER}@${DEV_DOMAIN} '
               cd /home/pbc_cg/dev.cg.providencedenver.org &&
               git pull origin dev &&
-              composer install &&
+              composer install --no-dev &&
               cd web &&
               drush --root=/home/pbc_cg/dev.cg.providencedenver.org/web cim -y && drush --root=/home/pbc_cg/dev.cg.providencedenver.org/web updb -y
               '
@@ -25,7 +25,7 @@ jobs:
               ssh -o "StrictHostKeyChecking no" ${USER}@${DEV_DOMAIN} '
               cd /home/pbc_cg/cg.providencedenver.org &&
               git pull origin master &&
-              composer install &&
+              composer install --no-dev &&
               cd web &&
               drush --root=/home/pbc_cg/cg.providencedenver.org/web cim -y && drush --root=/home/pbc_cg/cg.providencedenver.org/web updb -y
               '

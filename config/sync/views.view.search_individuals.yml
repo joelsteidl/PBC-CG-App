@@ -462,6 +462,7 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -499,6 +500,7 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -644,7 +646,7 @@ display:
           2: OR
       use_ajax: true
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -665,7 +667,7 @@ display:
     display_options:
       display_extenders: {  }
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'

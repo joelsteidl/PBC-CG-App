@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.group_attendance_record.field_group
+    - field.field.node.group_attendance_record.field_group_meeting_status
     - field.field.node.group_attendance_record.field_meeting_date
     - field.field.node.group_attendance_record.field_meeting_status
     - field.field.node.group_attendance_record.field_notes
@@ -19,8 +20,11 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_group: true
+  field_group_meeting_status: true
   field_meeting_date: true
   field_meeting_status: true
   field_notes: true

@@ -4,7 +4,7 @@ pbc_reports.reporting_dashboard:
     _controller: '\Drupal\pbc_reports\Controller\ReportingDashboardController::index'
     _title: 'Reporting Dashboard'
   requirements:
-    _permission: 'access content'
+    _permission: 'access reports'
 
 pbc_reports.testing:
   path: '/reports/test'
@@ -12,7 +12,7 @@ pbc_reports.testing:
     _controller: '\Drupal\pbc_reports\Controller\ReportingTestController::index'
     _title: 'Reporting Test'
   requirements:
-    _permission: 'access content'
+    _permission: 'access reports'
 
 pbc_reports.week:
   path: '/reports/attendance-by-week'
@@ -20,4 +20,12 @@ pbc_reports.week:
     _controller: '\Drupal\pbc_reports\Controller\ReportingWeekController::index'
     _title: 'Attendance by Week'
   requirements:
-    _permission: 'access content'
+    _permission: 'access reports'
+
+pbc_reports.reporting_inactive:
+  path: '/reports/inactive'
+  defaults:
+    _controller: '\Drupal\pbc_reports\Controller\ReportingInactive::build'
+    _title: 'Inactive Report'
+  requirements:
+    _permission: 'access reports'

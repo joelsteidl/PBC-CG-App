@@ -933,7 +933,6 @@ display:
               group_admin: '0'
               attendance_manager: '0'
               administrator: '0'
-            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -1030,9 +1029,6 @@ display:
               group_admin: '0'
               attendance_manager: '0'
               administrator: '0'
-            placeholder: ''
-            min_placeholder: ''
-            max_placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -1118,7 +1114,7 @@ display:
         groups:
           1: AND
     cache_metadata:
-      max-age: -1
+      max-age: 0
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -1148,7 +1144,7 @@ display:
       display_extenders: {  }
       path: admin/reports/export/preview
     cache_metadata:
-      max-age: -1
+      max-age: 0
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'

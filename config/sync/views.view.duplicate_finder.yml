@@ -1,19 +1,23 @@
-uuid: 049732ec-e7c4-40a0-af42-623fb6557903
+uuid: b86ff92d-3f58-4597-8e09-00766e76638b
 langcode: en
 status: true
 dependencies:
+  config:
+    - field.storage.node.field_first_name
+    - field.storage.node.field_group
+    - field.storage.node.field_last_name
+    - node.type.group_connection
+    - user.role.administrator
   module:
-    - block_content
+    - node
     - user
-_core:
-  default_config_hash: msYnighLW1IbiBfyQbwbQwb2cU-5LECiFryt60k0Nfk
-id: block_content
-label: 'Custom block library'
+id: duplicate_finder
+label: 'Duplicate Finder'
 module: views
-description: 'Find and manage custom blocks.'
-tag: default
-base_table: block_content_field_data
-base_field: id
+description: 'Helps with duplicate individuals.'
+tag: ''
+base_table: node_field_data
+base_field: nid
 core: 8.x
 display:
   default:
@@ -23,9 +27,10 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'administer blocks'
+          role:
+            administrator: administrator
       cache:
         type: tag
         options: {  }
@@ -48,27 +53,17 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: mini
+        type: none
         options:
-          items_per_page: 50
           offset: 0
-          id: 0
-          total_pages: null
-          tags:
-            previous: '‹ Previous'
-            next: 'Next ›'
-          expose:
-            items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
       style:
         type: table
         options:
-          grouping: {  }
+          grouping:
+            -
+              field: field_last_name
+              rendered: true
+              rendered_strip: false
           row_class: ''
           default_row_class: true
           override: true
@@ -77,52 +72,36 @@ display:
           summary: ''
           description: ''
           columns:
-            info: info
-            type: type
-            changed: changed
-            operations: operations
+            field_first_name: field_first_name
+            field_last_name: field_last_name
           info:
-            info:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            type:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            changed:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            operations:
+            field_first_name:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-          default: changed
-          empty_table: true
+            field_last_name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: '-1'
+          empty_table: false
       row:
         type: fields
       fields:
-        info:
-          id: info
-          table: block_content_field_data
-          field: info
-          relationship: none
+        field_first_name:
+          id: field_first_name
+          table: node__field_first_name
+          field: field_first_name
+          relationship: field_individual
           group_type: group
           admin_label: ''
-          label: 'Block description'
+          label: 'First Name'
           exclude: false
           alter:
             alter_text: false
@@ -166,7 +145,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: true
+            link_to_entity: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -177,17 +156,79 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: null
-          entity_field: info
           plugin_id: field
-        type:
-          id: type
-          table: block_content_field_data
-          field: type
+        field_last_name:
+          id: field_last_name
+          table: node__field_last_name
+          field: field_last_name
+          relationship: field_individual
+          group_type: group
+          admin_label: ''
+          label: 'Last Name'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns:
+            value: value
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_group:
+          id: field_group
+          table: node__field_group
+          field: field_group
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Block type'
+          label: 'Community Group'
           exclude: false
           alter:
             alter_text: false
@@ -231,7 +272,7 @@ display:
           click_sort_column: target_id
           type: entity_reference_label
           settings:
-            link: false
+            link: true
           group_column: target_id
           group_columns: {  }
           group_rows: true
@@ -242,182 +283,43 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: block_content
-          entity_field: type
           plugin_id: field
-        changed:
-          id: changed
-          table: block_content_field_data
-          field: changed
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Updated
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          entity_type: block_content
-          entity_field: changed
-          type: timestamp
-          settings:
-            date_format: short
-            custom_date_format: ''
-            timezone: ''
-          plugin_id: field
-        operations:
-          id: operations
-          table: block_content
-          field: operations
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Operations
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          destination: true
-          entity_type: block_content
-          plugin_id: entity_operations
       filters:
-        info:
-          id: info
-          table: block_content_field_data
-          field: info
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
+        status:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
           expose:
-            operator_id: info_op
-            label: 'Block description'
-            description: ''
-            use_operator: false
-            operator: info_op
-            identifier: info
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: block_content
-          entity_field: info
-          plugin_id: string
+            operator: ''
+          group: 1
         type:
           id: type
-          table: block_content_field_data
+          table: node_field_data
           field: type
           relationship: none
           group_type: group
           admin_label: ''
           operator: in
-          value: {  }
+          value:
+            group_connection: group_connection
           group: 1
-          exposed: true
+          exposed: false
           expose:
-            operator_id: type_op
-            label: 'Block type'
+            operator_id: ''
+            label: ''
             description: ''
             use_operator: false
-            operator: type_op
-            identifier: type
+            operator: ''
+            identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -431,84 +333,74 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: block_content
+          entity_type: node
           entity_field: type
           plugin_id: bundle
-        reusable:
-          id: reusable
-          table: block_content_field_data
-          field: reusable
+      sorts:
+        field_last_name_value:
+          id: field_last_name_value
+          table: node__field_last_name
+          field: field_last_name_value
           relationship: none
           group_type: group
           admin_label: ''
-          operator: '='
-          value: '1'
-          group: 1
+          order: ASC
           exposed: false
           expose:
-            operator_id: ''
             label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-          is_grouped: false
-          group_info:
+          plugin_id: standard
+        field_first_name_value:
+          id: field_first_name_value
+          table: node__field_first_name
+          field: field_first_name_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
             label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: block_content
-          entity_field: reusable
-          plugin_id: boolean
-      sorts: {  }
-      title: 'Custom block library'
-      header: {  }
-      footer: {  }
-      empty:
-        area_text_custom:
-          id: area_text_custom
+          plugin_id: standard
+      title: 'Duplicate Finder'
+      header:
+        result:
+          id: result
           table: views
-          field: area_text_custom
+          field: result
           relationship: none
           group_type: group
           admin_label: ''
-          empty: true
-          tokenize: false
-          content: 'There are no custom blocks available. '
-          plugin_id: text_custom
-        block_content_listing_empty:
-          admin_label: ''
-          empty: true
-          field: block_content_listing_empty
-          group_type: group
-          id: block_content_listing_empty
-          label: ''
+          empty: false
+          content: 'Displaying @start - @end of @total'
+          plugin_id: result
+      footer: {  }
+      empty: {  }
+      relationships:
+        field_individual:
+          id: field_individual
+          table: node__field_individual
+          field: field_individual
           relationship: none
-          table: block_content
-          plugin_id: block_content_listing_empty
-          entity_type: block_content
-      relationships: {  }
+          group_type: group
+          admin_label: 'field_individual: Content'
+          required: false
+          plugin_id: standard
       arguments: {  }
       display_extenders: {  }
+      use_ajax: true
+      group_by: false
     cache_metadata:
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
-        - url.query_args
-        - user.permissions
-      max-age: -1
-      tags: {  }
+        - 'user.node_grants:view'
+        - user.roles
+      tags:
+        - 'config:field.storage.node.field_first_name'
+        - 'config:field.storage.node.field_group'
+        - 'config:field.storage.node.field_last_name'
+        - extensions
   page_1:
     display_plugin: page
     id: page_1
@@ -516,21 +408,16 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: admin/structure/block/block-content
-      menu:
-        type: tab
-        title: 'Custom block library'
-        description: ''
-        parent: block.admin_display
-        weight: 0
-        context: '0'
-        menu_name: admin
+      path: duplicate-finder
     cache_metadata:
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
-        - url.query_args
-        - user.permissions
-      max-age: -1
-      tags: {  }
+        - 'user.node_grants:view'
+        - user.roles
+      tags:
+        - 'config:field.storage.node.field_first_name'
+        - 'config:field.storage.node.field_group'
+        - 'config:field.storage.node.field_last_name'
+        - extensions

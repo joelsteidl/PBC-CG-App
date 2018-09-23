@@ -64,8 +64,7 @@ class ReportConfigForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
-
+  public function buildForm(array $form, FormStateInterface $form_state, $options = []) {
     $groups = $this->pbcGroupsUtility->getGroupNodes(NULL, 'object');
 
     $activeGroups = [];
@@ -85,15 +84,19 @@ class ReportConfigForm extends FormBase {
       '#title' => $this->t('Groups'),
       '#options' => $allGroups,
       '#default_value' => $activeGroups,
+      '#description' => $this->t('Choose the group or groups you would like to see data for.'),
     ];
-    $form['start_date'] = [
-      '#type' => 'date',
-      '#title' => $this->t('Start Date'),
-    ];
-    $form['end_date'] = [
-      '#type' => 'date',
-      '#title' => $this->t('End Date'),
-    ];
+
+    if (empty($options['exclude'])) {
+      $form['start_date'] = [
+        '#type' => 'date',
+        '#title' => $this->t('Start Date'),
+      ];
+      $form['end_date'] = [
+        '#type' => 'date',
+        '#title' => $this->t('End Date'),
+      ];
+    }
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('See Report'),

@@ -29,3 +29,11 @@ pbc_reports.reporting_inactive:
     _title: 'Inactive Report'
   requirements:
     _permission: 'access reports'
+
+pbc_reports.individuals_by_group_build:
+  path: '/reports/group-history'
+  defaults:
+    _controller: '\Drupal\pbc_reports\Controller\IndividualsByGroup::build'
+    _title: 'Report - Past 12 Meetings'
+  requirements:
+    _permission: 'access reports'

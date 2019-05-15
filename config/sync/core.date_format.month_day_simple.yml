@@ -1,8 +1,0 @@
-uuid: 63df6c92-679d-40eb-a26b-9f33fd51a940
-langcode: en
-status: true
-dependencies: {  }
-id: month_day_simple
-label: 'Month Day Simple'
-locked: false
-pattern: 'M. d'

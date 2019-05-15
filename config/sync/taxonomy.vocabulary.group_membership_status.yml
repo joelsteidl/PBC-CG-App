@@ -5,5 +5,4 @@ dependencies: {  }
 name: 'Group Membership Status'
 vid: group_membership_status
 description: ''
-hierarchy: 0
 weight: 0

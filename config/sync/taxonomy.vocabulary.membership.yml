@@ -5,5 +5,4 @@ dependencies: {  }
 name: Membership
 vid: membership
 description: ''
-hierarchy: 0
 weight: 0

@@ -5,5 +5,4 @@ dependencies: {  }
 name: Ethnicity
 vid: ethnicity
 description: ''
-hierarchy: 0
 weight: 0

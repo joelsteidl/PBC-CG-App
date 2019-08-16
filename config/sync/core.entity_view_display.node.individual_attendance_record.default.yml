@@ -3,13 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.individual_attendance_record.field_below_poverty_line
     - field.field.node.individual_attendance_record.field_group_attendance_record
     - field.field.node.individual_attendance_record.field_group_connection
     - field.field.node.individual_attendance_record.field_group_connection_status
     - field.field.node.individual_attendance_record.field_in_attendance
     - field.field.node.individual_attendance_record.field_membership
-    - field.field.node.individual_attendance_record.field_neighborhood
     - node.type.individual_attendance_record
   module:
     - user
@@ -18,16 +16,6 @@ targetEntityType: node
 bundle: individual_attendance_record
 mode: default
 content:
-  field_below_poverty_line:
-    weight: 106
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
   field_group_attendance_record:
     weight: 102
     label: above
@@ -64,14 +52,6 @@ content:
     region: content
   field_membership:
     weight: 107
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_neighborhood:
-    weight: 105
     label: above
     settings:
       link: true

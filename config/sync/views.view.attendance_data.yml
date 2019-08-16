@@ -1,10 +1,8 @@
 uuid: ce2d179d-4fca-4681-95af-1050dfeb0e57
 langcode: en
-status: true
+status: false
 dependencies:
   config:
-    - field.storage.node.field_below_poverty_line
-    - field.storage.node.field_ethnicity
     - field.storage.node.field_first_name
     - field.storage.node.field_group
     - field.storage.node.field_group_connection_status
@@ -703,134 +701,6 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_below_poverty_line:
-          id: field_below_poverty_line
-          table: node__field_below_poverty_line
-          field: field_below_poverty_line
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Below Poverty Line'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: boolean
-          settings:
-            format: yes-no
-            format_custom_true: ''
-            format_custom_false: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        field_ethnicity:
-          id: field_ethnicity
-          table: node__field_ethnicity
-          field: field_ethnicity
-          relationship: field_individual
-          group_type: group
-          admin_label: ''
-          label: Ethnicity
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
         field_neighborhood:
           id: field_neighborhood
           table: node__field_neighborhood
@@ -1123,8 +993,6 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_below_poverty_line'
-        - 'config:field.storage.node.field_ethnicity'
         - 'config:field.storage.node.field_first_name'
         - 'config:field.storage.node.field_group'
         - 'config:field.storage.node.field_group_connection_status'
@@ -1153,8 +1021,6 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_below_poverty_line'
-        - 'config:field.storage.node.field_ethnicity'
         - 'config:field.storage.node.field_first_name'
         - 'config:field.storage.node.field_group'
         - 'config:field.storage.node.field_group_connection_status'
@@ -1234,8 +1100,6 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
-        - 'config:field.storage.node.field_below_poverty_line'
-        - 'config:field.storage.node.field_ethnicity'
         - 'config:field.storage.node.field_first_name'
         - 'config:field.storage.node.field_group'
         - 'config:field.storage.node.field_group_connection_status'

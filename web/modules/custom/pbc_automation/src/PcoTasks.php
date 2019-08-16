@@ -98,44 +98,6 @@ class PcoTasks implements PcoTasksInterface {
       $values['field_email_address'] = $this->getPcoEmail($emailId);
     }
 
-    // Handle Field Data.
-    if ($fieldData = $this->getPcoFieldData($pcoRecord->id)) {
-      foreach ($fieldData as $itemData) {
-        $id = $itemData->relationships->field_definition->data->id;
-        $value = $itemData->attributes->value;
-
-        switch ($id) {
-          // field_below_poverty_line.
-          case '118307':
-            $poverty = '';
-            if ($value === 'true') {
-              $poverty = 1;
-            }
-            elseif ($value === 'false') {
-              $poverty = 0;
-            }
-
-            $values['field_below_poverty_line'] = $poverty;
-            break;
-
-          // field_ethnicity.
-          case '118308':
-            if ($tid = $this->groupsUtility->getTidByName('ethnicity', $value)) {
-              $values['field_ethnicity'] = $tid;
-            }
-            break;
-
-          // field_neighborhood.
-          case '118309':
-            if ($tid = $this->groupsUtility->getTidByName('neighborhood', $value)) {
-              $values['field_neighborhood'] = $tid;
-            }
-            break;
-
-        }
-      }
-    }
-
     return $values;
   }
 
@@ -164,37 +126,6 @@ class PcoTasks implements PcoTasksInterface {
     // Create their email address.
     if (!$node->field_email_address->isEmpty()) {
       $this->createPcoEmail($node, $pcoId);
-    }
-    // Create custom field data.
-    // Keys are field IDs in PCO.
-    $fields = [
-      '118307' => 'field_below_poverty_line',
-      '118308' => 'field_ethnicity',
-      '118309' => 'field_neighborhood',
-    ];
-
-    foreach ($fields as $fieldId => $field) {
-      $fieldInfo = [];
-      if (!$node->{$field}->isEmpty()) {
-        switch ($field) {
-          case 'field_ethnicity':
-          case 'field_neighborhood':
-            $fieldInfo['value'] = $node->{$field}->entity->getName();
-            break;
-
-          case 'field_below_poverty_line':
-            $value = $node->{$field}->value;
-            if ($value == 1) {
-              $fieldInfo['value'] = 'true';
-            }
-            elseif ($value == 0) {
-              $fieldInfo['value'] = 'false';
-            }
-            break;
-        }
-        $fieldInfo['id'] = $fieldId;
-        $this->createPcoFieldData($node, $fieldInfo, $pcoId);
-      }
     }
 
     return $response->data->id;

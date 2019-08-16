@@ -31,17 +31,11 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_neighborhood:
-    weight: 26
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 121
+    weight: 4
     third_party_settings: {  }
     region: content
   title:
@@ -54,6 +48,7 @@ content:
     region: content
 hidden:
   created: true
+  field_neighborhood: true
   path: true
   promote: true
   sticky: true

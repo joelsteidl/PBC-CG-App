@@ -70,10 +70,7 @@ class GroupsUtility implements GroupsUtilityInterface {
           'field_first_name',
           'field_last_name',
           'field_email_address',
-          'field_below_poverty_line',
-          'field_ethnicity',
           'field_membership',
-          'field_neighborhood',
           'field_pco_updated',
         ];
         break;
@@ -153,9 +150,7 @@ class GroupsUtility implements GroupsUtilityInterface {
       'field_in_attendance' => $in_attendance,
       'field_group_connection' => $group_connection->id(),
       'field_group_connection_status' => $group_connection->field_group_connection_status->target_id,
-      'field_neighborhood' => $individual->field_neighborhood->target_id,
       'field_membership' => $individual->field_membership->target_id,
-      'field_below_poverty_line' => $individual->field_below_poverty_line->value,
     ];
 
     return $values;

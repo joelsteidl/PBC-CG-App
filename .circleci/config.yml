@@ -2,9 +2,6 @@ version: 2
 
 jobs:
   build:
-    docker:
-      - image: alexwijn/docker-git-php-composer
-    working_directory: ~/repo
     branches:
       only:
         - master

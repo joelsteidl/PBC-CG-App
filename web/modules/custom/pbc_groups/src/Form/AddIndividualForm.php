@@ -81,24 +81,6 @@ class AddIndividualForm extends FormBase {
       '#default_value' => $defaults['status'],
     ];
 
-    $form['field_below_poverty_line'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Below Poverty Line'),
-      '#options' => [1 => 'Yes', 0 => 'No'],
-    ];
-
-    $form['field_ethnicity'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Ethnicity'),
-      '#options' => $this->groupsUtility->termsToOptions('ethnicity'),
-    ];
-
-    $form['field_neighborhood'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Neighborhood'),
-      '#options' => $this->groupsUtility->termsToOptions('neighborhood'),
-    ];
-
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => t('Add Person'),
@@ -134,9 +116,6 @@ class AddIndividualForm extends FormBase {
       'field_first_name',
       'field_last_name',
       'field_email_address',
-      'field_below_poverty_line',
-      'field_ethnicity',
-      'field_neighborhood',
     ];
     foreach ($fields as $field) {
       $individualValues[$field] = $form_state->getValue($field);

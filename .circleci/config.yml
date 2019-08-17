@@ -2,12 +2,16 @@ version: 2
 
 jobs:
   build:
+  deploy:
+    machine:
+      enabled: true
     branches:
       only:
         - master
         - dev
     steps:
-      - deploy:
+      - run:
+          name: Deploy to Dreamhost
           command: |
             if [ "${CIRCLE_BRANCH}" == "dev" ]; then
               ssh -o "StrictHostKeyChecking no" ${USER}@${DEV_DOMAIN} '

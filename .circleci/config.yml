@@ -1,12 +1,5 @@
 version: 2
 jobs:
-  deploy:
-    machine:
-      enabled: true
-    branches:
-      only:
-        - master
-        - dev
     steps:
       - run:
           name: Deploy to Dreamhost

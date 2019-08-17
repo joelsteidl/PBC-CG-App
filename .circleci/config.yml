@@ -1,8 +1,16 @@
 version: 2
+
 jobs:
+  build:
+    docker:
+      - image: circleci/php:latest
+    working_directory: ~/repo
+    branches:
+      only:
+        - master
+        - dev
     steps:
-      - run:
-          name: Deploy to Dreamhost
+      - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "dev" ]; then
               ssh -o "StrictHostKeyChecking no" ${USER}@${DEV_DOMAIN} '

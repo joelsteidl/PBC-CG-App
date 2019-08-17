@@ -18,7 +18,7 @@ jobs:
               git pull origin dev &&
               composer install --no-dev &&
               cd web &&
-              drush --root=/home/pbc_cg/dev.cg.providencedenver.org/web cim -y && drush --root=/home/pbc_cg/dev.cg.providencedenver.org/web updb -y
+              drush updb -y && drush cim -y
               '
             fi
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
@@ -27,6 +27,6 @@ jobs:
               git pull origin master &&
               composer install --no-dev &&
               cd web &&
-              drush --root=/home/pbc_cg/cg.providencedenver.org/web cim -y && drush --root=/home/pbc_cg/cg.providencedenver.org/web updb -y
+              drush updb -y && drush cim -y
               '
             fi

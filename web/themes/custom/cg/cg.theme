@@ -57,33 +57,56 @@ function cg_preprocess_views_view_field(&$variables) {
     '#suffix' => '</span>',
   ];
   if ($attendance == 0) {
-    $url = Url::fromRoute(
+    $url_guest = Url::fromRoute(
       'pbc_groups.record_attendance_controller_callback',
       [
         'group_connection' => $group_connection_node->id(),
         'group_attendance_record' => $group_attend_nid,
         'in_attendance' => 1,
+        'status' => 3,
       ],
       [
         'attributes' => [
-          'class' => ['use-ajax', 'btn', 'btn-default']
-        ]
+          'class' => ['btn', 'btn-default'],
+          'role' => 'group',
+          'type' => 'button',
+        ],
       ]
     );
 
-    $name = 'Person';
-    if ($group_connection_node->field_individual->entity && !$group_connection_node->field_individual->entity->field_first_name->isEmpty()) {
-      $name = $group_connection_node->field_individual->entity->field_first_name->getString();
-    }
-    $link_text = t(
-      'Add @name',
+    $url_active = Url::fromRoute(
+      'pbc_groups.record_attendance_controller_callback',
       [
-        '@name' => $name
+        'group_connection' => $group_connection_node->id(),
+        'group_attendance_record' => $group_attend_nid,
+        'in_attendance' => 1,
+        'status' => 1,
+      ],
+      [
+        'attributes' => [
+          'class' => ['btn', 'btn-default'],
+          'role' => 'group',
+          'type' => 'button',
+        ],
       ]
     );
-    $output = Link::fromTextAndUrl($link_text, $url)->toRenderable();
+
+    $link_text = t('Add as Guest');
+    $link_guest = Link::fromTextAndUrl($link_text, $url_guest)->toString();
+
+    $link_text = t('Add as Active Member');
+    $link_active = Link::fromTextAndUrl($link_text, $url_active)->toString();
+
+    $output = [
+      '#prefix' => '<div class="btn-group btn-group-vertical btn-group-sm" role="group">',
+      '#markup' => $link_guest . $link_active,
+      '#suffix' => '</div>',
+    ];
   }
   $variables['output'] = $output;
+
+  // <a type="button" class="btn btn-default" role="button" href="/group/add/group-connection/{{ arguments.null }}/{{ nid }}/3 ">Add as Guest</a>
+  // <a type="button" class="btn btn-default" role="button" href="/group/add/group-connection/{{ arguments.null }}/{{ nid }}/1>Add as Active Member</a>
 }
 
 function cg_preprocess_block(&$variables) {

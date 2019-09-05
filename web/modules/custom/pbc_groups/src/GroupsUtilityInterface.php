@@ -53,11 +53,13 @@ interface GroupsUtilityInterface {
    *
    * @param string $vocab
    *   The terms vocabulary.
+   * @param array $exclude
+   *   List of terms to exclude.
    *
    * @return array
    *   array that can be used in a select
    */
-  public function termsToOptions($vocab);
+  public function termsToOptions($vocab, $exclude);
 
   /**
    * Build a complete array to create a node with.

@@ -27,6 +27,7 @@ function pbc_groups_entity_view(array &$build, EntityInterface $entity, EntityVi
     $form_builder = Drupal::service('form_builder');
     $build['management_form']['#weight'] = 20;
     $build['management_form']['form'] = $form_builder->getForm('Drupal\pbc_groups\Form\ManageAttendanceForm');
+    $build['management_form']['form']['#cache']['max-age'] = 0;
     return $build;
   }
 }

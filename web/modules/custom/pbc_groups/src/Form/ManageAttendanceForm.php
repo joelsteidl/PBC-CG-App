@@ -80,24 +80,10 @@ class ManageAttendanceForm extends FormBase {
     $options = [];
     $defaults = [];
 
-    // Set a timestamp when the form loads.
-    $now = new DrupalDateTime('now');
-    $now = $now->format('U');
-    $input = &$form_state->getUserInput();
-    if (isset($input['now'])) {
-      $now = $input['now'];
-    }
-
-    $form['now'] = [
-      '#type' => 'hidden',
-      '#value' => $now,
-    ];
-
     $records = $storage->getQuery()
       ->condition('type', 'individual_attendance_record')
       ->condition('field_group_attendance_record', $this->groupAttendance->id())
       ->condition('status', 1)
-      ->condition('created', $now, '<')
       ->sort('field_group_connection_status.entity.weight', 'ASC')
       ->sort('field_group_connection.entity.field_individual.entity.field_last_name', 'ASC')
       ->sort('field_group_connection.entity.field_individual.entity.field_first_name', 'ASC')
@@ -120,6 +106,13 @@ class ManageAttendanceForm extends FormBase {
     $form['notice'] = [
       '#prefix' => '<div class="alert alert-warning">',
       '#markup' => '<strong>Attention!</strong> Please be sure to click "Save" before leaving this page.',
+      '#suffix' => '</div>',
+      '#weight' => 0,
+    ];
+
+    $form['manage'] = [
+      '#prefix' => '<div class="pull-right">',
+      '#markup' => '<a href="/group/' . $this->groupAttendance->field_group->target_id . '" class="btn btn-default"><i class="fas fa-cog"></i> Manage Group Members</a>',
       '#suffix' => '</div>',
       '#weight' => 0,
     ];

@@ -126,7 +126,7 @@
           page.sidebar_first and page.sidebar_second ? 'col-sm-6',
           page.sidebar_first and page.sidebar_second is empty ? 'col-sm-8',
           page.sidebar_second and page.sidebar_first is empty ? 'col-sm-8',
-          page.sidebar_first is empty and page.sidebar_second is empty ? 'col-sm-6 col-centered'
+          page.sidebar_first is empty and page.sidebar_second is empty ? 'col-sm-10 col-centered'
         ]
       %}
       <section{{ content_attributes.addClass(content_classes) }}>
@@ -164,6 +164,11 @@
           <a id="main-content"></a>
           {{ page.content }}
         {% endblock %}
+        {% if page.content_bottom %}
+          {% block content_bottom %}
+            {{ page.content_bottom }}
+          {% endblock %}
+        {% endif %}
       </section>
 
       {# Sidebar Second #}

@@ -13,7 +13,7 @@ dependencies:
 id: views_block__attendance_manager_groups_block_1
 theme: cg
 region: sidebar_second
-weight: 0
+weight: -10
 provider: null
 plugin: 'views_block:attendance_manager_groups-block_1'
 settings:

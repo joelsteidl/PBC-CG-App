@@ -560,6 +560,7 @@ display:
         fields: false
         arguments: false
         title: false
+        use_ajax: false
       block_hide_empty: true
       display_description: ''
       fields:
@@ -793,6 +794,7 @@ display:
           entity_field: nid
           plugin_id: node_nid
       title: 'Past Attendance Reports'
+      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:

@@ -54,19 +54,27 @@ class RecordAttendanceController extends ControllerBase {
    * @return string
    *   Return Hello string.
    */
-  public function callback(NodeInterface $group_connection, NodeInterface $group_attendance_record, $in_attendance) {
+  public function callback(NodeInterface $group_connection, NodeInterface $group_attendance_record, $in_attendance, $status) {
 
-    $text = '<span class="label label-danger">&#10006; Something went wrong.</span>';
     if ($indAttendanceValues = $this->pbcGroupsUtility->buildIndivdualAttendanceNodeValues($group_connection, $group_attendance_record, $in_attendance)) {
       // Create individual_attendance_record node.
       if ($this->pbcGroupsUtility->createNode($indAttendanceValues)) {
-        $text = '<span class="label label-success">&#10003; Added</span>';
+        // Add error if not true?
       }
     }
 
-    $response = new AjaxResponse();
-    $response->addCommand(new InvokeCommand('.group-connection-' . $group_connection->id() . ' .action', 'html', [$text]));
-    return $response;
+    // Change their conntection status if becoming active.
+    if ($status == 1) {
+      $group_connection->field_group_connection_status->target_id = 1;
+      $group_connection->save();
+    }
+
+    drupal_set_message(t('Attendance has been recorded for @name.', ['@name' => $group_connection->field_individual->entity->field_first_name->getString()]), 'status', FALSE);
+    return $this->redirect('entity.node.canonical', ['node' => $group_attendance_record->id()]);
+
+    // $response = new AjaxResponse();
+    // $response->addCommand(new InvokeCommand('.group-connection-' . $group_connection->id() . ' .action', 'html', [$text]));
+    // return $response;
   }
 
 }

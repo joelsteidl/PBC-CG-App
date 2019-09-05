@@ -13,6 +13,7 @@ regions:
   highlighted: 'Highlighted'
   help: 'Help'
   content: 'Content'
+  content_bottom: 'Content bottom'
   sidebar_first: 'Primary'
   sidebar_second: 'Secondary'
   footer: 'Footer'

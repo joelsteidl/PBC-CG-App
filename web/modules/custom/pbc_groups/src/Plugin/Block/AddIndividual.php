@@ -69,11 +69,11 @@ class AddIndividual extends BlockBase implements ContainerFactoryPluginInterface
   public function build() {
     $build = [];
     $route = $this->currentRouteMatch;
+    $request = \Drupal::request();
     $defaults = [
-      'firstname' => $route->getParameter('firstname'),
-      'lastname' => $route->getParameter('lastname'),
+      'firstname' => $request->get('firstname'),
+      'lastname' => $request->get('lastname'),
       'redirect' => $route->getParameter('redirect')->id(),
-      'status' => $route->getParameter('status')
     ];
     $build['add_individual']['form'] = $this->formBuilder->getForm('Drupal\pbc_groups\Form\AddIndividualForm', $defaults);
 

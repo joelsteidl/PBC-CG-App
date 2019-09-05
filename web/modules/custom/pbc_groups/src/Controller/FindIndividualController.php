@@ -46,7 +46,7 @@ class FindIndividualController extends ControllerBase {
    *   Return Hello string.
    */
   public function getContent(NodeInterface $redirect) {
-    drupal_set_message($this->t('Please help us prevent duplicate people! Take a second and scan through this list before adding a new person. Thanks!'), 'warning', FALSE);
+    // drupal_set_message($this->t('Please help us prevent duplicate people! Take a second and scan through this list before adding a new person. Thanks!'), 'warning', FALSE);
 
     $build = [];
 
@@ -63,17 +63,8 @@ class FindIndividualController extends ControllerBase {
     );
 
     $build['cancel'] = [
-      // '#prefix' => '<div class="pull-right">',
       'link' => Link::fromTextAndUrl($this->t('&larr; Cancel'), $url)->toRenderable(),
-      // '#suffix' => '</div>',
     ];
-
-    $build['search_heading'] = [
-      '#prefix' => '<h3>',
-      '#markup' => $this->t('Search Existing People'),
-      '#suffix' => '</h3>',
-    ];
-    $build['individual_search'] = views_embed_view('search_individuals', 'block_2');
 
     return $build;
   }

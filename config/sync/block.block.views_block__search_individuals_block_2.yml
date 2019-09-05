@@ -1,0 +1,30 @@
+uuid: a9ad6531-5507-4153-b82a-e1d23c9373e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.search_individuals
+  module:
+    - system
+    - views
+  theme:
+    - cg
+id: views_block__search_individuals_block_2
+theme: cg
+region: content_bottom
+weight: -12
+provider: null
+plugin: 'views_block:search_individuals-block_2'
+settings:
+  id: 'views_block:search_individuals-block_2'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: '/find/individual/*'
+    negate: false
+    context_mapping: {  }

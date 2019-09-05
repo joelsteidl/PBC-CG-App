@@ -1,22 +1,22 @@
-uuid: c7e0126d-fce0-41ae-a590-fc6002b45ef5
+uuid: 4533e815-03b3-4a67-bcc7-d455e05bfa86
 langcode: en
 status: true
 dependencies:
   module:
+    - condition_query
     - pbc_groups
     - system
-    - user
   theme:
     - cg
 id: addsomeonenew
 theme: cg
-region: sidebar_second
-weight: -10
+region: content_bottom
+weight: -11
 provider: null
 plugin: add_individual_block
 settings:
   id: add_individual_block
-  label: 'Add Someone New'
+  label: 'Finish Adding Them'
   provider: pbc_groups
   label_display: visible
 visibility:
@@ -25,10 +25,9 @@ visibility:
     pages: '/find/individual/*'
     negate: false
     context_mapping: {  }
-  user_role:
-    id: user_role
-    roles:
-      authenticated: authenticated
+  request_param:
+    id: request_param
+    request_param: 'firstname=*'
     negate: false
-    context_mapping:
-      user: '@user.current_user_context:current_user'
+    context_mapping: {  }
+    case_sensitive: false

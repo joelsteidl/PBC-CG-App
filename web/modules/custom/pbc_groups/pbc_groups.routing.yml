@@ -1,9 +1,9 @@
 
 pbc_groups.find_individual_controller_getContent:
-  path: '/find/individual/{redirect}/{firstname}/{lastname}/{status}'
+  path: '/find/individual/{redirect}'
   defaults:
     _controller: '\Drupal\pbc_groups\Controller\FindIndividualController::getContent'
-    _title: 'Find People'
+    _title: 'Add Someone New to Your Group'
   requirements:
     _permission: 'access content'
   options:
@@ -12,7 +12,7 @@ pbc_groups.find_individual_controller_getContent:
         type: entity:node
 
 pbc_groups.record_attendance_controller_callback:
-  path: 'group/add/individual-attendance-record/{group_connection}/{group_attendance_record}/{in_attendance}'
+  path: 'group/add/individual-attendance-record/{group_connection}/{group_attendance_record}/{in_attendance}/{status}'
   defaults:
     _controller: '\Drupal\pbc_groups\Controller\RecordAttendanceController::callback'
     _title: 'Record Attendance'

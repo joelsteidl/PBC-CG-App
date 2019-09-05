@@ -61,24 +61,30 @@ class AddIndividualForm extends FormBase {
 
     $form['field_first_name'] = [
       '#type' => 'textfield',
+      '#required' => TRUE,
       '#title' => $this->t('First Name'),
-      '#default_value' => $defaults['firstname'],
     ];
+    if (isset($defaults['firstname'])) {
+      $form['field_first_name']['#default_value'] = $defaults['firstname'];
+    }
     $form['field_last_name'] = [
       '#type' => 'textfield',
+      '#required' => TRUE,
       '#title' => $this->t('Last Name'),
-      '#default_value' => $defaults['lastname'],
     ];
+    if (isset($defaults['lastname'])) {
+      $form['field_last_name']['#default_value'] = $defaults['lastname'];
+    }
     $form['field_email_address'] = [
       '#type' => 'email',
       '#title' => $this->t('Email Address'),
     ];
 
     $form['field_group_connection_status'] = [
-      '#type' => 'select',
+      '#type' => 'radios',
+      '#required' => TRUE,
       '#title' => $this->t('Status'),
-      '#options' => $this->groupsUtility->termsToOptions('group_membership_status'),
-      '#default_value' => $defaults['status'],
+      '#options' => $this->groupsUtility->termsToOptions('group_membership_status', ['Inactive']),
     ];
 
     $form['submit'] = [

@@ -35,7 +35,7 @@ class GroupsUtility implements GroupsUtilityInterface {
   /**
    * { @inheritdoc }
    */
-  public function termsToOptions($vocab) {
+  public function termsToOptions($vocab, $exclude = []) {
     $options = [];
     $storage = $this->entityTypeManager->getStorage('taxonomy_term');
 
@@ -44,7 +44,10 @@ class GroupsUtility implements GroupsUtilityInterface {
     ]);
 
     foreach ($terms as $term) {
-      $options[$term->id()] = $term->getName();
+      $name = $term->getName();
+      if (!in_array($name, $exclude)) {
+        $options[$term->id()] = $name;
+      }
     }
 
     return $options;

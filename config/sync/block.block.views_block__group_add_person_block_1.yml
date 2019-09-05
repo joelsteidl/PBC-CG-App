@@ -1,23 +1,23 @@
-uuid: 22fce1f4-6577-4f4e-b8fc-22d2d865f3e9
+uuid: 137857e0-0306-4673-acd5-184a2ed26936
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.recent_group_attendance
+    - views.view.group_add_person
   module:
     - ctools
     - system
     - views
   theme:
     - cg
-id: views_block__recent_group_attendance_block_3
+id: views_block__group_add_person_block_1
 theme: cg
 region: sidebar_second
-weight: -9
+weight: -12
 provider: null
-plugin: 'views_block:recent_group_attendance-block_3'
+plugin: 'views_block:group_add_person-block_1'
 settings:
-  id: 'views_block:recent_group_attendance-block_3'
+  id: 'views_block:group_add_person-block_1'
   label: ''
   provider: views
   label_display: visible
@@ -25,6 +25,11 @@ settings:
   items_per_page: none
   context_mapping: {  }
 visibility:
+  request_path:
+    id: request_path
+    pages: "/node/*/edit\r\n/node/add/*"
+    negate: true
+    context_mapping: {  }
   'entity_bundle:node':
     id: 'entity_bundle:node'
     bundles:
@@ -32,8 +37,3 @@ visibility:
     negate: false
     context_mapping:
       node: '@node.node_route_context:node'
-  request_path:
-    id: request_path
-    pages: 'node/*/edit'
-    negate: true
-    context_mapping: {  }

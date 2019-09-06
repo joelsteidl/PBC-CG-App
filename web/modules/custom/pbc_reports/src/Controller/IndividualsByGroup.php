@@ -254,7 +254,7 @@ class IndividualsByGroup extends ControllerBase {
     $results = $storage->getQuery()
       ->condition('type', 'group_connection')
       ->condition('field_group', $nid)
-      ->condition('field_group_connection_status.entity.name', 'Active')
+      ->condition('field_group_connection_status.entity.name', 'Active Member')
       ->condition('status', 1)
       ->sort('field_individual.entity.field_last_name', 'ASC')
       ->execute();

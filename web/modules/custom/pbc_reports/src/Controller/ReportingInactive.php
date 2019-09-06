@@ -85,7 +85,7 @@ class ReportingInactive extends ControllerBase {
 
     $results = $storage->getQuery()
       ->condition('type', 'group_connection')
-      ->condition('field_group_connection_status.entity.name', 'Inactive')
+      ->condition('field_group_connection_status.entity.name', 'Inactive Member')
       ->sort('changed', 'DESC')
       ->execute();
 
@@ -122,7 +122,7 @@ class ReportingInactive extends ControllerBase {
       ->condition('type', 'group_connection')
       ->condition('field_individual', $nid)
       ->condition('field_group.entity.field_group_status', 'Active')
-      ->condition('field_group_connection_status.entity.name', 'Active')
+      ->condition('field_group_connection_status.entity.name', 'Active Member')
       ->execute();
 
     if (!empty($results)) {

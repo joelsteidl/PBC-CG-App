@@ -48,3 +48,8 @@ if ($_SERVER['HTTP_HOST'] != 'groups.test' && php_sapi_name() != 'cli') {
     exit();
   }
 }
+
+// Automatically generated include for settings managed by ddev.
+if (file_exists($app_root . '/' . $site_path . '/settings.ddev.php')) {
+  include $app_root . '/' . $site_path . '/settings.ddev.php';
+}

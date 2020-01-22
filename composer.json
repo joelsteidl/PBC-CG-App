@@ -26,7 +26,7 @@
     "drupal/devel": "^2.1",
     "drupal/fontawesome": "^2.14",
     "drupal/key": "^1.10",
-    "drupal/pathauto": "^1.4",
+    "drupal/pathauto": "^1.6",
     "drupal/smtp": "^1.0@beta",
     "drupal/token": "^1.0@RC",
     "drupal/twig_vardumper": "^1.0",

@@ -106,3 +106,7 @@ Thumbs.db
 !web/core/**/*.gz
 
 .ddev/
+.editorconfig
+.gitattributes
+drushrc.php
+settings.ddev.php

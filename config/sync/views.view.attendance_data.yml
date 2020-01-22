@@ -30,7 +30,6 @@ description: 'Raw data dump of attendance.'
 tag: ''
 base_table: node_field_data
 base_field: nid
-core: 8.x
 display:
   default:
     display_plugin: default
@@ -775,6 +774,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         title:
           id: title
@@ -803,6 +804,8 @@ display:
               group_admin: '0'
               attendance_manager: '0'
               administrator: '0'
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -828,6 +831,9 @@ display:
           entity_field: type
           plugin_id: bundle
           group: 1
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         field_meeting_status_value:
           id: field_meeting_status_value
           table: node__field_meeting_status
@@ -855,6 +861,8 @@ display:
               group_admin: '0'
               attendance_manager: '0'
               administrator: '0'
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -899,6 +907,8 @@ display:
               group_admin: '0'
               attendance_manager: '0'
               administrator: '0'
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''

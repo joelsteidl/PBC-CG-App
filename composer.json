@@ -12,7 +12,6 @@
     "require": {
     "composer/installers": "^1.2",
     "cweagans/composer-patches": "^1.0",
-    "drupal/core-composer-scaffold": "^8.8",
     "drupal/admin_toolbar": "^1.26",
     "drupal/adminimal_admin_toolbar": "^1.0",
     "drupal/adminimal_theme": "^1.5",
@@ -20,6 +19,7 @@
     "drupal/condition_query": "^1.2",
     "drupal/config_split": "^1.2",
     "drupal/console": "~1.0",
+    "drupal/core-composer-scaffold": "^8.8",
     "drupal/core-recommended": "^8.8",
     "drupal/csv_serialization": "^1.0",
     "drupal/ctools": "^3.2",
@@ -27,6 +27,7 @@
     "drupal/fontawesome": "^2.14",
     "drupal/key": "^1.10",
     "drupal/pathauto": "^1.6",
+    "drupal/sendgrid_integration": "^1.2",
     "drupal/smtp": "^1.0@beta",
     "drupal/token": "^1.0@RC",
     "drupal/twig_vardumper": "^1.0",

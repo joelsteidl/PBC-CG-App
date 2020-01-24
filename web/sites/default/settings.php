@@ -27,16 +27,6 @@ if (file_exists($prod_settings)) {
   include $prod_settings;
 }
 
-/**
- * Always install the 'standard' profile to stop the installer from
- * modifying settings.php.
- *
- * See: tests/installer-features/installer.feature
- */
-$settings['install_profile'] = 'minimal';
-
-$settings['hash_salt'] = 'g4DmM0qyBHDGZU0yA6YZwa0jLwfys6KXQ4yfWUE7giP-EsxiPP2ClhPIf4vX4yS0iCQly7hyXg';
-
 // Redirect to https if not on local.
 if ($_SERVER['HTTP_HOST'] != 'groups.test' && php_sapi_name() != 'cli') {
   if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off") {

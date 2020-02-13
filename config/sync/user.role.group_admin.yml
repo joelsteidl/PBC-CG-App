@@ -8,6 +8,7 @@ weight: 2
 is_admin: null
 permissions:
   - 'access content'
+  - 'access reports'
   - 'access user profiles'
   - 'administer users'
   - 'create group content'

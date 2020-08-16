@@ -70,7 +70,7 @@ function pbc_automation_cron() {
     // 2. It is after 8PM of day of the meeting.
     $day = $group->field_meeting_day->getString();
     $days = [
-      'Sunday' => 'last saturday 8pm + 1 day',
+      'Sunday' => 'last saturday 12pm + 1 day',
       'Monday' => 'last saturday 8pm + 2 days',
       'Tuesday' => 'last saturday 8pm + 3 days',
       'Wednesday' => 'last saturday 8pm + 4 days',

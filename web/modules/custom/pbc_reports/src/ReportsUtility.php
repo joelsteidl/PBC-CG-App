@@ -32,6 +32,9 @@ class ReportsUtility implements ReportsUtilityInterface {
    * { @inheritdoc }
    */
   public function getAttendanceByGroup($groupAttendanceId, $attendanceStatus, $connectionStatus) {
+    if (!is_array($connectionStatus)) {
+      $connectionStatus = [$connectionStatus];
+    }
     $storage = $this->entityTypeManager->getStorage('node');
 
     // TODO: dynamically pass in status of group connection.
@@ -39,7 +42,7 @@ class ReportsUtility implements ReportsUtilityInterface {
       ->condition('type', 'individual_attendance_record')
       ->condition('field_group_attendance_record', $groupAttendanceId)
       ->condition('field_in_attendance', $attendanceStatus)
-      ->condition('field_group_connection.entity.field_group_connection_status', $connectionStatus)
+      ->condition('field_group_connection.entity.field_group_connection_status', $connectionStatus, 'IN')
       ->condition('status', 1)
       ->execute();
 

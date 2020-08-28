@@ -14,6 +14,14 @@ pbc_reports.testing:
   requirements:
     _permission: 'access reports'
 
+pbc_reports.totals:
+  path: '/reports/totals'
+  defaults:
+    _controller: '\Drupal\pbc_reports\Controller\TotalsByWeek::index'
+    _title: 'Total Attendance by Week'
+  requirements:
+    _permission: 'access reports'
+
 pbc_reports.week:
   path: '/reports/attendance-by-week'
   defaults:

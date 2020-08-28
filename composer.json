@@ -27,6 +27,7 @@
     "drupal/fontawesome": "^2.14",
     "drupal/key": "^1.10",
     "drupal/pathauto": "^1.6",
+    "drupal/r4032login": "^1.1",
     "drupal/sendgrid_integration": "^1.2",
     "drupal/smtp": "^1.0@beta",
     "drupal/token": "^1.0@RC",

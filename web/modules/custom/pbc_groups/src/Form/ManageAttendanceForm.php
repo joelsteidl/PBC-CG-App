@@ -13,7 +13,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\pbc_groups\GroupsUtilityInterface;
-use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Class ManageAttendanceForm.
@@ -78,7 +77,24 @@ class ManageAttendanceForm extends FormBase {
     $this->groupAttendance = $this->currentRouteMatch->getParameter('node');
 
     $options = [];
-    $defaults = [];
+    $defaults = [
+      'attendance' => [],
+      'field_notes' => '',
+      'field_children_count' => 0,
+      'field_group_meeting_status' => NULL,
+    ];
+
+    if (!$this->groupAttendance->field_notes->isEmpty()) {
+      $defaults['field_notes'] = $this->groupAttendance->field_notes->getString();
+    }
+
+    if (!$this->groupAttendance->field_children_count->isEmpty()) {
+      $defaults['field_children_count'] = $this->groupAttendance->get('field_children_count')->value;
+    }
+
+    if (!$this->groupAttendance->field_group_meeting_status->isEmpty() || $this->groupAttendance->field_group_meeting_status->value != 'not_submitted') {
+      $defaults['field_group_meeting_status'] = $this->groupAttendance->field_group_meeting_status->value;
+    }
 
     $records = $storage->getQuery()
       ->condition('type', 'individual_attendance_record')
@@ -99,7 +115,7 @@ class ManageAttendanceForm extends FormBase {
     foreach ($records as $record) {
       $options[$record->id()] = $record->field_group_connection->entity->field_individual->entity->getTitle() . ' (' . $record->field_group_connection->entity->field_group_connection_status->entity->getName() . ')';
       if ($record->field_in_attendance->value == 1) {
-        $defaults[] = $record->id();
+        $defaults['attendance'][] = $record->id();
       }
     }
 
@@ -121,42 +137,43 @@ class ManageAttendanceForm extends FormBase {
       '#type' => 'radios',
       '#title' => $this->t('Did you meet this week?'),
       '#options' => ['yes' => $this->t('Yes'), 'no' => $this->t('No')],
+      '#default_value' => $defaults['field_group_meeting_status'],
       '#required' => TRUE,
       '#weight' => 1,
     ];
-
-    if (!$this->groupAttendance->field_group_meeting_status->isEmpty() || $this->groupAttendance->field_group_meeting_status->value != 'not_submitted') {
-      $form['field_group_meeting_status']['#default_value'] = $this->groupAttendance->field_group_meeting_status->value;
-    }
 
     $form['attendance'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Mark everyone that was present.'),
       '#options' => $options,
-      '#default_value' => $defaults,
+      '#default_value' => $defaults['attendance'],
       '#weight' => 2,
     ];
 
-    $notes = '';
-    if (!$this->groupAttendance->field_notes->isEmpty()) {
-      $notes = $this->groupAttendance->field_notes->getString();
-    }
+    $form['field_children_count'] = [
+      '#type' => 'select',
+      '#options' => range(0, 30),
+      '#default_value' => $defaults['field_children_count'],
+      '#title' => $this->t('Number of Children (not listed above)'),
+      '#description' => $this->t('Please provide a total number of children (under the age of 18) that are not listed above.'),
+      '#weight' => 3,
+    ];
 
     $form['field_notes'] = [
       '#prefix' => '<div class="col-sm-8">',
       '#type' => 'textarea',
       '#title' => $this->t('Notes'),
-      '#default_value' => $notes,
+      '#default_value' => $defaults['field_notes'],
       '#description' => $this->t('Pass along any important information from this week.'),
       '#rows' => 3,
-      '#weight' => 3,
+      '#weight' => 4,
       '#suffix' => '</div>',
     ];
 
     $form['submit'] = [
       '#prefix' => '<div class="submit-attendance">',
       '#type' => 'submit',
-      '#weight' => 4,
+      '#weight' => 5,
       '#value' => $this->t('Save'),
       '#suffix' => '</div>',
     ];
@@ -190,6 +207,7 @@ class ManageAttendanceForm extends FormBase {
 
     // Update group attendance values.
     $groupAttendValues = [
+      'field_children_count' => $form_state->getValue('field_children_count'),
       'field_notes' => $form_state->getValue('field_notes'),
       'field_group_meeting_status' => $form_state->getValue('field_group_meeting_status'),
     ];

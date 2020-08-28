@@ -28,7 +28,7 @@ if (file_exists($prod_settings)) {
 }
 
 // Redirect to https if not on local.
-if ($_SERVER['HTTP_HOST'] != 'groups.test' && php_sapi_name() != 'cli') {
+if ($_SERVER['HTTP_HOST'] != 'pbccg.ddev.site' && php_sapi_name() != 'cli') {
   if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off") {
     $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     header('HTTP/1.1 301 Moved Permanently');

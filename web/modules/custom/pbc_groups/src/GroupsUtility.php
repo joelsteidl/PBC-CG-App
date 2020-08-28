@@ -81,6 +81,7 @@ class GroupsUtility implements GroupsUtilityInterface {
       case 'group_attendance_record':
         $fields = [
           'field_notes',
+          'field_children_count',
           'field_group_meeting_status',
         ];
         break;

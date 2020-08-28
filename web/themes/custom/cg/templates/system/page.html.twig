@@ -105,9 +105,11 @@
       {# Header #}
       {% if page.header %}
         {% block header %}
+        <div class="row">
           <div class="col-sm-12" role="heading">
             {{ page.header }}
           </div>
+        </div>
         {% endblock %}
       {% endif %}
 

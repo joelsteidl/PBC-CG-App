@@ -1,0 +1,23 @@
+uuid: c6c450cd-181e-4014-86e5-ddff681e9c98
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_children_count
+    - node.type.group_attendance_record
+  module:
+    - options
+id: node.group_attendance_record.field_children_count
+field_name: field_children_count
+entity_type: node
+bundle: group_attendance_record
+label: 'Number of Children (not listed above)'
+description: 'Please provide a total number of children (under the age of 18) that are not listed above.'
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

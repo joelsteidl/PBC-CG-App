@@ -18,6 +18,11 @@ attendance-by-week:
   js:
     js/attendance-by-week.js: {}
 
+totals-by-week:
+  version: 1.x
+  js:
+    js/totals-by-week.js: {}
+
 high-charts:
   version: 6.x
   js:

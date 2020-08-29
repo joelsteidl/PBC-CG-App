@@ -80,25 +80,56 @@ class TotalsByWeek extends ControllerBase {
    */
   public function index(Request $request) {
     $build = [];
+    $data = $this->getData();
+    $dates = $this->getDates();
+    $labels = $this->reportsUtility->getCategoryLabels($dates);
+
+    // Render the chart.
+    $build['charts']['#markup'] = '<div id="container"></div>';
+    $build['#attached'] = [
+      'drupalSettings' => [
+        'highCharts' => [
+          'labels' => $labels,
+          'seriesData' => $data['chart'],
+        ],
+      ],
+      'library' => [
+        'pbc_reports/high-charts',
+        'pbc_reports/totals-by-week',
+      ],
+    ];
+
+    // Render the table.
     $build['prefix']['#markup'] = '<div class="row"><div class="col-sm-12">';
-    $build['table'] = $this->buildTable();
+    $build['table'] = $this->buildTable($data);
     $build['suffix']['#markup'] = '</div></div>';
 
     return $build;
   }
 
   /**
-   * Build attendance table.
+   * Get dates for various things we need dates for.
    *
    * @return array
-   *   Return a render array.
+   *   Array of dates.
    */
-  public function buildTable() {
-    $header = [''];
+  public function getDates() {
     $endDate = \Drupal::service('date.formatter')->format(time(), 'html_date');
     $startDate = \Drupal::service('date.formatter')->format(strtotime('-6 weeks'), 'html_date');
-    $dates = $this->reportsUtility->getDatesbyWeek($startDate, $endDate);
-    $dates = array_reverse($dates);
+    $reversedDates = array_reverse($this->reportsUtility->getDatesbyWeek($startDate, $endDate));
+    return $reversedDates;
+  }
+
+  /**
+   * Get data.
+   *
+   * @return array
+   *   Return array of date needed.
+   */
+  public function getData() {
+    $data = [];
+    $header = [''];
+    $dates = $this->getDates();
     foreach ($dates as $date) {
       $header[] = $date['start_display'];
     }
@@ -110,6 +141,20 @@ class TotalsByWeek extends ControllerBase {
     $groups = $this->pbcGroupsUtility->getGroupNodes('active', 'object');
 
     $counts = [];
+    $chartData = [
+      0 => [
+        'name' => 'Total',
+        'color' => '#337ab7',
+      ],
+      1 => [
+        'name' => 'Adults',
+        'color' => '#5cb85c',
+      ],
+      2 => [
+        'name' => 'Kids',
+        'color' => '#777777',
+      ],
+    ];
     foreach ($groups as $group) {
       $rows[$group->id()] = [$group->getTitle()];
       foreach ($dates as $date) {
@@ -138,19 +183,43 @@ class TotalsByWeek extends ControllerBase {
         'total' => 0,
       ];
       // Sum all the groups for each week.
-      foreach ($countWeek as $countWeek) {
+      foreach ($countWeek as $index => $countWeek) {
         $weekSums['kids'] += $countWeek['kids'];
         $weekSums['adults'] += $countWeek['adults'];
         $weekSums['total'] += $countWeek['total'];
       }
 
+      $chartData[0]['data'][] = $weekSums['total'];
+      $chartData[0]['extra'][] = 'Total: ' . $weekSums['total'];
+      $chartData[1]['data'][] = $weekSums['adults'];
+      $chartData[1]['extra'][] = 'Adults: ' . $weekSums['adults'];
+      $chartData[2]['data'][] = $weekSums['kids'];
+      $chartData[2]['extra'][] = 'Kids: ' . $weekSums['kids'];
+
       $rows['totals'][] = Markup::create('<span class="label label-primary">' . $weekSums['total'] . '</span> <span class="label label-success">' . $weekSums['adults'] . '</span> <span class="label label-default">' . $weekSums['kids'] . '</span>');
     }
 
+    $data = [
+      'header' => $header,
+      'rows' => $rows,
+      'chart' => $chartData,
+    ];
+
+    return $data;
+  }
+
+  /**
+   * Build attendance table.
+   *
+   * @return array
+   *   Return a render array.
+   */
+  public function buildTable($data) {
+
     $table = [
       '#type' => 'table',
-      '#header' => $header,
-      '#rows' => $rows,
+      '#header' => $data['header'],
+      '#rows' => $data['rows'],
     ];
 
     return $table;

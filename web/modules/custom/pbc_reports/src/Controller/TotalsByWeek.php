@@ -104,6 +104,12 @@ class TotalsByWeek extends ControllerBase {
     $build['table'] = $this->buildTable($data);
     $build['suffix']['#markup'] = '</div></div>';
 
+    // Cache.
+    $build['#cache'] = [
+      'tags' => ['node_list'],
+      'contexts' => ['url'],
+    ];
+
     return $build;
   }
 

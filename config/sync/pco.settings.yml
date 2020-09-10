@@ -1,0 +1,5 @@
+base_uri: 'https://api.planningcenteronline.com/'
+secret: pco_api
+token: 2d58a46e6a020501b2500334e91fd907847d831a2b4be262bbff850a045fbdc1
+_core:
+  default_config_hash: 4PUJdslTBw5MB3LOXT35V9BJPRJnSws0MCwT2yOiec0

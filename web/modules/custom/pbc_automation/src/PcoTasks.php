@@ -4,7 +4,7 @@ namespace Drupal\pbc_automation;
 
 use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\pco_api\Client\PcoClient;
+use Drupal\pco\Client\PcoClient;
 use Drupal\pbc_groups\GroupsUtilityInterface;
 
 /**
@@ -21,9 +21,9 @@ class PcoTasks implements PcoTasksInterface {
    */
   protected $entityTypeManager;
   /**
-   * Drupal\pco_api\Client\PcoClient definition.
+   * Drupal\pco\Client\PcoClient definition.
    *
-   * @var \Drupal\pco_api\Client\PcoClient
+   * @var \Drupal\pco\Client\PcoClient
    */
   protected $pcoApiClient;
   /**

@@ -1,0 +1,20 @@
+uuid: 6a9ed25b-6833-48f0-bff8-fa8cacaa1f81
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_also_notify
+  module:
+    - user
+id: user.user.field_also_notify
+field_name: field_also_notify
+entity_type: user
+bundle: user
+label: 'Also Notify'
+description: 'Enter additional email addresses to be notified weekly for updating attendance.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

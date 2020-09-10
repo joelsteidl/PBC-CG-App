@@ -92,10 +92,17 @@ function pbc_automation_cron() {
         // Send attendance manager an email.
         $mail = Drupal::service('plugin.manager.mail');
         $user = $attendance->field_group->entity->field_attendance_manager->entity;
+        $emails = [$user->getEmail()];
+        // Notify additional folks if need be.
+        if ($user->hasField('field_also_notify') && !$user->field_also_notify->isEmpty()) {
+          $additional_emails = array_column($user->get('field_also_notify')->getValue(), 'value');
+          $emails = array_merge($emails, $additional_emails);
+        }
+
         $mail->mail(
           'pbc_automation',
           'send_attendance_link',
-          $user->getEmail(),
+          implode(',', $emails),
           $user->getPreferredLangcode(),
           [
             'user' => $user,

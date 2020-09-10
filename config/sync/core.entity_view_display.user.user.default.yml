@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.user.user.field_also_notify
     - field.field.user.user.field_first_name
     - field.field.user.user.field_last_name
   module:
@@ -11,7 +12,14 @@ id: user.user.default
 targetEntityType: user
 bundle: user
 mode: default
-content: {  }
+content:
+  field_also_notify:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
 hidden:
   field_first_name: true
   field_last_name: true

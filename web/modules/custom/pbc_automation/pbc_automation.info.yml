@@ -4,4 +4,4 @@ description: Handles various tasks that need to happen nightly and throughout th
 core: 8.x
 package: PBC Custom
 dependencies:
-  - pco_api
+  - pco

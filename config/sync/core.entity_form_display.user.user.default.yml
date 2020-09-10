@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.user.user.field_also_notify
     - field.field.user.user.field_first_name
     - field.field.user.user.field_last_name
   module:
@@ -15,8 +16,16 @@ mode: default
 content:
   account:
     weight: 2
+    region: content
     settings: {  }
     third_party_settings: {  }
+  field_also_notify:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
     region: content
   field_first_name:
     weight: 0
@@ -36,7 +45,7 @@ content:
     region: content
   path:
     type: path
-    weight: 30
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -27,6 +27,7 @@
     "drupal/fontawesome": "^2.14",
     "drupal/key": "^1.10",
     "drupal/pathauto": "^1.6",
+    "drupal/pco": "2.0.x-dev",
     "drupal/r4032login": "^1.1",
     "drupal/sendgrid_integration": "^1.2",
     "drupal/smtp": "^1.0@beta",
@@ -34,9 +35,8 @@
     "drupal/twig_vardumper": "^1.0",
     "drupal/views_block_filter_block": "^1.0@beta",
     "drupal/views_rest_feed": "^1.0@alpha",
-    "drush/drush": "^8.1.15",
-    "rvtraveller/qs-composer-installer": "^1.1",
-    "webflo/drupal-finder": "^0.3.0"
+    "drush/drush": "^10.3",
+    "rvtraveller/qs-composer-installer": "^1.1"
   },
   "conflict": {
       "drupal/drupal": "*"

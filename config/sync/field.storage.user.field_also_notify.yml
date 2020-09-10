@@ -1,0 +1,18 @@
+uuid: 23093201-69ef-4859-853e-0e0a065a56ac
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_also_notify
+field_name: field_also_notify
+entity_type: user
+type: email
+settings: {  }
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

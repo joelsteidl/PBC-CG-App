@@ -35,7 +35,7 @@ module:
   pbc_automation: 0
   pbc_groups: 0
   pbc_reports: 0
-  pco_api: 0
+  pco: 0
   r4032login: 0
   rest: 0
   sendgrid_integration: 0

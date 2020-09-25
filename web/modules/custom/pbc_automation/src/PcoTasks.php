@@ -111,10 +111,9 @@ class PcoTasks implements PcoTasksInterface {
         'attributes' => [
           'first_name' => $node->field_first_name->getString(),
           'last_name' => $node->field_last_name->getString(),
-        ]
-      ]
+        ],
+      ],
     ];
-    $body = json_encode($body);
     $request = $this->pcoApiClient->connect('post', 'people/v2/people', [], $body);
     $response = json_decode($request);
 
@@ -141,10 +140,9 @@ class PcoTasks implements PcoTasksInterface {
         'attributes' => [
           'address' => $node->field_email_address->getString(),
           'location' => 'Home',
-        ]
-      ]
+        ],
+      ],
     ];
-    $body = json_encode($body);
     $endPoint = 'people/v2/people/' . $personId . '/emails';
     $request = $this->pcoApiClient->connect('post', $endPoint, [], $body);
     $response = json_decode($request);
@@ -167,12 +165,11 @@ class PcoTasks implements PcoTasksInterface {
             'data' => [
               'type' => 'FieldDefinition',
               'id' => $fieldInfo['id'],
-            ]
-          ]
-        ]
-      ]
+            ],
+          ],
+        ],
+      ],
     ];
-    $body = json_encode($body);
     $endPoint = 'people/v2/people/' . $personId . '/field_data';
     $request = $this->pcoApiClient->connect('post', $endPoint, [], $body);
     $response = json_decode($request);

@@ -27,12 +27,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to dev
-        uses: appleboy/ssh-action@v0.1.4
+        uses: garygrossgarten/github-action-ssh@release
         with:
-          host: ${{secrets.SSH_HOST}}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
+          command: |
             cd ~/dev.cg.providencedenver.org/
             git pull
             composer install
@@ -40,3 +37,6 @@ jobs:
             drush -y cache-rebuild
             drush -y updatedb
             drush -y config-import
+          host: ${{secrets.SSH_HOST}}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}

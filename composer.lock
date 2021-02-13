@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "308698b93f5a9dae7db9a790a22eaa77",
+    "content-hash": "a16712163cba11c446c1bc1a6a779aa2",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2512,16 +2512,16 @@
         },
         {
             "name": "drupal/core",
-            "version": "8.9.12",
+            "version": "8.9.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "ec7ac2bd2b7fa7f06df654c637b7f29f019d356f"
+                "reference": "a53db77b55a035453d7229e0c3069f8591cb4cb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core/zipball/ec7ac2bd2b7fa7f06df654c637b7f29f019d356f",
-                "reference": "ec7ac2bd2b7fa7f06df654c637b7f29f019d356f",
+                "url": "https://api.github.com/repos/drupal/core/zipball/a53db77b55a035453d7229e0c3069f8591cb4cb6",
+                "reference": "a53db77b55a035453d7229e0c3069f8591cb4cb6",
                 "shasum": ""
             },
             "require": {
@@ -2548,7 +2548,7 @@
                 "laminas/laminas-diactoros": "^1.8",
                 "laminas/laminas-feed": "^2.12",
                 "masterminds/html5": "^2.1",
-                "pear/archive_tar": "^1.4.11",
+                "pear/archive_tar": "^1.4.12",
                 "php": "^7.0.8",
                 "psr/log": "^1.0",
                 "stack/builder": "^1.0",
@@ -2739,11 +2739,11 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
-            "time": "2021-01-06T23:44:11+00:00"
+            "time": "2021-01-19T23:11:00+00:00"
         },
         {
             "name": "drupal/core-composer-scaffold",
-            "version": "8.9.12",
+            "version": "8.9.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core-composer-scaffold.git",
@@ -2790,16 +2790,16 @@
         },
         {
             "name": "drupal/core-recommended",
-            "version": "8.9.12",
+            "version": "8.9.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core-recommended.git",
-                "reference": "06d3680bf56fda259679f538ef90da44770f92a8"
+                "reference": "7a940fd5b64d2b22366680e2a60d96bf2c10089d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core-recommended/zipball/06d3680bf56fda259679f538ef90da44770f92a8",
-                "reference": "06d3680bf56fda259679f538ef90da44770f92a8",
+                "url": "https://api.github.com/repos/drupal/core-recommended/zipball/7a940fd5b64d2b22366680e2a60d96bf2c10089d",
+                "reference": "7a940fd5b64d2b22366680e2a60d96bf2c10089d",
                 "shasum": ""
             },
             "require": {
@@ -2811,7 +2811,7 @@
                 "doctrine/common": "v2.7.3",
                 "doctrine/inflector": "v1.2.0",
                 "doctrine/lexer": "1.0.2",
-                "drupal/core": "8.9.12",
+                "drupal/core": "8.9.13",
                 "easyrdf/easyrdf": "0.9.1",
                 "egulias/email-validator": "2.1.17",
                 "guzzlehttp/guzzle": "6.5.4",
@@ -2824,7 +2824,7 @@
                 "laminas/laminas-zendframework-bridge": "1.0.4",
                 "masterminds/html5": "2.3.0",
                 "paragonie/random_compat": "v9.99.99",
-                "pear/archive_tar": "1.4.11",
+                "pear/archive_tar": "1.4.12",
                 "pear/console_getopt": "v1.4.3",
                 "pear/pear-core-minimal": "v1.10.10",
                 "pear/pear_exception": "v1.0.1",
@@ -2868,31 +2868,35 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Locked core dependencies; require this project INSTEAD OF drupal/core.",
-            "time": "2021-01-06T23:44:11+00:00"
+            "time": "2021-01-19T23:11:00+00:00"
         },
         {
             "name": "drupal/csv_serialization",
-            "version": "1.4.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/csv_serialization.git",
-                "reference": "8.x-1.4"
+                "reference": "8.x-2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/csv_serialization-8.x-1.4.zip",
-                "reference": "8.x-1.4",
-                "shasum": "74cfc47c5c8a907f40112ec4819fe108f2775ef1"
+                "url": "https://ftp.drupal.org/files/projects/csv_serialization-8.x-2.0.zip",
+                "reference": "8.x-2.0",
+                "shasum": "3531383a6926a4ed761be56553997c2a937449ac"
             },
             "require": {
-                "drupal/core": "^8.0.4",
-                "league/csv": "^8.0"
+                "drupal/core": "^8 || ^9",
+                "league/csv": "^9.1"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+                "drupal/coder": "^8.3"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.4",
-                    "datestamp": "1531841921",
+                    "version": "8.x-2.0",
+                    "datestamp": "1612801962",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2901,18 +2905,19 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
-                    "name": "grasmash",
+                    "name": "Matthew Grasmick",
                     "homepage": "https://www.drupal.org/user/455714"
                 }
             ],
             "description": "Provides CSV as a serialization format.",
             "homepage": "https://www.drupal.org/project/csv_serialization",
             "support": {
-                "source": "https://git.drupalcode.org/project/csv_serialization"
+                "source": "http://cgit.drupalcode.org/csv_serialization",
+                "issues": "https://www.drupal.org/project/issues/csv_serialization"
             }
         },
         {
@@ -3785,6 +3790,66 @@
             "homepage": "https://www.drupal.org/project/views_block_filter_block",
             "support": {
                 "source": "https://git.drupalcode.org/project/views_block_filter_block"
+            }
+        },
+        {
+            "name": "drupal/views_field_view",
+            "version": "1.0.0-beta3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/views_field_view.git",
+                "reference": "8.x-1.0-beta3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_field_view-8.x-1.0-beta3.zip",
+                "reference": "8.x-1.0-beta3",
+                "shasum": "d7e405584a48a0c5eb2440531ba3ffc66cc67bdc"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-beta3",
+                    "datestamp": "1591410296",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "damiankloip",
+                    "homepage": "https://www.drupal.org/user/1037976"
+                },
+                {
+                    "name": "dawehner",
+                    "homepage": "https://www.drupal.org/user/99340"
+                },
+                {
+                    "name": "jibran",
+                    "homepage": "https://www.drupal.org/user/1198144"
+                },
+                {
+                    "name": "tizzo",
+                    "homepage": "https://www.drupal.org/user/168251"
+                },
+                {
+                    "name": "voxpelli",
+                    "homepage": "https://www.drupal.org/user/341713"
+                }
+            ],
+            "description": "Adds a view field handler to embed views inside views.",
+            "homepage": "https://www.drupal.org/project/views_field_view",
+            "support": {
+                "source": "https://git.drupalcode.org/project/views_field_view"
             }
         },
         {
@@ -4819,36 +4884,49 @@
         },
         {
             "name": "league/csv",
-            "version": "8.2.3",
+            "version": "9.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/csv.git",
-                "reference": "d2aab1e7bde802582c3879acf03d92716577c76d"
+                "reference": "f28da6e483bf979bac10e2add384c90ae9983e4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/csv/zipball/d2aab1e7bde802582c3879acf03d92716577c76d",
-                "reference": "d2aab1e7bde802582c3879acf03d92716577c76d",
+                "url": "https://api.github.com/repos/thephpleague/csv/zipball/f28da6e483bf979bac10e2add384c90ae9983e4e",
+                "reference": "f28da6e483bf979bac10e2add384c90ae9983e4e",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "ext-mbstring": "*",
-                "php": ">=5.5.0"
+                "php": ">=7.2.5"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^1.9",
-                "phpunit/phpunit": "^4.0"
+                "ext-curl": "*",
+                "ext-dom": "*",
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "phpstan/phpstan": "^0.12.0",
+                "phpstan/phpstan-phpunit": "^0.12.0",
+                "phpstan/phpstan-strict-rules": "^0.12.0",
+                "phpunit/phpunit": "^8.5"
+            },
+            "suggest": {
+                "ext-dom": "Required to use the XMLConverter and or the HTMLConverter classes",
+                "ext-iconv": "Needed to ease transcoding CSV using iconv stream filters"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "8.2-dev"
+                    "dev-master": "9.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "League\\Csv\\": "src"
-                }
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -4862,17 +4940,25 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Csv data manipulation made easy in PHP",
+            "description": "CSV data manipulation made easy in PHP",
             "homepage": "http://csv.thephpleague.com",
             "keywords": [
+                "convert",
                 "csv",
                 "export",
                 "filter",
                 "import",
                 "read",
+                "transform",
                 "write"
             ],
-            "time": "2018-02-06T08:27:03+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/nyamsprod",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-12-10T19:40:30+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -5038,16 +5124,16 @@
         },
         {
             "name": "pear/archive_tar",
-            "version": "1.4.11",
+            "version": "1.4.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/Archive_Tar.git",
-                "reference": "17d355cb7d3c4ff08e5729f29cd7660145208d9d"
+                "reference": "19bb8e95490d3e3ad92fcac95500ca80bdcc7495"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/Archive_Tar/zipball/17d355cb7d3c4ff08e5729f29cd7660145208d9d",
-                "reference": "17d355cb7d3c4ff08e5729f29cd7660145208d9d",
+                "url": "https://api.github.com/repos/pear/Archive_Tar/zipball/19bb8e95490d3e3ad92fcac95500ca80bdcc7495",
+                "reference": "19bb8e95490d3e3ad92fcac95500ca80bdcc7495",
                 "shasum": ""
             },
             "require": {
@@ -5100,7 +5186,17 @@
                 "archive",
                 "tar"
             ],
-            "time": "2020-11-19T22:10:24+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/mrook",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/michielrook",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2021-01-18T19:32:54+00:00"
         },
         {
             "name": "pear/console_getopt",
@@ -7860,12 +7956,12 @@
             "version": "1.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "shasum": ""
             },
@@ -7959,6 +8055,7 @@
         "drupal/smtp": 10,
         "drupal/token": 5,
         "drupal/views_block_filter_block": 10,
+        "drupal/views_field_view": 10,
         "drupal/views_rest_feed": 15
     },
     "prefer-stable": true,

@@ -21,7 +21,7 @@
     "drupal/console": "~1.0",
     "drupal/core-composer-scaffold": "^8.8",
     "drupal/core-recommended": "^8.8",
-    "drupal/csv_serialization": "^1.0",
+    "drupal/csv_serialization": "^2.0",
     "drupal/ctools": "^3.2",
     "drupal/devel": "^2.1",
     "drupal/fontawesome": "^2.14",
@@ -34,6 +34,7 @@
     "drupal/token": "^1.0@RC",
     "drupal/twig_vardumper": "^1.0",
     "drupal/views_block_filter_block": "^1.0@beta",
+    "drupal/views_field_view": "^1.0@beta",
     "drupal/views_rest_feed": "^1.0@alpha",
     "drush/drush": "^10.3",
     "rvtraveller/qs-composer-installer": "^1.1"

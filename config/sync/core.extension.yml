@@ -51,6 +51,7 @@ module:
   user: 0
   views: 0
   views_block_filter_block: 0
+  views_field_view: 0
   views_rest_feed: 0
   views_ui: 0
   pathauto: 1

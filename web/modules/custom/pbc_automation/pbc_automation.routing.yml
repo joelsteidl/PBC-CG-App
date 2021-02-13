@@ -1,0 +1,10 @@
+pbc_automation.webhooks:
+  path: '/api/pco-webhooks'
+  defaults:
+    _controller: '\Drupal\pbc_automation\Controller\PcoWebhookController::capture'
+    _title: 'PCO Webhooks Controller'
+  methods: [POST]
+  requirements:
+    _custom_access: '\Drupal\pbc_automation\Controller\PcoWebhookController::authorize'
+  options:
+    no_cache: 'TRUE'

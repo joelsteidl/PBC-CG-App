@@ -1,0 +1,42 @@
+name: Deploy CG App
+
+on: push
+
+jobs:
+  deploy-prod:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to prod
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd ~/cg.providencedenver.org/
+            git pull
+            composer install
+            cd ~/cg.providencedenver.org/web/
+            drush sql-dump --gzip --result-file=~/backups/cg_prod_`date +%Y-%m-%d-%H.%M.%S`.sql
+            drush -y cache-rebuild
+            drush -y updatedb
+            drush -y config-import
+  deploy-dev:
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to dev
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd ~/dev.cg.providencedenver.org/
+            git pull
+            composer install
+            cd ~/dev.cg.providencedenver.org/web/
+            drush -y cache-rebuild
+            drush -y updatedb
+            drush -y config-import

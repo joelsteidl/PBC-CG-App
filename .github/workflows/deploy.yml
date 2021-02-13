@@ -13,7 +13,7 @@ jobs:
           host: ${{secrets.SSH_HOST}}
           username: ${{ secrets.SSH_USERNAME }}
           privateKey: ${{ secrets.SSH_KEY }}
-          script: |
+          command: |
             cd ~/cg.providencedenver.org/
             git pull
             composer install

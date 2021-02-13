@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.individual.field_first_name
     - field.field.node.individual.field_last_name
     - field.field.node.individual.field_membership
+    - field.field.node.individual.field_pco_deleted
     - field.field.node.individual.field_pco_updated
     - field.field.node.individual.field_planning_center_id
     - node.type.individual
@@ -44,6 +45,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
+  field_pco_deleted:
+    weight: 122
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_pco_updated:
     weight: 26

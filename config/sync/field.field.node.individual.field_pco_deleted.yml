@@ -1,0 +1,23 @@
+uuid: 344b3ac2-7635-42cd-9a9b-84eed5fa83fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pco_deleted
+    - node.type.individual
+id: node.individual.field_pco_deleted
+field_name: field_pco_deleted
+entity_type: node
+bundle: individual
+label: 'PCO Deleted'
+description: 'Person deleted from Planning Center'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

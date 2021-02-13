@@ -39,4 +39,4 @@ jobs:
             drush -y config-import
           host: ${{secrets.SSH_HOST}}
           username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          privateKey: ${{ secrets.SSH_KEY }}

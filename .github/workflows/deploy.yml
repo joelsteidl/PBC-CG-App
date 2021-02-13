@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to prod
-        uses: appleboy/ssh-action@v0.1.4
+        uses: garygrossgarten/github-action-ssh@release
         with:
           host: ${{secrets.SSH_HOST}}
           username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          privateKey: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/cg.providencedenver.org/
             git pull
@@ -29,6 +29,9 @@ jobs:
       - name: Deploy to dev
         uses: garygrossgarten/github-action-ssh@release
         with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{ secrets.SSH_USERNAME }}
+          privateKey: ${{ secrets.SSH_KEY }}
           command: |
             cd ~/dev.cg.providencedenver.org/
             git pull
@@ -37,6 +40,3 @@ jobs:
             drush -y cache-rebuild
             drush -y updatedb
             drush -y config-import
-          host: ${{secrets.SSH_HOST}}
-          username: ${{ secrets.SSH_USERNAME }}
-          privateKey: ${{ secrets.SSH_KEY }}

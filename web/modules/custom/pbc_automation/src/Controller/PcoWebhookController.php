@@ -180,6 +180,9 @@ class PcoWebhookController extends ControllerBase {
     }
 
     $secret = $this->keyRepository->getKey('pco_webhook_secret')->getKeyValue();
+    if ($this->getSubscriptionEvent($request) === 'people.v2.events.person.destroyed') {
+      $secret = $this->keyRepository->getKey('pco_webhook_destroy')->getKeyValue();
+    }
     $hashHmac = hash_hmac('sha256', $request->getContent(), $secret);
 
     if (hash_equals($authenticity, $hashHmac)) {
@@ -202,6 +205,21 @@ class PcoWebhookController extends ControllerBase {
       return FALSE;
     }
     return $request->headers->get('X-PCO-Webhooks-Authenticity');
+  }
+
+  /**
+   * Figures out the type of event.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The incoming request.
+   *
+   * @return string
+   *   The PCO subscription event string.
+   */
+  protected function getSubscriptionEvent(Request $request) {
+    $data = Json::decode($request->getContent());
+
+    return $data['data'][0]['attributes']['name'];
   }
 
 }

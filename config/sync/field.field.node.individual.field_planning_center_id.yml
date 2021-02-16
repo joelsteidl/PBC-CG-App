@@ -18,6 +18,6 @@ default_value_callback: ''
 settings:
   min: null
   max: null
-  prefix: ''
+  prefix: 'https://people.planningcenteronline.com/people/AC'
   suffix: ''
 field_type: integer

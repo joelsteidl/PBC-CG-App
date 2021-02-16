@@ -148,11 +148,74 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'First Name'
-          exclude: false
+          label: ''
+          exclude: true
           alter:
             alter_text: false
             text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        edit_node:
+          id: edit_node
+          table: node
+          field: edit_node
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'First Name'
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{ field_first_name }}'
             make_link: false
             path: ''
             absolute: false
@@ -189,21 +252,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
+          text: ''
+          output_url_as_text: false
+          absolute: false
+          entity_type: node
+          plugin_id: entity_link_edit
         field_last_name:
           id: field_last_name
           table: node__field_last_name
@@ -672,14 +725,14 @@ display:
           group_type: group
           admin_label: ''
           empty: false
-          content: "<p>If you make an edit in Planning Center, it will correctly sync back to the CG app in a couple hours. If you wish to delete a profile in Planning Center, please set it as inactive. We can then do a mass deletion and have that delete individuals in the CG app.</p>\r\n<p><strong>Displaying @start - @end of @total</strong></p>"
+          content: "<ul>\r\n<li>Edits: Click the Planning Center ID to edit someone's name or email address. It will sync back to the CG app in a couple hours.</li>\r\n<li>Deletion: Click the Planning Center ID and set their profile to \"inactive\" in actions by their name. In a matter of seconds, this will update their profile in the CG app to indicate they were deleted from Planning Center.</li>\r\n</ul>\r\n\r\n<p>In some cases you may come across a \"Something went wrong\" page in Planning Center. This means that the profile has been deleted or merged in Planning Center.</p>\r\n\r\n<ol>\r\n<li>If it was a profile you were intending to delete from Planning Center, click their first name in the CG app and check <strong>PCO Deleted</strong> and then Save.</li>\r\n<li>If it is a profile in the CG App you wish to retain, please try to re-link Planning Center by searching and finding the correct Planning Center profile (you may use the search feature there). 1. Copy the URL of their profile in Planning Center 2. Click their first name in the CG app 3. Paste in the correct Planning Center ID and then Save.</li>\r\n</ol>\r\n\r\n<p><strong>Displaying @start - @end of @total</strong></p>"
           plugin_id: result
       footer: {  }
       empty: {  }
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
-      use_ajax: true
+      use_ajax: false
     cache_metadata:
       max-age: -1
       contexts:

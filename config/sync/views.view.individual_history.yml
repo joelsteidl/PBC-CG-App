@@ -12,6 +12,7 @@ dependencies:
     - user.role.administrator
     - user.role.group_admin
   module:
+    - better_exposed_filters
     - node
     - user
     - views_field_view
@@ -47,7 +48,7 @@ display:
           query_comment: ''
           query_tags: {  }
       exposed_form:
-        type: basic
+        type: bef
         options:
           submit_button: Apply
           reset_button: true
@@ -56,6 +57,31 @@ display:
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
+          text_input_required: 'Select any filter and click on Apply to see results'
+          text_input_required_format: full_html
+          bef:
+            general:
+              autosubmit: false
+              autosubmit_exclude_textfield: false
+              autosubmit_textfield_delay: 500
+              autosubmit_hide: false
+              input_required: false
+              allow_secondary: false
+              secondary_label: 'Advanced options'
+              secondary_open: false
+            filter:
+              combine:
+                plugin_id: default
+                advanced:
+                  collapsible: false
+                  is_secondary: false
+              field_pco_deleted_value:
+                plugin_id: bef_single
+                advanced:
+                  rewrite:
+                    filter_rewrite_values: ''
+                  collapsible: false
+                  is_secondary: false
       pager:
         type: full
         options:
@@ -690,6 +716,48 @@ display:
             field_email_address: field_email_address
             field_planning_center_id: field_planning_center_id
           plugin_id: combine
+        field_pco_deleted_value:
+          id: field_pco_deleted_value
+          table: node__field_pco_deleted
+          field: field_pco_deleted_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: 'Show Individuals Deleted from Planning Center'
+            description: ''
+            use_operator: false
+            operator: field_pco_deleted_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_pco_deleted_value
+            required: true
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              group_admin: '0'
+              attendance_manager: '0'
+              administrator: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: boolean
       sorts:
         field_last_name_value:
           id: field_last_name_value

@@ -12,36 +12,6 @@ use Drupal\node\NodeInterface;
 interface PcoTasksInterface {
 
   /**
-   * Given a PCO record, create or update.
-   *
-   * @param object $pcoRecord
-   *   An object returned from the PCO API.
-   *
-   * @return node object
-   *   a node object.
-   */
-  public function createOrUpdateNode($pcoRecord, $force);
-
-  /**
-   * Given a date, return PCO records that have been updated since then.
-   *
-   * @return array
-   *   array of PCO records.
-   */
-  public function getPcoPeopleFromList($offset, $perPage, $listId);
-
-  /**
-   * Given a PCO record, convert it to node data.
-   *
-   * @param object $pcoRecord
-   *   An object returned from the PCO API.
-   *
-   * @return array
-   *   values a node needs.
-   */
-  public function convertPcoToNode($pcoRecord);
-
-  /**
    * Create a new person in Planning Center.
    *
    * @param Drupal\node\NodeInterface $node
@@ -51,6 +21,17 @@ interface PcoTasksInterface {
    *   Planning Center Online Person ID.
    */
   public function createPcoPerson(NodeInterface $node);
+
+  /**
+   * Get PCO Person.
+   *
+   * @param int $pcoId
+   *   Planning center individual id.
+   *
+   * @return mixed
+   *   FALSE if not found.
+   */
+  public function getPcoPerson($pcoId);
 
   /**
    * Create a new email in Planning Center.
@@ -66,41 +47,101 @@ interface PcoTasksInterface {
   public function createPcoEmail(NodeInterface $node, $personId);
 
   /**
-   * Create a new custom field value in PCO API.
+   * Get PCO Emails.
    *
-   * @param Drupal\node\NodeInterface $node
-   *   Node object.
-   * @param array $fieldInfo
-   *   Array containing PCO field ID and the value.
-   * @param int $personId
-   *   Planning Center Online Person ID.
-   *
-   * @return int
-   *   Planning Center Online Email ID.
-   */
-  public function createPcoFieldData(NodeInterface $node, $fieldInfo, $personId);
-
-  /**
-   * Create a new email in Planning Center.
-   *
-   * @param int $emailId
-   *   Planning Center Online Person ID.
+   * @param int $pcoId
+   *   Planning center individual id.
    *
    * @return string
-   *   Planning Center Online Email Address.
+   *   A single email address.
    */
-  public function getPcoEmail($emailId);
+  public function getPcoEmails($pcoId);
 
   /**
-   * Create a new person in Planning Center.
+   * Lookup individuals by the PCO id.
    *
-   * @param int $perPage
-   *   Number of results per page.
-   *   TODO: Possibly limit pass date.
+   * @param int $pcoId
+   *   Planning center individual id.
    *
-   * @return array
-   *   Planning Center Online returned JSON converted to Array.
+   * @return mixed
+   *   FALSE if not found.
    */
-  public function getPcoPeople($offset, $perPage);
+  public function getIndividualbyId($pcoId);
+
+  /**
+   * Mark an individual as deleted.
+   *
+   * Might do more with this one day.
+   *
+   * @param \Drupal\node\NodeInterface $individual
+   *   Planning center individual id.
+   *
+   * @return bool
+   *   Node save successful or not.
+   */
+  public function deleteIndividual(NodeInterface $individual);
+
+  /**
+   * Create an individual.
+   *
+   * @param int $pcoId
+   *   PCO ID.
+   * @param array $payload
+   *   PCO Webhook payload.
+   *
+   * @return bool
+   *   Node save successful or not.
+   */
+  public function createIndividual($pcoId, array $payload);
+
+  /**
+   * Update an individual.
+   *
+   * @param \Drupal\node\NodeInterface $individual
+   *   Planning center individual id.
+   * @param array $payload
+   *   PCO Webhook payload.
+   *
+   * @return bool
+   *   Node save successful or not.
+   */
+  public function updateIndividual(NodeInterface $individual, array $payload);
+
+  /**
+   * Grab the email owner.
+   *
+   * @param array $payload
+   *   Payload from an email webhook.
+   *
+   * @return mixed
+   *   FALSE if not found.
+   */
+  public function getPcoEmailParent(array $payload);
+
+  /**
+   * Update individual email.
+   *
+   * @param array $payload
+   *   PCO Webhook payload.
+   *
+   * @return bool
+   *   Node save successful or not.
+   */
+  public function updateIndividualEmail(array $payload);
+
+  /**
+   * Transfer Group Connections.
+   *
+   * Aids in a PCO merger.
+   *
+   * @param \Drupal\node\NodeInterface $keep
+   *   The individual node we are keeping.
+   * @param \Drupal\node\NodeInterface $remove
+   *   The individual node we are removing.
+   *
+   * @return bool
+   *   True if successful and False if not.
+   */
+  public function transferGroupConnections(NodeInterface $keep, NodeInterface $remove);
 
 }

@@ -4,13 +4,13 @@ namespace Drupal\pbc_automation\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Component\Serialization\Json;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\Core\Access\AccessResult;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Drupal\key\KeyRepositoryInterface;
+use Drupal\Core\Queue\QueueFactory;
 
 /**
  * Class PcoWebhookController.
@@ -19,12 +19,6 @@ use Drupal\key\KeyRepositoryInterface;
  */
 class PcoWebhookController extends ControllerBase {
 
-  /**
-   * Drupal\Core\Entity\EntityTypeManager definition.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManager
-   */
-  protected $entityTypeManager;
 
   /**
    * Symfony\Component\HttpFoundation\RequestStack definition.
@@ -41,24 +35,31 @@ class PcoWebhookController extends ControllerBase {
   protected $keyRepository;
 
   /**
+   * Drupal\Core\Queue\QueueFactory definition.
+   *
+   * @var \Drupal\Core\Queue\QueueFactory
+   */
+  protected $queueFactory;
+
+  /**
    * Enable or disable debugging.
    *
    * @var bool
    */
-  protected $debug = TRUE;
+  protected $debug = FALSE;
 
 
   /**
    * {@inheritdoc}
    */
   public function __construct(
-    EntityTypeManager $entity_type_manager,
     RequestStack $request_stack,
-    KeyRepositoryInterface $key_repository
+    KeyRepositoryInterface $key_repository,
+    QueueFactory $queue
   ) {
-    $this->entityTypeManager = $entity_type_manager;
     $this->requestStack = $request_stack;
     $this->keyRepository = $key_repository;
+    $this->queueFactory = $queue->get('pco_webhooks_processor');
   }
 
   /**
@@ -66,9 +67,9 @@ class PcoWebhookController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager'),
       $container->get('request_stack'),
-      $container->get('key.repository')
+      $container->get('key.repository'),
+      $container->get('queue')
     );
   }
 
@@ -84,7 +85,7 @@ class PcoWebhookController extends ControllerBase {
   public function capture(Request $request) {
     $response = [
       'success' => TRUE,
-      'message' => 'Webhook payload captured!',
+      'message' => 'Thanks for the data PCO!',
       'data' => [],
     ];
 
@@ -96,75 +97,9 @@ class PcoWebhookController extends ControllerBase {
       \Drupal::logger('pco_automation')->debug('<pre><code>' . print_r($content, TRUE) . '</code></pre>');
     }
 
-    // Check if the content is empty.
-    if (empty($content)) {
-      return new JsonResponse($response);
-    }
+    $this->queueFactory->createItem($content);
 
-    $data = Json::decode($content);
-    if (!isset($data['data'][0]['attributes']['name'], $data['data'][0]['attributes']['payload'])) {
-      return new JsonResponse($response);
-    }
-
-    $subscription = $data['data'][0]['attributes']['name'];
-    $subscriptions = [
-      'people.v2.events.person.destroyed',
-      'people.v2.events.person.updated',
-    ];
-    if (!in_array($subscription, $subscriptions)) {
-      return new JsonResponse($response);
-    }
-
-    $flag = FALSE;
-    $payload = $data['data'][0]['attributes']['payload'];
-    $payload = Json::decode($payload);
-
-    // See if someone was deleted or set to inactive.
-    if ($subscription === 'people.v2.events.person.destroyed') {
-      $flag = TRUE;
-    }
-    elseif ($payload['data']['attributes']['status'] === 'inactive') {
-      $flag = TRUE;
-    }
-
-    $pcoId = $payload['data']['id'];
-
-    // TODO: Refactor and just handle updates. So easy.
-    // If found, loop over and flag for deletion.
-    $individuals = $this->getIndividualsbyId($pcoId);
-    if ($individuals && $flag) {
-      foreach ($individuals as $individual) {
-        $individual->set('field_pco_deleted', TRUE);
-        $individual->save();
-      }
-    }
-
-    return new JsonResponse($response);
-  }
-
-  /**
-   * Lookup individuals by the PCO id.
-   *
-   * @param int $pcoId
-   *   Planning center individual id.
-   *
-   * @return mixed
-   *   FALSE if not found.
-   */
-  public function getIndividualsbyId($pcoId) {
-    $storage = $this->entityTypeManager->getStorage('node');
-
-    $individuals = $storage->getQuery()
-      ->condition('type', 'individual')
-      ->condition('field_planning_center_id', $pcoId)
-      ->accessCheck(FALSE)
-      ->execute();
-
-    if (empty($individuals)) {
-      return FALSE;
-    }
-
-    return $storage->loadMultiple($individuals);
+    return new JsonResponse($response, 202);
   }
 
   /**
@@ -174,16 +109,27 @@ class PcoWebhookController extends ControllerBase {
    *   AccessResult allowed or forbidden.
    */
   public function authorize() {
+    if ($this->debug) {
+      return AccessResult::allowed();
+    }
+
     $request = $this->requestStack->getCurrentRequest();
     if (!$authenticity = $this->getPcoAuthenticity($request)) {
       return AccessResult::forbidden();
     }
 
-    $secret = $this->keyRepository->getKey('pco_webhook_secret')->getKeyValue();
-    if ($this->getSubscriptionEvent($request) === 'people.v2.events.person.destroyed') {
-      $secret = $this->keyRepository->getKey('pco_webhook_destroy')->getKeyValue();
+    $event = $this->getSubscriptionEvent($request);
+    // Contains JSON to parse into array.
+    $key = $this->keyRepository->getKey('pco_webhook_secrets')->getKeyValue();
+    $secrets = Json::decode($key);
+
+    // No key defined for the event.
+    if (!isset($secrets[$event])) {
+      // TODO: Add logging.
+      AccessResult::forbidden();
     }
-    $hashHmac = hash_hmac('sha256', $request->getContent(), $secret);
+
+    $hashHmac = hash_hmac('sha256', $request->getContent(), $secrets[$event]);
 
     if (hash_equals($authenticity, $hashHmac)) {
       return AccessResult::allowed();

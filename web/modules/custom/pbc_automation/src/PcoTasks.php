@@ -2,6 +2,7 @@
 
 namespace Drupal\pbc_automation;
 
+use Drupal\Component\Serialization\Json;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\pco\Client\PcoClient;
@@ -36,69 +37,14 @@ class PcoTasks implements PcoTasksInterface {
   /**
    * Constructor.
    */
-  public function __construct(EntityTypeManager $entity_type_manager, PcoClient $pco_api_client,
-    GroupsUtilityInterface $groups_utility) {
+  public function __construct(
+    EntityTypeManager $entity_type_manager,
+    PcoClient $pco_api_client,
+    GroupsUtilityInterface $groups_utility
+  ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->pcoApiClient = $pco_api_client;
     $this->groupsUtility = $groups_utility;
-  }
-
-  /**
-   * { @inheritdoc }
-   */
-  public function createOrUpdateNode($pcoRecord, $force = FALSE) {
-    $storage = $this->entityTypeManager->getStorage('node');
-
-    $individual = $storage->getQuery()
-      ->condition('type', 'individual')
-      ->condition('field_planning_center_id', $pcoRecord->id)
-      ->condition('status', 1)
-      ->execute();
-
-    // If a record exists, just update it.
-    if (count($individual)) {
-      $nid = array_shift($individual);
-      $node = $storage->load($nid);
-      // Only update records that have updated since the last time.
-      // TODO: create override
-      if (($node->field_pco_updated->getString() != $pcoRecord->attributes->updated_at) || $force) {
-        $values = $this->convertPcoToNode($pcoRecord);
-        $this->groupsUtility->updateNode($values, $nid);
-      }
-    }
-    else {
-      $values = $this->convertPcoToNode($pcoRecord);
-      $this->groupsUtility->createNode($values);
-    }
-  }
-
-  /**
-   * { @inheritdoc }
-   */
-  public function convertPcoToNode($pcoRecord) {
-    $values = [
-      'type' => 'individual',
-      'field_first_name' => $pcoRecord->attributes->first_name,
-      'field_last_name' => $pcoRecord->attributes->last_name,
-      'field_planning_center_id' => $pcoRecord->id,
-      'field_pco_updated' => $pcoRecord->attributes->updated_at,
-    ];
-
-    // Membership.
-    if (isset($pcoRecord->attributes->membership)) {
-      $membership = $pcoRecord->attributes->membership;
-      if ($tid = $this->groupsUtility->getTidByName('membership', $membership)) {
-        $values['field_membership'] = $tid;
-      }
-    }
-
-    // Handle Email Address.
-    if (isset($pcoRecord->relationships->emails->data[0]->id)) {
-      $emailId = $pcoRecord->relationships->emails->data[0]->id;
-      $values['field_email_address'] = $this->getPcoEmail($emailId);
-    }
-
-    return $values;
   }
 
   /**
@@ -115,7 +61,7 @@ class PcoTasks implements PcoTasksInterface {
       ],
     ];
     $request = $this->pcoApiClient->connect('post', 'people/v2/people', [], $body);
-    $response = json_decode($request);
+    $response = \json_decode($request);
 
     if (!isset($response->data->id)) {
       return FALSE;
@@ -145,7 +91,7 @@ class PcoTasks implements PcoTasksInterface {
     ];
     $endPoint = 'people/v2/people/' . $personId . '/emails';
     $request = $this->pcoApiClient->connect('post', $endPoint, [], $body);
-    $response = json_decode($request);
+    $response = \json_decode($request);
 
     return $response->data->id;
   }
@@ -153,125 +99,200 @@ class PcoTasks implements PcoTasksInterface {
   /**
    * { @inheritdoc }
    */
-  public function createPcoFieldData(NodeInterface $node, $fieldInfo, $personId) {
-    $body = [
-      'data' => [
-        'type' => 'FieldDatum',
-        'attributes' => [
-          'value' => $fieldInfo['value'],
-        ],
-        'relationships' => [
-          'field_definition' => [
-            'data' => [
-              'type' => 'FieldDefinition',
-              'id' => $fieldInfo['id'],
-            ],
-          ],
-        ],
-      ],
-    ];
-    $endPoint = 'people/v2/people/' . $personId . '/field_data';
-    $request = $this->pcoApiClient->connect('post', $endPoint, [], $body);
-    $response = json_decode($request);
-
-    return $response->data->id;
-  }
-
-  /**
-   * { @inheritdoc }
-   */
-  public function getPcoFieldData($personId) {
-    $query = ['include' => 'field_definition'];
-    $endpoint = 'people/v2/people/' . $personId . '/field_data/';
-    $request = $this->pcoApiClient->connect('get', $endpoint, $query, []);
-    $results = json_decode($request);
-    if (count($results->data)) {
-      return $results->data;
-    }
-
-    return FALSE;
-  }
-
-  /**
-   * { @inheritdoc }
-   */
-  public function getPcoEmail($emailId) {
-    $endpoint = 'people/v2/emails/' . $emailId;
+  public function getPcoPerson($pcoId) {
+    $endpoint = 'people/v2/people/' . $pcoId;
     $request = $this->pcoApiClient->connect('get', $endpoint, [], []);
-    $response = json_decode($request);
+    if (!$request) {
+      return FALSE;
+    }
+    $response = Json::decode($request);
+    return $response;
+  }
 
-    if (isset($response->data->attributes->address)) {
-      return $response->data->attributes->address;
+  /**
+   * { @inheritdoc }
+   */
+  public function getPcoEmails($pcoId) {
+    $email = NULL;
+    $endpoint = 'people/v2/people/' . $pcoId . '/emails';
+    $request = $this->pcoApiClient->connect('get', $endpoint, [], []);
+    if (!$request) {
+      return $email;
+    }
+    $response = Json::decode($request);
+
+    if (empty($response['data'])) {
+      return $email;
     }
 
-    return FALSE;
+    foreach ($response['data'] as $emailData) {
+      $attributes = $emailData['attributes'];
+      if ($attributes['blocked']) {
+        continue;
+      }
+
+      // If empty, set email.
+      if (empty($email)) {
+        $email = $attributes['address'];
+      }
+
+      // Let primary win.
+      if ($attributes['primary']) {
+        $email = $attributes['address'];
+        break;
+      }
+    }
+
+    return $email;
   }
 
   /**
    * { @inheritdoc }
    */
-  public function refreshPcoUpdateList($listId) {
-    // Refresh the recently updated list on PCO.
-    $this->pcoApiClient->connect('post', 'people/v2/lists/' . $listId . '/run', [], []);
+  public function getPcoEmailParent(array $payload) {
+    if (!isset($payload['meta']['parent']['id'])) {
+      return FALSE;
+    }
+    return $payload['meta']['parent']['id'];
   }
 
-  /**
-   * { @inheritdoc }
-   */
-  public function getPcoPeopleFromList($offset, $perPage, $listId) {
-    // Refresh the PCO list.
-    $this->refreshPcoUpdateList($listId);
-    $query = [
-      'per_page' => $perPage,
-      'include' => 'emails,field_data',
-      'offset' => $offset,
-    ];
-    // Grab results from the updated list.
-    $request = $this->pcoApiClient->connect('get', 'people/v2/lists/' . $listId . '/people', $query, []);
-    $results = json_decode($request);
-    if (!count($results->data)) {
+  public function getIndividualbyId($pcoId) {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    $individual = $storage->getQuery()
+      ->condition('type', 'individual')
+      ->condition('field_planning_center_id', $pcoId)
+      ->accessCheck(FALSE)
+      ->execute();
+
+    if (empty($individual)) {
       return FALSE;
     }
 
-    return $results;
+    if (count($individual) > 1) {
+      // TODO Log something.
+    }
+
+    $nid = reset($individual);
+
+    return $storage->load($nid);
   }
 
   /**
    * { @inheritdoc }
    */
-  public function getAllPcoPeople($offset, $perPage) {
-    // Refresh the PCO list.
-    // See https://people.planningcenteronline.com/lists/198379
-    $listId = 198379;
-    $this->refreshPcoUpdateList($listId);
-    $query = [
-      'per_page' => $perPage,
-      'include' => 'emails,field_data',
-      'offset' => $offset,
+  public function deleteIndividual(NodeInterface $individual) {
+    $individual->set('field_pco_deleted', TRUE);
+    return $individual->save();
+  }
+
+  /**
+   * { @inheritdoc }
+   */
+  public function createIndividual($pcoId, array $payload) {
+    $storage = $this->entityTypeManager->getStorage('node');
+    // Set a couple default values.
+    $values = [
+      'type' => 'individual',
+      'status' => 1,
+      'field_planning_center_id' => $pcoId,
     ];
-    // Grab results from the updated list.
-    $request = $this->pcoApiClient->connect('get', 'people/v2/lists/' . $listId . '/people', $query, []);
-    $results = json_decode($request);
-    if (!count($results->data)) {
+    $individual = $storage->create($values);
+    $individual->setTitle($pcoId);
+
+    return $this->updateIndividual($individual, $payload);
+  }
+
+  /**
+   * { @inheritdoc }
+   */
+  public function updateIndividual(NodeInterface $individual, array $payload) {
+    $attributes = $payload['data']['attributes'];
+    $links = $payload['data']['links'];
+
+    // Set a couple default values.
+    $map = [
+      'field_first_name' => 'first_name',
+      'field_last_name' => 'last_name',
+      'field_pco_updated' => 'updated_at',
+      'field_pco_deleted' => 'status',
+      'field_membership' => 'membership',
+      'field_email_address' => 'emails',
+    ];
+
+    foreach ($map as $field => $value) {
+      if (isset($attributes[$value])) {
+        $value = $attributes[$value];
+      }
+      else {
+        $value = NULL;
+      }
+
+      // Handle a couple more complicated fields.
+      switch ($field) {
+        case 'field_membership':
+          if ($tid = $this->groupsUtility->getTidByName('membership', $value)) {
+            $value = $tid;
+          }
+          break;
+
+        case 'field_email_address':
+          $pcoId = $payload['data']['id'];
+          $value = $this->getPcoEmails($pcoId);
+          break;
+
+        case 'field_pco_deleted':
+          $status = TRUE;
+          if ($value === 'active') {
+            $status = FALSE;
+          }
+          $value = $status;
+          break;
+      }
+
+      $individual->set($field, $value);
+    }
+
+    return $individual->save();
+  }
+
+  /**
+   * { @inheritdoc }
+   */
+  public function updateIndividualEmail(array $payload) {
+    if (!$pcoId = $this->getPcoEmailParent($payload)) {
+      return FALSE;
+    }
+    if (!$individual = $this->getIndividualbyId($pcoId)) {
       return FALSE;
     }
 
-    return $results;
+    $individual->set('field_email_address', $this->getPcoEmails($pcoId));
+    return $individual->save();
   }
 
   /**
    * { @inheritdoc }
    */
-  public function getPcoPeople($offset, $perPage) {
-    $query = [
-      'per_page' => $perPage,
-      'include' => 'emails',
-      'offset' => $offset,
-    ];
-    $request = $this->pcoApiClient->connect('get', 'people/v2/people', $query, []);
-    $results = json_decode($request);
+  public function transferGroupConnections(NodeInterface $keep, NodeInterface $remove) {
+    $storage = $this->entityTypeManager->getStorage('node');
+    $results = $storage->getQuery()
+      ->condition('type', 'group_connection')
+      ->condition('field_individual', $remove->id())
+      ->accessCheck(FALSE)
+      ->execute();
 
-    return $results->data;
+    if (empty($results)) {
+      return FALSE;
+    }
+
+    $connections = $storage->loadMultiple($results);
+    // Set Group connections the individual we are keeping.
+    foreach ($connections as $connection) {
+      $connection->field_individual->entity = $keep;
+      $connection->save();
+    }
+    return TRUE;
   }
 
 }

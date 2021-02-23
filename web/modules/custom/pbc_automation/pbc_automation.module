@@ -33,7 +33,6 @@ function pbc_automation_help($route_name, RouteMatchInterface $route_match) {
  */
 function pbc_automation_cron() {
   $utility = Drupal::service('pbc_groups.utility');
-  $task = Drupal::service('pbc_automation.pco_tasks');
   $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('node');
 
   $now = new DrupalDateTime('now');
@@ -112,39 +111,6 @@ function pbc_automation_cron() {
       }
     }
   }
-
-  // Sync data from Planning Center Online.
-  Drupal::state()->set('pbc_automation_next', 1);
-  Drupal::state()->set('pbc_automation_offset', 0);
-
-  do {
-    $offset = Drupal::state()->get('pbc_automation_offset');
-
-    // See https://people.planningcenteronline.com/lists/195220
-    $listId = 195220;
-    if ($results = $task->getPcoPeopleFromList($offset, 100, $listId)) {
-      if (isset($results->meta->next)) {
-        Drupal::state()->set('pbc_automation_next', 1);
-      }
-      else {
-        Drupal::state()->set('pbc_automation_next', 0);
-      }
-
-      if (isset($results->meta->next->offset)) {
-        Drupal::state()->set('pbc_automation_offset', $results->meta->next->offset);
-      }
-
-      foreach ($results->data as $result) {
-        $task->createOrUpdateNode($result, FALSE);
-      }
-      // Set a last updated date.
-      Drupal::state()->set('pbc_automation_sync', $nowDate);
-    }
-    else {
-      // No results returned.
-      Drupal::state()->set('pbc_automation_next', 0);
-    }
-  } while (Drupal::state()->get('pbc_automation_next'));
 }
 
 /**
@@ -189,5 +155,4 @@ function pbc_automation_send_attendance_link(&$message, $params) {
   $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
   $message['subject'] = $attendance->getTitle();
   $message['body'] = $body;
-
 }

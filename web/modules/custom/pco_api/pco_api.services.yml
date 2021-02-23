@@ -1,4 +1,0 @@
-services:
-  pco_api.client:
-    class: '\Drupal\pco_api\Client\PcoClient'
-    arguments: ['@http_client', '@key.repository', '@config.factory']

@@ -199,6 +199,7 @@ class PcoTasks implements PcoTasksInterface {
     ];
     $individual = $storage->create($values);
     $individual->setTitle($pcoId);
+    $individual->save();
 
     return $this->updateIndividual($individual, $payload);
   }

@@ -135,10 +135,7 @@ class PcoWebhooksProcessor extends QueueWorkerBase implements ContainerFactoryPl
     if (!$individual) {
       return $this->pcoTasks->createIndividual($pcoId, $payload);
     }
-    elseif ($individual) {
-      return $this->pcoTasks->updateIndividual($individual, $payload);
-    }
-    return FALSE;
+    return $this->pcoTasks->updateIndividual($individual, $payload);
   }
 
   /**

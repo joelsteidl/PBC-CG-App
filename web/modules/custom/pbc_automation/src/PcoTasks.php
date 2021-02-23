@@ -156,6 +156,9 @@ class PcoTasks implements PcoTasksInterface {
     return $payload['meta']['parent']['id'];
   }
 
+  /**
+   * { @inheritdoc }
+   */
   public function getIndividualbyId($pcoId) {
     $storage = $this->entityTypeManager->getStorage('node');
 

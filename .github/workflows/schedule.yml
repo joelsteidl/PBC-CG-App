@@ -1,0 +1,19 @@
+name: Process Queue
+
+on:
+  schedule:
+    - cron:  '*/5 * * * *'
+
+jobs:
+  process-queue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process Queue
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{ secrets.SSH_USERNAME }}
+          privateKey: ${{ secrets.SSH_KEY }}
+          command: |
+            cd ~/cg.providencedenver.org/web
+            drush queue-run pco_webhooks_processor

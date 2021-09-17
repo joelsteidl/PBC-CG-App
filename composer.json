@@ -17,7 +17,7 @@
     "drupal/adminimal_theme": "^1.5",
     "drupal/better_exposed_filters": "^5.0@beta",
     "drupal/bootstrap": "^3.20",
-    "drupal/condition_query": "^1.2",
+    "drupal/condition_query": "1.x-dev@dev",
     "drupal/config_split": "^1.2",
     "drupal/console": "~1.0",
     "drupal/core-composer-scaffold": "^8.8",
@@ -94,7 +94,7 @@
     },
     "patches": {
       "drupal/condition_query": {
-        "Add support for a wildcard parameter and a case sensitive option": "https://www.drupal.org/files/issues/2019-06-19/2986466_7.patch"
+        "Add support for a wildcard parameter and a case sensitive option": "https://www.drupal.org/files/issues/2021-06-04/2986466-25.patch"
       }
     }
   }

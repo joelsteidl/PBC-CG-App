@@ -163,14 +163,14 @@ function pbc_groups_form_node_individual_edit_form_alter(&$form, FormStateInterf
     $url = 'https://people.planningcenteronline.com/people/AC' . $pcoId;
   }
 
-  drupal_set_message(t('Please do not edit individuals here. Please edit their information on <a href="@url" target="_blank">Planning Center</a>.', ['@url' => $url]), 'warning', FALSE);
+  \Drupal::messenger()->addWarning(t('Please do not edit individuals here. Please edit their information on <a href="@url" target="_blank">Planning Center</a>.', ['@url' => $url]));
 }
 
 /**
  * Implements hook_form_FORM_ID_alter().
  */
 function pbc_groups_form_node_group_connection_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  drupal_set_message(t('You may edit the status for this person.'), 'warning', FALSE);
+  \Drupal::messenger()->addWarning(t('You may edit the status for this person.'));
   $form['field_group']['#disabled'] = TRUE;
   $form['field_individual']['#disabled'] = TRUE;
   $form['revision_information']['#access'] = FALSE;

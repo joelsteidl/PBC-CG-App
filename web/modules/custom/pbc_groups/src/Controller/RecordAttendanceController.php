@@ -69,7 +69,7 @@ class RecordAttendanceController extends ControllerBase {
       $group_connection->save();
     }
 
-    drupal_set_message(t('Attendance has been recorded for @name.', ['@name' => $group_connection->field_individual->entity->field_first_name->getString()]), 'status', FALSE);
+    \Drupal::messenger()->addStatus(t('Attendance has been recorded for @name.', ['@name' => $group_connection->field_individual->entity->field_first_name->getString()]));
     return $this->redirect('entity.node.canonical', ['node' => $group_attendance_record->id()]);
 
     // $response = new AjaxResponse();

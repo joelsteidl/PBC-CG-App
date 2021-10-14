@@ -46,7 +46,6 @@ class FindIndividualController extends ControllerBase {
    *   Return Hello string.
    */
   public function getContent(NodeInterface $redirect) {
-    // drupal_set_message($this->t('Please help us prevent duplicate people! Take a second and scan through this list before adding a new person. Thanks!'), 'warning', FALSE);
 
     $build = [];
 

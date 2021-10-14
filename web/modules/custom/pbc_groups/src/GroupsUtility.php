@@ -107,7 +107,7 @@ class GroupsUtility implements GroupsUtilityInterface {
       $node->save();
     }
     catch (Exception $exception) {
-      drupal_set_message(t('Content was not created. "%error"', ['%error' => $exception->getMessage()]), 'warning');
+      \Drupal::messenger()->addWarning(t('Content was not created. "%error"', ['%error' => $exception->getMessage()]));
 
       \Drupal::logger('pbc_groups')->warning('Failed to complete Planning Center Task "%error"', ['%error' => $exception->getMessage()]);
       return FALSE;

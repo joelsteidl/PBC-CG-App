@@ -79,7 +79,12 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if field_in_attendance__value %}\n<span class=\"label label-success\">&#10003; Present</span>\n{% else %}\n<span class=\"label label-danger\">&#10006; Absent</span>\n{% endif %}"
+            text: |-
+              {% if field_in_attendance__value %}
+              <span class="label label-success">&#10003; Present</span>
+              {% else %}
+              <span class="label label-danger">&#10006; Absent</span>
+              {% endif %}
             make_link: false
             path: ''
             absolute: false

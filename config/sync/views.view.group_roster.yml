@@ -869,7 +869,14 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if  field_group_connection_status__target_id == 1 %}\n<span class=\"label label-success\">{{ field_group_connection_status }}</span>\n{% elseif  field_group_connection_status__target_id == 2 %}\n<span class=\"label label-danger\">{{ field_group_connection_status }}</span>\n{% else %}\n<span class=\"label label-warning\">{{ field_group_connection_status }}</span>\n{% endif %}"
+            text: |-
+              {% if  field_group_connection_status__target_id == 1 %}
+              <span class="label label-success">{{ field_group_connection_status }}</span>
+              {% elseif  field_group_connection_status__target_id == 2 %}
+              <span class="label label-danger">{{ field_group_connection_status }}</span>
+              {% else %}
+              <span class="label label-warning">{{ field_group_connection_status }}</span>
+              {% endif %}
             make_link: false
             path: ''
             absolute: false

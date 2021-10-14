@@ -213,7 +213,7 @@ class ManageAttendanceForm extends FormBase {
     ];
     $this->groupsUtility->updateNode($groupAttendValues, $this->groupAttendance->id());
 
-    drupal_set_message(t('Your attendance has been updated. You can review below.'), 'status', FALSE);
+    \Drupal::messenger()->addStatus('Your attendance has been updated. You can review below.');
 
     $form_state->setRedirect(
       'pbc_groups.group_attendance_finished_controller_content',

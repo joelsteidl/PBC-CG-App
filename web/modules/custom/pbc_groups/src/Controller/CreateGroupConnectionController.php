@@ -71,7 +71,7 @@ class CreateGroupConnectionController extends ControllerBase {
       ->execute();
 
     if ($connections > 0) {
-      drupal_set_message($this->t('@name is already part of this group. Duplicates are not allowed. ', ['@name' => $individual->getTitle()]), 'error', FALSE);
+      \Drupal::messenger()->addError($this->t('@name is already part of this group. Duplicates are not allowed.', ['@name' => $individual->getTitle()]));
       return $this->redirect('entity.node.canonical', ['node' => $redirect->id()]);
     }
 
@@ -92,7 +92,7 @@ class CreateGroupConnectionController extends ControllerBase {
       }
     }
 
-    drupal_set_message(t('Success! @name has been added.', ['@name' => $individual->field_first_name->getString()]), 'status', FALSE);
+    \Drupal::messenger()->addStatus(t('Success! @name has been added.', ['@name' => $individual->field_first_name->getString()]));
     return $this->redirect('entity.node.canonical', ['node' => $redirect->id()]);
   }
 

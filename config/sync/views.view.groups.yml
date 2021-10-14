@@ -455,7 +455,14 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if field_group_status == 'Active' %}\n<span class=\"label label-success\">&#10003; Active</span>\n{% elseif field_group_status == 'Inactive' %}\n<span class=\"label label-warning\">&#9873; Inactive</span>\n{% else %}\n<span class=\"label label-danger\">&#10006; Retired</span>\n{% endif %}"
+            text: |-
+              {% if field_group_status == 'Active' %}
+              <span class="label label-success">&#10003; Active</span>
+              {% elseif field_group_status == 'Inactive' %}
+              <span class="label label-warning">&#9873; Inactive</span>
+              {% else %}
+              <span class="label label-danger">&#10006; Retired</span>
+              {% endif %}
             make_link: false
             path: ''
             absolute: false

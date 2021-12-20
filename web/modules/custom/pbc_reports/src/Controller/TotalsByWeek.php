@@ -10,6 +10,8 @@ use Drupal\pbc_groups\GroupsUtility;
 use Drupal\Core\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Class TotalsByWeek.
@@ -103,6 +105,11 @@ class TotalsByWeek extends ControllerBase {
     $build['prefix']['#markup'] = '<div class="row"><div class="col-sm-12">';
     $build['table'] = $this->buildTable($data);
     $build['suffix']['#markup'] = '</div></div>';
+
+    // Add link to export CSV.
+    $url = Url::fromRoute('pbc_reports.totals.csv');
+    $csv = Link::fromTextAndUrl($this->t('Export CSV Data'), $url);
+    $build['export'] = $csv->toRenderable();
 
     // Cache.
     $build['#cache'] = [

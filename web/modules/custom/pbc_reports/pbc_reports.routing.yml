@@ -22,6 +22,14 @@ pbc_reports.totals:
   requirements:
     _permission: 'access reports'
 
+pbc_reports.totals.csv:
+  path: '/reports/totals/csv'
+  defaults:
+    _controller: '\Drupal\pbc_reports\Controller\TotalsByWeekCsv::index'
+    _title: 'Total Attendance by Week CSV Export'
+  requirements:
+    _permission: 'access reports'
+
 pbc_reports.week:
   path: '/reports/attendance-by-week'
   defaults:

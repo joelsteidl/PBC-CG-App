@@ -19,7 +19,6 @@
     "drupal/bootstrap": "^3.20",
     "drupal/condition_query": "1.x-dev@dev",
     "drupal/config_split": "^1.2",
-    "drupal/console": "~1.0",
     "drupal/core-composer-scaffold": "^9",
     "drupal/core-project-message": "^9",
     "drupal/core-recommended": "^9",
@@ -36,6 +35,7 @@
     "drupal/views_block_filter_block": "^1.0@beta",
     "drupal/views_field_view": "^1.0@beta",
     "drush/drush": "^10.3",
+    "league/csv": "^9.7",
     "rvtraveller/qs-composer-installer": "^1.1"
   },
   "conflict": {

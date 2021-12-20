@@ -1,7 +1,15 @@
 uuid: 80befb80-b159-4480-aabc-f8190664f7cd
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - node.type.group
+    - node.type.group_connection
+    - node.type.individual
+  module:
+    - node
+    - pbc_reports
+    - system
 id: group_admin
 label: 'Group Admin'
 weight: 2

@@ -19,20 +19,20 @@ plugin: 'views_block:group_attendance_review-block_1'
 settings:
   id: 'views_block:group_attendance_review-block_1'
   label: ''
-  provider: views
   label_display: visible
+  provider: views
   views_label: ''
   items_per_page: none
 visibility:
   request_path:
     id: request_path
-    pages: '/group/*/attendance/*/finished'
     negate: false
     context_mapping: {  }
+    pages: '/group/*/attendance/*/finished'
   user_role:
     id: user_role
-    roles:
-      authenticated: authenticated
     negate: false
     context_mapping:
       user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated

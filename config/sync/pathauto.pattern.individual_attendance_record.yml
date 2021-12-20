@@ -11,12 +11,12 @@ pattern: 'group/[node:field_group:target_id]/attendance/[node:nid]/connection/[n
 selection_criteria:
   1085928c-cf5d-4532-ad85-c50b53fcc88d:
     id: node_type
-    bundles:
-      individual_attendance_record: individual_attendance_record
     negate: false
+    uuid: 1085928c-cf5d-4532-ad85-c50b53fcc88d
     context_mapping:
       node: node
-    uuid: 1085928c-cf5d-4532-ad85-c50b53fcc88d
+    bundles:
+      individual_attendance_record: individual_attendance_record
 selection_logic: and
 weight: -5
 relationships: {  }

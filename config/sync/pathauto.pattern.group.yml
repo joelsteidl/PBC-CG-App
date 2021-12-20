@@ -11,12 +11,12 @@ pattern: 'group/[node:nid]'
 selection_criteria:
   70cf719b-6460-4ae3-a8b6-d7ddacf0b123:
     id: node_type
-    bundles:
-      group: group
     negate: false
+    uuid: 70cf719b-6460-4ae3-a8b6-d7ddacf0b123
     context_mapping:
       node: node
-    uuid: 70cf719b-6460-4ae3-a8b6-d7ddacf0b123
+    bundles:
+      group: group
 selection_logic: and
 weight: -5
 relationships: {  }

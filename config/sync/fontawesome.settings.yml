@@ -1,14 +1,14 @@
+_core:
+  default_config_hash: _0TCP1OlXsH5Pus8XEGjw0gzFvkiJFQBvJqqNpD9p0s
 tag: i
 method: svg
+load_assets: true
 use_cdn: true
 external_svg_location: 'https://use.fontawesome.com/releases/v5.10.0/js/all.js'
 use_shim: false
 external_shim_location: 'https://use.fontawesome.com/releases/v5.10.0/js/v4-shims.js'
+allow_pseudo_elements: false
 use_solid_file: true
 use_regular_file: false
 use_light_file: false
-use_brands_file: 0
-_core:
-  default_config_hash: _0TCP1OlXsH5Pus8XEGjw0gzFvkiJFQBvJqqNpD9p0s
-allow_pseudo_elements: false
-load_assets: true
+use_brands_file: false

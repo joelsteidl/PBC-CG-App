@@ -17,21 +17,21 @@ plugin: find_individual_block
 settings:
   id: find_individual_block
   label: 'Add New Person'
-  provider: pbc_groups
   label_display: visible
+  provider: pbc_groups
 visibility:
   user_role:
     id: user_role
-    roles:
-      authenticated: authenticated
     negate: false
     context_mapping:
       user: '@user.current_user_context:current_user'
-  node_type:
-    id: node_type
-    bundles:
-      group: group
-      group_attendance_record: group_attendance_record
+    roles:
+      authenticated: authenticated
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
     negate: false
     context_mapping:
       node: '@node.node_route_context:node'
+    bundles:
+      group: group
+      group_attendance_record: group_attendance_record

@@ -14,38 +14,38 @@ bundle: group
 mode: default
 content:
   field_attendance_manager:
+    type: options_select
     weight: 2
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_group_status:
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
     type: options_buttons
+    weight: 3
     region: content
-  field_meeting_day:
-    weight: 1
     settings: {  }
     third_party_settings: {  }
+  field_meeting_day:
     type: options_select
+    weight: 1
     region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
+    weight: 4
+    region: content
     settings:
       display_label: true
-    weight: 4
     third_party_settings: {  }
-    region: content
   title:
     type: string_textfield
     weight: 0
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
   field_neighborhood: true

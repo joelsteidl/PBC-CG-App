@@ -18,13 +18,13 @@ plugin: 'views_block:search_individuals-block_2'
 settings:
   id: 'views_block:search_individuals-block_2'
   label: ''
-  provider: views
   label_display: visible
+  provider: views
   views_label: ''
   items_per_page: none
 visibility:
   request_path:
     id: request_path
-    pages: '/find/individual/*'
     negate: false
     context_mapping: {  }
+    pages: '/find/individual/*'

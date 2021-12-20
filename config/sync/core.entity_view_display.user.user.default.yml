@@ -14,11 +14,11 @@ bundle: user
 mode: default
 content:
   field_also_notify:
-    weight: 0
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 0
     region: content
 hidden:
   field_first_name: true

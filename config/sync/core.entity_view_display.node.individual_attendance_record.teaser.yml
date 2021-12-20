@@ -18,10 +18,10 @@ bundle: individual_attendance_record
 mode: teaser
 content:
   links:
-    weight: 100
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 100
+    region: content
 hidden:
   field_group_attendance_record: true
   field_group_connection: true

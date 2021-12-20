@@ -24,103 +24,12 @@ base_table: node_field_data
 base_field: nid
 display:
   default:
-    display_plugin: default
     id: default
     display_title: Master
+    display_plugin: default
     position: 0
     display_options:
-      access:
-        type: role
-        options:
-          role:
-            authenticated: authenticated
-      cache:
-        type: none
-        options: {  }
-      query:
-        type: views_query
-        options:
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
-          query_comment: ''
-          query_tags: {  }
-      exposed_form:
-        type: basic
-        options:
-          submit_button: Apply
-          reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-      pager:
-        type: none
-        options:
-          items_per_page: 0
-          offset: 0
-      style:
-        type: table
-        options:
-          grouping:
-            -
-              field: field_group_connection_status
-              rendered: true
-              rendered_strip: false
-          row_class: ''
-          default_row_class: true
-          override: true
-          sticky: false
-          caption: ''
-          summary: ''
-          description: ''
-          columns:
-            field_first_name: field_first_name
-            field_last_name: field_last_name
-            field_email_address: field_email_address
-            field_group_connection_status: field_group_connection_status
-            edit_node: field_group_connection_status
-          info:
-            field_first_name:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_last_name:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_email_address:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_group_connection_status:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ' '
-              empty_column: false
-              responsive: ''
-            edit_node:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: '-1'
-          empty_table: false
-      row:
-        type: fields
+      title: 'People in this Group'
       fields:
         field_first_name:
           id: field_first_name
@@ -129,6 +38,7 @@ display:
           relationship: field_individual
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: 'First Name'
           exclude: false
           alter:
@@ -184,7 +94,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         field_last_name:
           id: field_last_name
           table: node__field_last_name
@@ -192,6 +101,7 @@ display:
           relationship: field_individual
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: 'Last Name'
           exclude: false
           alter:
@@ -247,7 +157,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         field_email_address:
           id: field_email_address
           table: node__field_email_address
@@ -255,6 +164,7 @@ display:
           relationship: field_individual
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: 'Email Address'
           exclude: false
           alter:
@@ -309,7 +219,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         field_group_connection_status:
           id: field_group_connection_status
           table: node__field_group_connection_status
@@ -317,6 +226,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: Status
           exclude: false
           alter:
@@ -372,7 +282,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         edit_node:
           id: edit_node
           table: node
@@ -380,6 +289,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          plugin_id: entity_link_edit
           label: ''
           exclude: false
           alter:
@@ -422,34 +333,30 @@ display:
           empty_zero: false
           hide_alter_empty: true
           text: edit
-          entity_type: node
-          plugin_id: entity_link_edit
-      filters:
-        status:
-          value: '1'
-          table: node_field_data
-          field: status
-          plugin_id: boolean
-          entity_type: node
-          entity_field: status
-          id: status
-          expose:
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-          group: 1
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          value:
-            group_connection: group_connection
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          expose:
-            operator_limit_selection: false
-            operator_list: {  }
+      pager:
+        type: none
+        options:
+          offset: 0
+          items_per_page: 0
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: role
+        options:
+          role:
+            authenticated: authenticated
+      cache:
+        type: none
+        options: {  }
+      empty: {  }
       sorts:
         weight:
           id: weight
@@ -458,13 +365,14 @@ display:
           relationship: term_node_tid
           group_type: group
           admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
           entity_type: taxonomy_term
           entity_field: weight
           plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: weight
+          exposed: false
         field_first_name_value:
           id: field_first_name_value
           table: node__field_first_name
@@ -472,11 +380,12 @@ display:
           relationship: field_individual
           group_type: group
           admin_label: ''
+          plugin_id: standard
           order: ASC
-          exposed: false
           expose:
             label: ''
-          plugin_id: standard
+            field_identifier: field_first_name_value
+          exposed: false
         field_last_name_value:
           id: field_last_name_value
           table: node__field_last_name
@@ -484,37 +393,12 @@ display:
           relationship: field_individual
           group_type: group
           admin_label: ''
+          plugin_id: standard
           order: ASC
-          exposed: false
           expose:
             label: ''
-          plugin_id: standard
-      title: 'People in this Group'
-      header: {  }
-      footer: {  }
-      empty: {  }
-      relationships:
-        field_individual:
-          id: field_individual
-          table: node__field_individual
-          field: field_individual
-          relationship: none
-          group_type: group
-          admin_label: 'field_individual: Content'
-          required: false
-          plugin_id: standard
-        term_node_tid:
-          id: term_node_tid
-          table: node_field_data
-          field: term_node_tid
-          relationship: none
-          group_type: group
-          admin_label: term
-          required: false
-          vids:
-            - group_membership_status
-          entity_type: node
-          plugin_id: node_term_data
+            field_identifier: field_last_name_value
+          exposed: false
       arguments:
         field_group_target_id:
           id: field_group_target_id
@@ -523,6 +407,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: numeric
           default_action: default
           exception:
             value: all
@@ -536,8 +421,8 @@ display:
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 25
             override: false
+            items_per_page: 25
           summary:
             sort_order: asc
             number_of_records: 0
@@ -549,7 +434,125 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
-          plugin_id: numeric
+      filters:
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            group_connection: group_connection
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+      style:
+        type: table
+        options:
+          grouping:
+            -
+              field: field_group_connection_status
+              rendered: true
+              rendered_strip: false
+          row_class: ''
+          default_row_class: true
+          columns:
+            field_first_name: field_first_name
+            field_last_name: field_last_name
+            field_email_address: field_email_address
+            field_group_connection_status: field_group_connection_status
+            edit_node: field_group_connection_status
+          default: '-1'
+          info:
+            field_first_name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_last_name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_email_address:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_group_connection_status:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ' '
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
+      row:
+        type: fields
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_tags: {  }
+      relationships:
+        field_individual:
+          id: field_individual
+          table: node__field_individual
+          field: field_individual
+          relationship: none
+          group_type: group
+          admin_label: 'field_individual: Content'
+          plugin_id: standard
+          required: false
+        term_node_tid:
+          id: term_node_tid
+          table: node_field_data
+          field: term_node_tid
+          relationship: none
+          group_type: group
+          admin_label: term
+          entity_type: node
+          plugin_id: node_term_data
+          required: false
+          vids:
+            - group_membership_status
+      header: {  }
+      footer: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -566,9 +569,9 @@ display:
         - 'config:field.storage.node.field_last_name'
         - extensions
   block_1:
-    display_plugin: block
     id: block_1
     display_title: Block
+    display_plugin: block
     position: 1
     display_options:
       display_extenders: {  }
@@ -587,37 +590,11 @@ display:
         - 'config:field.storage.node.field_last_name'
         - extensions
   block_2:
-    display_plugin: block
     id: block_2
     display_title: list
+    display_plugin: block
     position: 2
     display_options:
-      display_extenders: {  }
-      display_description: ''
-      style:
-        type: html_list
-        options:
-          grouping:
-            -
-              field: field_group_connection_status
-              rendered: true
-              rendered_strip: false
-          row_class: list-group-item
-          default_row_class: true
-          type: ul
-          wrapper_class: item-list
-          class: list-group
-      defaults:
-        style: false
-        row: false
-        fields: false
-      row:
-        type: fields
-        options:
-          default_field_elements: true
-          inline: {  }
-          separator: ''
-          hide_empty: false
       fields:
         edit_node:
           id: edit_node
@@ -626,6 +603,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          plugin_id: entity_link_edit
           label: ''
           exclude: false
           alter:
@@ -668,8 +647,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           text: 'Edit Status'
-          entity_type: node
-          plugin_id: entity_link_edit
         field_first_name:
           id: field_first_name
           table: node__field_first_name
@@ -677,6 +654,7 @@ display:
           relationship: field_individual
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -732,7 +710,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         field_last_name:
           id: field_last_name
           table: node__field_last_name
@@ -740,6 +717,7 @@ display:
           relationship: field_individual
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -795,7 +773,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         field_email_address:
           id: field_email_address
           table: node__field_email_address
@@ -803,6 +780,7 @@ display:
           relationship: field_individual
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -857,7 +835,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         field_group_connection_status:
           id: field_group_connection_status
           table: node__field_group_connection_status
@@ -865,6 +842,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -927,7 +905,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         field_planning_center_id:
           id: field_planning_center_id
           table: node__field_planning_center_id
@@ -935,6 +912,7 @@ display:
           relationship: field_individual
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -989,7 +967,32 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
+      style:
+        type: html_list
+        options:
+          grouping:
+            -
+              field: field_group_connection_status
+              rendered: true
+              rendered_strip: false
+          row_class: list-group-item
+          default_row_class: true
+          type: ul
+          wrapper_class: item-list
+          class: list-group
+      row:
+        type: fields
+        options:
+          default_field_elements: true
+          inline: {  }
+          separator: ''
+          hide_empty: false
+      defaults:
+        style: false
+        row: false
+        fields: false
+      display_description: ''
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:

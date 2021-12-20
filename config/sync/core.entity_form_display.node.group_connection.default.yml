@@ -13,34 +13,34 @@ bundle: group_connection
 mode: default
 content:
   field_group:
-    weight: 0
-    settings: {  }
-    third_party_settings: {  }
     type: options_select
+    weight: 0
     region: content
-  field_group_connection_status:
-    weight: 2
     settings: {  }
     third_party_settings: {  }
+  field_group_connection_status:
     type: options_buttons
+    weight: 2
     region: content
+    settings: {  }
+    third_party_settings: {  }
   field_individual:
     type: entity_reference_autocomplete
     weight: 1
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    region: content
   status:
     type: boolean_checkbox
+    weight: 121
+    region: content
     settings:
       display_label: true
-    weight: 121
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
   path: true

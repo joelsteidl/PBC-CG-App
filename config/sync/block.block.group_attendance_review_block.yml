@@ -17,18 +17,18 @@ plugin: group_attendance_review_block
 settings:
   id: broken
   label: 'Need to make edits?'
-  provider: pbc_groups
   label_display: visible
+  provider: pbc_groups
 visibility:
   request_path:
     id: request_path
-    pages: '/group/*/attendance/*/finished'
     negate: false
     context_mapping: {  }
+    pages: '/group/*/attendance/*/finished'
   user_role:
     id: user_role
-    roles:
-      authenticated: authenticated
     negate: false
     context_mapping:
       user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated

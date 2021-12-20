@@ -17,10 +17,10 @@ bundle: group
 mode: teaser
 content:
   links:
-    weight: 100
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 100
+    region: content
 hidden:
   field_attendance_manager: true
   field_group_status: true

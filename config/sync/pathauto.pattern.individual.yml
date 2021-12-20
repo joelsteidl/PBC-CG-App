@@ -11,12 +11,12 @@ pattern: 'individual/[node:nid]/pco/[node:field_planning_center_id]'
 selection_criteria:
   e837a52a-95ec-4fcf-9fbd-e42046b1f101:
     id: node_type
-    bundles:
-      individual: individual
     negate: false
+    uuid: e837a52a-95ec-4fcf-9fbd-e42046b1f101
     context_mapping:
       node: node
-    uuid: e837a52a-95ec-4fcf-9fbd-e42046b1f101
+    bundles:
+      individual: individual
 selection_logic: and
 weight: -5
 relationships: {  }

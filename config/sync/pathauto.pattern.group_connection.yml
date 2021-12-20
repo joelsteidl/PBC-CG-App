@@ -11,12 +11,12 @@ pattern: 'group/[node:field_group:target_id]/connection/[node:nid]/individual/[n
 selection_criteria:
   0a98bb2c-351c-4a85-8ee4-8abdb0a154dc:
     id: node_type
-    bundles:
-      group_connection: group_connection
     negate: false
+    uuid: 0a98bb2c-351c-4a85-8ee4-8abdb0a154dc
     context_mapping:
       node: node
-    uuid: 0a98bb2c-351c-4a85-8ee4-8abdb0a154dc
+    bundles:
+      group_connection: group_connection
 selection_logic: and
 weight: -5
 relationships: {  }

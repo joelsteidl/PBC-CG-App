@@ -126,7 +126,7 @@ class GroupsUtility implements GroupsUtilityInterface {
       ->condition('name', $term)
       ->execute();
 
-    if (!count($result)) {
+    if (empty($result)) {
       return FALSE;
     }
 

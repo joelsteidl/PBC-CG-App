@@ -28,7 +28,7 @@
     "drupal/key": "^1.15",
     "drupal/pathauto": "^1.6",
     "drupal/pco": "2.0.x-dev",
-    "drupal/queue_ui": "^2.2",
+    "drupal/queue_ui": "^3.1",
     "drupal/r4032login": "^2.1",
     "drupal/sendgrid_integration": "^1.2",
     "drupal/token": "^1.0@RC",

@@ -58,6 +58,14 @@ pbc_reports.individuals_by_group_year:
   path: '/reports/group-history-year'
   defaults:
     _controller: '\Drupal\pbc_reports\Controller\IndividualsByGroupYear::build'
-    _title: 'Individual Attendance by Year'
+    _title: 'Individual Attendance by Group'
+  requirements:
+    _permission: 'access reports'
+
+pbc_reports.individuals_by_group_year.csv:
+  path: '/reports/group-history-year/csv'
+  defaults:
+    _controller: '\Drupal\pbc_reports\Controller\IndividualsByGroupYear::export'
+    _title: 'Individual Attendance by Group CSV'
   requirements:
     _permission: 'access reports'

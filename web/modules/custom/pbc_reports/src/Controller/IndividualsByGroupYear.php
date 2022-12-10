@@ -7,8 +7,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\pbc_reports\ReportsUtility;
 use Drupal\Core\Form\FormBuilder;
+use Drupal\Core\Link;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\Url;
+use League\Csv\Writer;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class IndividualsByGroupYear.
@@ -57,6 +61,43 @@ class IndividualsByGroupYear extends ControllerBase {
   }
 
   /**
+   * Export as CSV
+   */
+  public function export(Request $request) {
+    $query = $request->query;
+    // Get group ids from the querystring.
+    $gids = explode('+', $query->get('gids'));
+
+    // Iterate over groups.
+    $storage = $this->entityTypeManager->getStorage('node');
+    $groups = $storage->loadMultiple($gids);
+    $rows = [];
+    // Build rows from each group.
+    foreach ($groups as $group) {
+       $groupRows = $this->buildRow($group->id(), $query);
+       $rows = array_merge($rows, $groupRows);
+    }
+
+    // Adjust the header for CSV.
+    $header = array_merge(['group' => 'Group', 'name' => 'Name'], $this->buildTableHeader());
+    if (isset($header[''])) {
+      unset($header['']);
+    }
+
+    // Write to CSV.
+    $csv = Writer::createFromString();
+    $csv->insertOne($header);
+    $csv->insertAll($rows);
+
+    $response = new Response();
+    $response->headers->set('Content-Type', 'text/csv');
+    $response->headers->set('Content-Disposition', 'attachment; filename="totals-report.csv"');
+    $response->setContent($csv->toString());
+
+    return $response;
+  }
+
+  /**
    * Build.
    *
    * @return array
@@ -82,6 +123,18 @@ class IndividualsByGroupYear extends ControllerBase {
       ],
     ];
 
+    // Add link to export CSV.
+    $options = [
+      'query' => [
+        'start' => $request->request->get('start_date'),
+        'end' => $request->request->get('end_date'),
+        'gids' => implode('+', $gids),
+      ]
+    ];
+    $url = Url::fromRoute('pbc_reports.individuals_by_group_year.csv', [], $options);
+    $csv = Link::fromTextAndUrl($this->t('Export CSV Data'), $url);
+    $build['export'] = $csv->toRenderable();
+
     // Loop over to create additional.
     $storage = $this->entityTypeManager->getStorage('node');
     $groups = $storage->loadMultiple($gids);
@@ -95,6 +148,49 @@ class IndividualsByGroupYear extends ControllerBase {
     }
 
     return $build;
+  }
+
+  /**
+   * Build attendance table.
+   *
+   * @param int $nid
+   *   A Group NID.
+   * @param array $query
+   *   Relevant querystring params.
+   *
+   * @return array
+   *   Return a render array.
+   */
+  public function buildRow($nid, $query) {
+    $dates = [
+      'start' => $query->get('start'),
+      'end' => $query->get('end'),
+    ];
+    $connections = $this->getGroupConnections($nid);
+    $groupAttendance = $this->getGroupAttendance($nid, $dates);
+    $groupPotentialAttendance = $this->getGroupPotentialAttendance($nid, $dates);
+
+    $rows = [];
+    // Create a row starting with name for each person.
+    foreach ($connections as $connection) {
+      $name = $connection->field_individual->entity->getTitle();
+      $rows[$connection->id()]['group'] = $connection->field_group->entity->getTitle();
+      $rows[$connection->id()]['name'] = $name;
+      $rows[$connection->id()]['num_group_potential'] = $groupPotentialAttendance;
+      $rows[$connection->id()]['num_group_met'] = count($groupAttendance);
+      $indPotentialAttendance = $this->getIndPotentialAtt($connection->id(), $groupAttendance);
+      $indAttendance = $this->getIndAtt($connection->id(), $groupAttendance);
+      $rows[$connection->id()]['ind_potential'] = $indPotentialAttendance;
+      $rows[$connection->id()]['ind_present'] = $indAttendance;
+      $percent = 0;
+      if (!empty($indAttendance) && !empty($indPotentialAttendance)) {
+        $quotient = $indAttendance / $indPotentialAttendance;
+        $percent = number_format($quotient * 100, 0);
+      }
+      $rows[$connection->id()]['percent_present'] = $percent;
+    }
+
+    return $rows;
   }
 
   /**

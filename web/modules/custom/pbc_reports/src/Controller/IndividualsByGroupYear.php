@@ -89,9 +89,10 @@ class IndividualsByGroupYear extends ControllerBase {
     $csv->insertOne($header);
     $csv->insertAll($rows);
 
+    $filename = 'individuals-by-group_' . $query->get('start') . '_' . $query->get('end') . '.csv';
     $response = new Response();
     $response->headers->set('Content-Type', 'text/csv');
-    $response->headers->set('Content-Disposition', 'attachment; filename="totals-report.csv"');
+    $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
     $response->setContent($csv->toString());
 
     return $response;

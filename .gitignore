@@ -110,3 +110,4 @@ Thumbs.db
 .gitattributes
 drushrc.php
 settings.ddev.php
+.vscode

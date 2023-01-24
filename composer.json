@@ -25,6 +25,8 @@
     "drupal/csv_serialization": "^2.0",
     "drupal/ctools": "^3.2",
     "drupal/fontawesome": "^2.14",
+    "drupal/gin": "^3.0@RC",
+    "drupal/gin_toolbar": "^1.0@RC",
     "drupal/key": "^1.15",
     "drupal/pathauto": "^1.6",
     "drupal/pco": "2.0.x-dev",

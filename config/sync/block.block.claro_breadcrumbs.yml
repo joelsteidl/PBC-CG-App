@@ -1,17 +1,17 @@
-uuid: 8471eeb1-0166-4a97-ac01-eb07f4fc09a0
+uuid: d01397c6-3a5d-49bd-8aaf-e9026532f768
 langcode: en
 status: true
 dependencies:
   module:
     - system
   theme:
-    - seven
+    - claro
 _core:
-  default_config_hash: wDR9JKEATSWldBjw8du8s3G2zjEYeQf88nlld11hMLo
-id: seven_breadcrumbs
-theme: seven
-region: header
-weight: -100
+  default_config_hash: NjcxOBrPOiK5-38t56DwFBDVY4yer7YSlbRWXFuHe7A
+id: claro_breadcrumbs
+theme: claro
+region: breadcrumb
+weight: 0
 provider: null
 plugin: system_breadcrumb_block
 settings:

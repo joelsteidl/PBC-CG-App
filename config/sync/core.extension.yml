@@ -9,8 +9,6 @@ module:
   breakpoint: 0
   condition_query: 0
   config: 0
-  config_filter: 0
-  config_split: 0
   contact: 0
   csv_serialization: 0
   ctools: 0

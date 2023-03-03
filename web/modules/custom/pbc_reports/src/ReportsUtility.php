@@ -52,7 +52,7 @@ class ReportsUtility implements ReportsUtilityInterface {
   /**
    * { @inheritdoc }
    */
-  public function getGroupAttendance($groupId = '', $status) {
+  public function getGroupAttendance($groupId = '', $status = 'yes') {
     $storage = $this->entityTypeManager->getStorage('node');
 
     $count = $storage->getQuery()->count()
@@ -89,6 +89,9 @@ class ReportsUtility implements ReportsUtilityInterface {
    * { @inheritdoc }
    */
   public function createPercent($dividend, $divisor, $format = TRUE) {
+    if (empty($dividend) || empty($divisor)) {
+      return '0';
+    }
     $quotient = $dividend / $divisor;
     $percent = number_format($quotient * 100, 0);
     if ($format) {

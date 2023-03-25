@@ -3,4 +3,4 @@
 # ddev manages this file and may delete or overwrite the file unless this comment is removed.
 
 options:
-  uri: "http://pbccg.ddev.site"
+  uri: "https://cg.lndo.site"

@@ -35,6 +35,7 @@ function pbc_automation_update_8102() {
       ->condition('type', 'individual_attendance_record')
       ->condition('field_in_attendance', 1)
       ->condition('field_group_attendance_record', $record->id())
+      ->accessCheck(FALSE)
       ->execute();
     // Mark as yes.
     if ($attendance > 0) {

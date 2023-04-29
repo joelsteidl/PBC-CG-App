@@ -1,7 +1,7 @@
 name: PBC Automation
 type: module
 description: Handles various tasks that need to happen nightly and throughout the week. Mostly a hook_cron implementation.
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 package: PBC Custom
 dependencies:
   - pco

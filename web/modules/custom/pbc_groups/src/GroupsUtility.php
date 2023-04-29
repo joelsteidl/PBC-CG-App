@@ -124,6 +124,7 @@ class GroupsUtility implements GroupsUtilityInterface {
     $result = $storage->getQuery()
       ->condition('vid', $vocab)
       ->condition('name', $term)
+      ->accessCheck(FALSE)
       ->execute();
 
     if (empty($result)) {
@@ -170,8 +171,8 @@ class GroupsUtility implements GroupsUtilityInterface {
       ->condition('type', 'group')
       ->condition('status', 1)
       ->sort('field_group_status', 'ASC')
-      ->sort('title', 'ASC');
-
+      ->sort('title', 'ASC')
+      ->accessCheck(FALSE);
     if ($status) {
       $groups->condition('field_group_status', $status);
     }

@@ -63,6 +63,7 @@ function pbc_automation_cron() {
       ->condition('status', 1)
       ->condition('field_group', $group->id())
       ->condition('field_meeting_date', [$startDate, $endDate], 'BETWEEN')
+      ->accessCheck(FALSE)
       ->execute();
 
     // 1. Attendance not created for the current week.

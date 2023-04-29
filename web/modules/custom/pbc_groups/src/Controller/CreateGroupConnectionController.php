@@ -68,6 +68,7 @@ class CreateGroupConnectionController extends ControllerBase {
       ->condition('status', 1)
       ->condition('field_group', $groupId)
       ->condition('field_individual', $individual->id())
+      ->accessCheck(FALSE)
       ->execute();
 
     if ($connections > 0) {

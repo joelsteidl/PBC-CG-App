@@ -322,6 +322,7 @@ class TotalsByWeek extends ControllerBase {
       ->condition('status', 1)
       ->range(0, $count)
       ->sort('created', 'DESC')
+      ->accessCheck(FALSE)
       ->execute();
 
     return $storage->loadMultiple($results);
@@ -342,6 +343,7 @@ class TotalsByWeek extends ControllerBase {
       ->condition('type', 'individual_attendance_record')
       ->condition('field_group_attendance_record', $nid)
       ->condition('status', 1)
+      ->accessCheck(FALSE)
       ->execute();
 
     return $storage->loadMultiple($results);

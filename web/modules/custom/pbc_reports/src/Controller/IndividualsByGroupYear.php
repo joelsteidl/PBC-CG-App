@@ -280,6 +280,7 @@ class IndividualsByGroupYear extends ControllerBase {
       ->condition('field_group_connection_status.entity.name', 'Active Member')
       ->condition('status', 1)
       ->sort('field_individual.entity.field_last_name', 'ASC')
+      ->accessCheck(FALSE)
       ->execute();
 
     return $storage->loadMultiple($results);

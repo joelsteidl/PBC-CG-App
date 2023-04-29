@@ -44,6 +44,7 @@ class ReportsUtility implements ReportsUtilityInterface {
       ->condition('field_in_attendance', $attendanceStatus)
       ->condition('field_group_connection.entity.field_group_connection_status', $connectionStatus, 'IN')
       ->condition('status', 1)
+      ->accessCheck(FALSE)
       ->execute();
 
     return $count;
@@ -58,6 +59,7 @@ class ReportsUtility implements ReportsUtilityInterface {
     $count = $storage->getQuery()->count()
       ->condition('type', 'group_attendance_record')
       ->condition('field_group_meeting_status', $status)
+      ->accessCheck(FALSE)
       ->condition('status', 1);
 
     // Alter query...
@@ -80,6 +82,7 @@ class ReportsUtility implements ReportsUtilityInterface {
       ->condition('field_group', $groupId)
       ->condition('field_group_connection_status', $status)
       ->condition('status', 1)
+      ->accessCheck(FALSE)
       ->execute();
 
     return $count;
@@ -205,6 +208,7 @@ class ReportsUtility implements ReportsUtilityInterface {
       ->condition('status', 1)
       ->condition('field_group', $group->id())
       ->condition('field_meeting_date', [$startDate, $endDate], 'BETWEEN')
+      ->accessCheck(FALSE)
       ->execute();
 
     if ($attendanceRecord) {

@@ -1,0 +1,11 @@
+diff --git a/condition_query.info.yml b/condition_query.info.yml
+index 547be4d..94025bc 100644
+--- a/condition_query.info.yml
++++ b/condition_query.info.yml
+@@ -1,5 +1,4 @@
+ name: Condition Query
+ type: module
+ description: "Adds condition plugin by query parameter"
+-core: 8.x
+-core_version_requirement: ^8 || ^9
++core_version_requirement: ^9 || ^10

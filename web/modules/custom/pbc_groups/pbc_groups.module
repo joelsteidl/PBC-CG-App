@@ -88,6 +88,7 @@ function pbc_groups_node_presave(EntityInterface $entity) {
       ->condition('status', 1)
       ->condition('field_group', $entity->field_group->target_id)
       ->condition('field_individual', $entity->field_individual->target_id)
+      ->accessCheck(FALSE)
       ->execute();
 
     if (count($connections)) {
@@ -102,6 +103,7 @@ function pbc_groups_node_presave(EntityInterface $entity) {
       ->condition('status', 1)
       ->condition('field_group_connection', $entity->field_group_connection->target_id)
       ->condition('field_group_attendance_record', $entity->field_group_attendance_record->target_id)
+      ->accessCheck(FALSE)
       ->execute();
 
     if (count($connections)) {
@@ -128,6 +130,7 @@ function pbc_groups_node_insert(EntityInterface $entity) {
     ->condition('field_group_connection_status', 1)
     ->condition('status', 1)
     ->condition('field_group', $entity->field_group->target_id)
+    ->accessCheck(FALSE)
     ->execute();
 
   foreach ($connections as $connection) {

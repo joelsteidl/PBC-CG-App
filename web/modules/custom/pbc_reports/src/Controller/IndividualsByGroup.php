@@ -257,6 +257,7 @@ class IndividualsByGroup extends ControllerBase {
       ->condition('field_group_connection_status.entity.name', 'Active Member')
       ->condition('status', 1)
       ->sort('field_individual.entity.field_last_name', 'ASC')
+      ->accessCheck(FALSE)
       ->execute();
 
     return $storage->loadMultiple($results);
@@ -281,6 +282,7 @@ class IndividualsByGroup extends ControllerBase {
       ->condition('status', 1)
       ->range(0, $count)
       ->sort('created', 'DESC')
+      ->accessCheck(FALSE)
       ->execute();
 
     return $storage->loadMultiple($results);
@@ -301,6 +303,7 @@ class IndividualsByGroup extends ControllerBase {
       ->condition('type', 'individual_attendance_record')
       ->condition('field_group_attendance_record', $nid)
       ->condition('status', 1)
+      ->accessCheck(FALSE)
       ->execute();
 
     return $storage->loadMultiple($results);

@@ -67,7 +67,7 @@ class ReportingInactive extends ControllerBase {
       $build[$nid] = [
         '#type' => 'markup',
         '#prefix' => $prefix,
-        '#markup' => render($history),
+        '#markup' => \Drupal::service('renderer')->render($history),
       ];
     }
 
@@ -87,6 +87,7 @@ class ReportingInactive extends ControllerBase {
       ->condition('type', 'group_connection')
       ->condition('field_group_connection_status.entity.name', 'Inactive Member')
       ->sort('changed', 'DESC')
+      ->accessCheck(FALSE)
       ->execute();
 
     $inactives = $storage->loadMultiple($results);
@@ -123,6 +124,7 @@ class ReportingInactive extends ControllerBase {
       ->condition('field_individual', $nid)
       ->condition('field_group.entity.field_group_status', 'Active')
       ->condition('field_group_connection_status.entity.name', 'Active Member')
+      ->accessCheck(FALSE)
       ->execute();
 
     if (!empty($results)) {

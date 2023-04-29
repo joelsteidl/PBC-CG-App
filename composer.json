@@ -32,7 +32,6 @@
     "drupal/r4032login": "^2.1",
     "drupal/sendgrid_integration": "^2.0",
     "drupal/token": "^1.0@RC",
-    "drupal/upgrade_status": "^4.0",
     "drupal/views_block_filter_block": "^2.0",
     "drupal/views_field_view": "^1.0@beta",
     "drush/drush": "^11",

@@ -64,7 +64,7 @@ class IndividualsByGroup extends ControllerBase {
    */
   public function build(Request $request) {
     $build = [];
-    $gids = $request->request->get('groups');
+    $gids = $request->request->all('groups');
 
     if (empty($gids)) {
       $build['report_config']['form'] = $this->formBuilder->getForm('Drupal\pbc_reports\Form\ReportConfigForm', ['exclude' => 'dates']);

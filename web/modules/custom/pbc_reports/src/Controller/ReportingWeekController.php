@@ -75,7 +75,7 @@ class ReportingWeekController extends ControllerBase {
   public function index(Request $request) {
     $build = [];
 
-    $groups = $request->request->get('groups');
+    $groups = $request->request->all('groups');
     $startInput = $request->request->get('start_date');
     $endInput = $request->request->get('end_date');
 

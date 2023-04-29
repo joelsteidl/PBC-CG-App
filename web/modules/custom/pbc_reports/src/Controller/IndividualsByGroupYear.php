@@ -64,7 +64,7 @@ class IndividualsByGroupYear extends ControllerBase {
    * Export as CSV
    */
   public function export(Request $request) {
-    $query = $request->query;
+    $query = $request->request;
     // Get group ids from the querystring.
     $gids = explode('+', $query->get('gids'));
 
@@ -106,7 +106,7 @@ class IndividualsByGroupYear extends ControllerBase {
    */
   public function build(Request $request) {
     $build = [];
-    $gids = $request->request->get('groups');
+    $gids = $request->request->all('groups');
 
     if (empty($gids)) {
       $build['report_config']['form'] = $this->formBuilder->getForm('Drupal\pbc_reports\Form\ReportConfigForm');

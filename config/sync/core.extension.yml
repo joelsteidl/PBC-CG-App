@@ -42,6 +42,7 @@ module:
   pbc_groups: 0
   pbc_reports: 0
   pco: 0
+  phpass: 0
   queue_ui: 0
   r4032login: 0
   rest: 0

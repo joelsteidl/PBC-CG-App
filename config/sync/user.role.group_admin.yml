@@ -7,6 +7,7 @@ dependencies:
     - node.type.group_connection
     - node.type.individual
   module:
+    - file
     - node
     - pbc_reports
     - system
@@ -20,6 +21,7 @@ permissions:
   - 'access user profiles'
   - 'administer users'
   - 'create group content'
+  - 'delete own files'
   - 'edit any group content'
   - 'edit any group_connection content'
   - 'edit any individual content'

@@ -10,8 +10,8 @@ id: node.individual_attendance_record.field_group_connection
 field_name: field_group_connection
 entity_type: node
 bundle: individual_attendance_record
-label: 'Individual''s Group Connection'
-description: 'The Individual''s Group Connection instance.'
+label: "Individual's Group Connection"
+description: "The Individual's Group Connection instance."
 required: true
 translatable: false
 default_value: {  }

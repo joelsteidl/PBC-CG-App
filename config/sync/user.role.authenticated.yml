@@ -5,6 +5,7 @@ dependencies:
   config:
     - filter.format.limited_html
   module:
+    - file
     - filter
     - fontawesome
     - system
@@ -17,4 +18,5 @@ is_admin: false
 permissions:
   - 'access content'
   - 'access fontawesome additional settings'
+  - 'delete own files'
   - 'use text format limited_html'

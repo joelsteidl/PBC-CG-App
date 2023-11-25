@@ -18,7 +18,7 @@ jobs:
           command: |
             cd ~/cg.providencedenver.org/
             git pull
-            composer install
+            composer install --no-dev --optimize-autoloader --prefer-dist --no-interaction
             cd ~/cg.providencedenver.org/web/
-            drush sql-dump --gzip --result-file=~/backups/cg_prod_`date +%Y-%m-%d-%H.%M.%S`.sql
+            drush sql-dump --extra-dump=--no-tablespaces > ~/backups/cg_prod_`date +%Y-%m-%d-%H.%M.%S`.sql
             drush deploy

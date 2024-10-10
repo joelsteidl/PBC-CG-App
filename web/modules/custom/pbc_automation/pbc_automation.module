@@ -39,15 +39,27 @@ function pbc_automation_cron() {
   $nowDate = $now->format('Y-m-d');
   $nowTime = $now->format('U');
 
-  // TODO: move some of this to a class.
-  // Get the start date for the current week.
-  // http://stackoverflow.com/a/17438928
-  $start = new DrupalDateTime('last saturday + 1 day');
-  $startDate = $start->format('Y-m-d');
+  // Get the start date for the week (Sunday).
+  $start = new DrupalDateTime();
+  // If the given date is Sunday, use it as the start date.
+  if ($start->format('w') == 0) {
+    $startDate = $start->format('Y-m-d');
+  }
+  else {
+    $start->modify('last sunday');
+    $startDate = $start->format('Y-m-d');
+  }
 
-  // Get the end date for the current week.
-  $end = new DrupalDateTime('last saturday + 7 days');
-  $endDate = $end->format('Y-m-d');
+  // Get the end date for the week (Saturday).
+  $end = new DrupalDateTime();
+  // If the given date is Saturday, use it as the end date.
+  if ($end->format('w') == 6) {
+    $endDate = $end->format('Y-m-d');
+  }
+  else {
+    $end->modify('next saturday');
+    $endDate = $end->format('Y-m-d');
+  }
 
   // Load all the published & active groups.
   $groups = $storage->loadByProperties([
@@ -70,15 +82,31 @@ function pbc_automation_cron() {
     // 2. It is after 8PM of day of the meeting.
     $day = $group->field_meeting_day->getString();
     $days = [
-      'Sunday' => 'last saturday 12pm + 1 day',
-      'Monday' => 'last saturday 8pm + 2 days',
-      'Tuesday' => 'last saturday 8pm + 3 days',
-      'Wednesday' => 'last saturday 8pm + 4 days',
-      'Thursday' => 'last saturday 8pm + 5 days',
-      'Friday' => 'last saturday 8pm + 6 days',
-      'Saturday' => 'last saturday 8pm + 7 days',
+      'Sunday' => 'last sunday 12:00',
+      'Monday' => 'last sunday 20:00 + 1 day',
+      'Tuesday' => 'last sunday 20:00 + 2 days',
+      'Wednesday' => 'last sunday 20:00 + 3 days',
+      'Thursday' => 'last sunday 20:00 + 4 days',
+      'Friday' => 'last sunday 20:00 + 5 days',
+      'Saturday' => 'last sunday 20:00 + 6 days',
     ];
-    $dayDate = new DrupalDateTime($days[$day]);
+
+    // Create a DrupalDateTime object with the specific timestamp.
+    $dayDate = new DrupalDateTime();
+
+    // Adjust the date based on the day of the week.
+    if ($dayDate->format('w') == 0) {
+        // If the given date is Sunday, use it as the start date.
+        $dayDate->modify('this week sunday 12:00');
+    }
+    elseif ($dayDate->format('w') == 6) {
+        // If the given date is Saturday, use it as the end date.
+        $dayDate->modify('this saturday 20:00');
+    }
+    else {
+        // Otherwise, use the array to adjust the date.
+        $dayDate->modify($days[$day]);
+    }
     $meetingTime = $dayDate->format('U');
     if ($attendance == 0 && $nowTime > $meetingTime) {
       $groupAttendValues = [

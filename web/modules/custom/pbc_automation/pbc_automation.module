@@ -35,10 +35,6 @@ function pbc_automation_cron() {
   $utility = Drupal::service('pbc_groups.utility');
   $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('node');
 
-  $now = new DrupalDateTime('now');
-  $nowDate = $now->format('Y-m-d');
-  $nowTime = $now->format('U');
-
   // Get the start date for the week (Sunday).
   $start = new DrupalDateTime();
   // If the given date is Sunday, use it as the start date.
@@ -79,36 +75,27 @@ function pbc_automation_cron() {
       ->execute();
 
     // 1. Attendance not created for the current week.
-    // 2. It is after 8PM of day of the meeting.
+    // 2. It is after the set day and time of the meeting.
     $day = $group->field_meeting_day->getString();
     $days = [
-      'Sunday' => 'last sunday 12:00',
-      'Monday' => 'last sunday 20:00 + 1 day',
-      'Tuesday' => 'last sunday 20:00 + 2 days',
-      'Wednesday' => 'last sunday 20:00 + 3 days',
-      'Thursday' => 'last sunday 20:00 + 4 days',
-      'Friday' => 'last sunday 20:00 + 5 days',
-      'Saturday' => 'last sunday 20:00 + 6 days',
+      'Sunday' => '12:00',
+      'Monday' => '20:00',
+      'Tuesday' => '20:00',
+      'Wednesday' => '20:00',
+      'Thursday' => '20:00',
+      'Friday' => '20:00',
+      'Saturday' => '20:00',
     ];
 
     // Create a DrupalDateTime object with the specific timestamp.
-    $dayDate = new DrupalDateTime();
+    $now = new DrupalDateTime();
+    $nowDate = $now->format('Y-m-d');
+    $nowDay = $now->format('l');
+    $nowTime = $now->format('H:i');
 
-    // Adjust the date based on the day of the week.
-    if ($dayDate->format('w') == 0) {
-        // If the given date is Sunday, use it as the start date.
-        $dayDate->modify('this week sunday 12:00');
-    }
-    elseif ($dayDate->format('w') == 6) {
-        // If the given date is Saturday, use it as the end date.
-        $dayDate->modify('this saturday 20:00');
-    }
-    else {
-        // Otherwise, use the array to adjust the date.
-        $dayDate->modify($days[$day]);
-    }
-    $meetingTime = $dayDate->format('U');
-    if ($attendance == 0 && $nowTime > $meetingTime) {
+    if ($attendance == 0
+      && $nowDay == $day
+      && $nowTime >= $days[$day]) {
       $groupAttendValues = [
         'type' => 'group_attendance_record',
         'field_group' => $group->id(),

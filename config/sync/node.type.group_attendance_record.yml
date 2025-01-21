@@ -11,7 +11,7 @@ third_party_settings:
 name: 'Group Attendance Record'
 type: group_attendance_record
 description: 'A record of anytime a community group meets.'
-help: ''
+help: null
 new_revision: true
 preview_mode: 1
 display_submitted: false

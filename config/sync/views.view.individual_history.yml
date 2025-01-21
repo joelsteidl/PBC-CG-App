@@ -541,6 +541,7 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
+          pagination_heading_level: h4
       exposed_form:
         type: bef
         options:
@@ -563,6 +564,7 @@ display:
               allow_secondary: false
               secondary_label: 'Advanced options'
               secondary_open: false
+              autosubmit_textfield_minimum_length: 3
             filter:
               combine:
                 plugin_id: default
@@ -570,6 +572,7 @@ display:
                   collapsible: false
                   is_secondary: false
                   collapsible_disable_automatic_open: false
+                  hide_label: false
               field_pco_deleted_value:
                 plugin_id: bef_single
                 advanced:
@@ -579,6 +582,7 @@ display:
                   collapsible: false
                   is_secondary: false
                   collapsible_disable_automatic_open: false
+                  hide_label: false
       access:
         type: role
         options:

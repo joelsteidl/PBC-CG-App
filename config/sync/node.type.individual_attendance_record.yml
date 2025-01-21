@@ -11,7 +11,7 @@ third_party_settings:
 name: 'Individual Attendance Record'
 type: individual_attendance_record
 description: 'A record of an individuals attendance each week.'
-help: ''
+help: null
 new_revision: true
 preview_mode: 1
 display_submitted: false

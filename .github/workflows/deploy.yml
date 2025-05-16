@@ -44,7 +44,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/cg.providencedenver.org/
-            git pull origin build
+            git fetch origin build
+            git reset --hard origin/build
             cd ~/cg.providencedenver.org/web/
             ../vendor/drush/drush/drush sql-dump --extra-dump=--no-tablespaces > ~/backups/cg_prod_`date +%Y-%m-%d-%H.%M.%S`.sql
             ../vendor/drush/drush/drush deploy

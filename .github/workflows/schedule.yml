@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Process Queue
-        uses: garygrossgarten/github-action-ssh@release
+        uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{secrets.SSH_HOST}}
+          host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          privateKey: ${{ secrets.SSH_KEY }}
-          command: |
+          key: ${{ secrets.SSH_KEY }}
+          script: |
             cd ~/cg.providencedenver.org/web
-            drush queue-run pco_webhooks_processor
+            ../vendor/drush/drush/drush queue-run pco_webhooks_processor

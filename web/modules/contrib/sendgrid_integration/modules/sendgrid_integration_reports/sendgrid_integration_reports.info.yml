@@ -1,0 +1,13 @@
+name: 'SendGrid Integration Reports'
+description: 'SendGrid Integration Reports Module'
+type: module
+core_version_requirement: ^10 || ^11
+package: 'Mail'
+configure: sendgrid_integration_reports.settings_form
+dependencies:
+  - sendgrid_integration:sendgrid_integration
+
+# Information added by Drupal.org packaging script on 2024-08-29
+version: '8.x-2.3'
+project: 'sendgrid_integration'
+datestamp: 1724943470

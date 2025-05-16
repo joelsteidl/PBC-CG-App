@@ -1,0 +1,7 @@
+services:
+  logger.channel.pco:
+    parent: logger.channel_base
+    arguments: ['pco']
+  pco.client:
+    class: '\Drupal\pco\Client\PcoClient'
+    arguments: ['@http_client', '@key.repository', '@config.factory', '@logger.channel.pco', '@messenger']

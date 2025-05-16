@@ -1,0 +1,38 @@
+---
+kind: pipeline
+type: docker
+name: build
+
+steps:
+  - name: fetch-tags
+    image: alpine/git
+    commands:
+      - git fetch --tags
+
+  - name: PHP73
+    image: phpdockerio/php73-cli
+    commands:
+      - sleep 1
+      - mv /etc/apt/sources.list /etc/apt/sources.list.bkup
+      - cp ./scripts/ubuntu-bionic-proxies /etc/apt/sources.list
+      - apt-get update
+      - apt-get -y install make
+      - composer config -g repositories.packagist.org false
+      - composer config -g repositories.root composer https://cache.dev.ruinix.com/repository/packagist/
+      - make install
+      - make test
+      - ls -alh
+
+  - name: PHP74
+    image: phpdockerio/php74-cli
+    commands:
+      - sleep 1
+      - mv /etc/apt/sources.list /etc/apt/sources.list.bkup
+      - cp ./scripts/ubuntu-bionic-proxies /etc/apt/sources.list
+      - apt-get update
+      - apt-get -y install make
+      - composer config -g repositories.packagist.org false
+      - composer config -g repositories.root composer https://cache.dev.ruinix.com/repository/packagist/
+      - make install
+      - make test
+      - ls -alh

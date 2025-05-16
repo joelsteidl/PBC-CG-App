@@ -3,22 +3,49 @@ name: Deploy CG App
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Make composer available and do a composer install
+        uses: php-actions/composer@v6
+        with:
+          php_version: '8.3'
+          php_extensions: 'gd sodium zip'
+          dev: 'no'
+          args: "--optimize-autoloader --prefer-dist"
+
+
+      - name: Push to build branch
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git fetch origin build || true
+          git checkout -B build
+          git add -f .
+          timestamp=$(date -u +"%Y-%m-%d_%H-%M-%S")
+          git commit -m "Build - ${timestamp}"
+          git push -f origin build
+
   deploy-prod:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to prod
-        uses: garygrossgarten/github-action-ssh@release
+        uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{secrets.SSH_HOST}}
+          host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          privateKey: ${{ secrets.SSH_KEY }}
-          command: |
+          key: ${{ secrets.SSH_KEY }}
+          script: |
             cd ~/cg.providencedenver.org/
-            git pull
-            composer install --no-dev --optimize-autoloader --prefer-dist --no-interaction
+            git pull origin build
             cd ~/cg.providencedenver.org/web/
             drush sql-dump --extra-dump=--no-tablespaces > ~/backups/cg_prod_`date +%Y-%m-%d-%H.%M.%S`.sql
             drush deploy

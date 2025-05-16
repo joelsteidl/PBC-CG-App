@@ -43,7 +43,8 @@
     "drupal/views_block_filter_block": "^2.0",
     "drupal/views_field_view": "^1.0@beta",
     "drush/drush": "^12",
-    "league/csv": "^9.7"
+    "league/csv": "^9.7",
+    "topfloor/composer-cleanup-vcs-dirs": "^1.1"
   },
   "conflict": {
       "drupal/drupal": "*"
@@ -61,7 +62,8 @@
       "cweagans/composer-patches": true,
       "drupal/core-composer-scaffold": true,
       "drupal/core-project-message": true,
-      "rvtraveller/qs-composer-installer": true
+      "rvtraveller/qs-composer-installer": true,
+      "topfloor/composer-cleanup-vcs-dirs": true
     }
   },
   "prefer-stable": true,

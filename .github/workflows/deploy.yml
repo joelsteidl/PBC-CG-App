@@ -21,7 +21,6 @@ jobs:
           dev: 'no'
           args: "--optimize-autoloader --prefer-dist"
 
-
       - name: Push to build branch
         run: |
           git config --global user.name 'GitHub Actions'
@@ -47,5 +46,5 @@ jobs:
             cd ~/cg.providencedenver.org/
             git pull origin build
             cd ~/cg.providencedenver.org/web/
-            drush sql-dump --extra-dump=--no-tablespaces > ~/backups/cg_prod_`date +%Y-%m-%d-%H.%M.%S`.sql
-            drush deploy
+            ../vendor/drush/drush/drush sql-dump --extra-dump=--no-tablespaces > ~/backups/cg_prod_`date +%Y-%m-%d-%H.%M.%S`.sql
+            ../vendor/drush/drush/drush deploy

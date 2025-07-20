@@ -1,0 +1,10 @@
+uuid: 84fee3f5-75b9-4eff-b1cf-9b04fd728d6d
+langcode: en
+status: true
+dependencies:
+  module:
+    - pbc_automation
+id: pbc_automation
+configuration:
+  email_transport:
+    value: smtp

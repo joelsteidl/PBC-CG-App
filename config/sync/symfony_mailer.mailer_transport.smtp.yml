@@ -1,0 +1,18 @@
+uuid: f1b02141-6a50-4ccc-98ee-85a9898cd452
+langcode: en
+status: true
+dependencies: {  }
+id: smtp
+label: SMTP
+plugin: smtp
+configuration:
+  user: cg.providencedenver.org
+  pass: qpwY9nsJCj4LSVvG
+  host: mail.smtp2go.com
+  port: 2525
+  query:
+    verify_peer: true
+    local_domain: ''
+    restart_threshold: null
+    restart_threshold_sleep: null
+    ping_threshold: null

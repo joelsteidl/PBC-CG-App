@@ -35,9 +35,7 @@ class AttendanceReminderEmailBuilder extends EmailBuilderBase {
     $user = $email->getParam('user');
     $attendance = $email->getParam('attendance');
 
-    // Set a descriptive subject for the attendance reminder
-    $group_name = $attendance->field_group->entity->getTitle();
-    $email->setSubject(t('Attendance Reminder: @group', ['@group' => $group_name]));
+    $email->setSubject($attendance->getTitle());
 
     // Create login URL with destination
     $options = [

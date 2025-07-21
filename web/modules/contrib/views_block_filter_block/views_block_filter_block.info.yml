@@ -1,0 +1,13 @@
+name: Views Block Exposed Filter Block
+type: module
+description: 'Provides blocks for Views exposed filters on View blocks.'
+package: Views
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:views
+  - ctools:ctools_views
+
+# Information added by Drupal.org packaging script on 2025-05-23
+version: '2.1.2'
+project: 'views_block_filter_block'
+datestamp: 1747991735

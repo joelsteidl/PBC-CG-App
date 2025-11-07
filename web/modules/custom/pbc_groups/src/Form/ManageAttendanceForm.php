@@ -43,6 +43,13 @@ class ManageAttendanceForm extends FormBase {
   protected $currentRouteMatch;
 
   /**
+   * The group attendance node.
+   *
+   * @var \Drupal\node\NodeInterface|null
+   */
+  protected $groupAttendance;
+
+  /**
    * Constructor.
    */
   public function __construct(EntityTypeManagerInterface $entityTypeManager, RouteMatchInterface $currentRouteMatch, GroupsUtilityInterface $groups_utility) {

@@ -1,0 +1,6 @@
+services:
+  pbc_automation.commands:
+    class: Drupal\pbc_automation\Commands\PbcAutomationCommands
+    arguments: ['@entity_type.manager', '@pbc_groups.utility']
+    tags:
+      - { name: drush.command }

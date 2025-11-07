@@ -15,6 +15,14 @@ function pbc_automation_drush_command() {
     'description' => 'Grabs fresh data from planning center and updates Drupal nodes.',
     'drupal dependencies' => ['pbc_automation'],
   ];
+  $items['group-attendance-create'] = [
+    'description' => 'Create a group attendance record for a specific date.',
+    'drupal dependencies' => ['pbc_automation'],
+    'arguments' => [
+      'group_id' => 'The group node ID.',
+      'date' => 'The meeting date in Y-m-d format (e.g., 2025-11-06).',
+    ],
+  ];
   return $items;
 }
 

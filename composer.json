@@ -21,29 +21,26 @@
     "drupal/better_exposed_filters": "^7.0",
     "drupal/bootstrap": "^3.20",
     "drupal/condition_query": "^1.5",
-    "drupal/config_split": "^2.0",
     "drupal/core-composer-scaffold": "^10.0",
     "drupal/core-project-message": "^10.0",
     "drupal/core-recommended": "^10.0",
     "drupal/csv_serialization": "^4.0",
-    "drupal/ctools": "^3.14",
+    "drupal/ctools": "^4.1",
     "drupal/fontawesome": "^3.0",
     "drupal/gin": "^4.0",
     "drupal/jquery_ui_datepicker": "^2.1",
     "drupal/jquery_ui_slider": "^2.1",
     "drupal/jquery_ui_touch_punch": "^1.1",
     "drupal/key": "^1.15",
-    "drupal/pathauto": "^1.13",
+    "drupal/pathauto": "^1.14",
     "drupal/pco": "^2.0",
     "drupal/queue_ui": "^3.1",
     "drupal/r4032login": "^2.2",
-    "drupal/sendgrid_integration": "^2.2",
     "drupal/symfony_mailer": "^1.6",
     "drupal/token": "^1.12",
     "drupal/upgrade_status": "^4.3",
-    "drupal/views_block_filter_block": "^2.0",
     "drupal/views_field_view": "^1.0@beta",
-    "drush/drush": "^12",
+    "drush/drush": "^13",
     "league/csv": "^9.7",
     "topfloor/composer-cleanup-vcs-dirs": "^1.1"
   },
@@ -61,6 +58,7 @@
     "allow-plugins": {
       "composer/installers": true,
       "cweagans/composer-patches": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
       "drupal/core-composer-scaffold": true,
       "drupal/core-project-message": true,
       "rvtraveller/qs-composer-installer": true,
@@ -95,5 +93,8 @@
         "Add support for a wildcard parameter and a case sensitive option": "https://www.drupal.org/files/issues/2023-11-20/condition_query-support_wildcard_and_case_sensitivity-2986466-38.patch"
       }
     }
+  },
+  "require-dev": {
+    "drupal/coder": "^8.3"
   }
 }

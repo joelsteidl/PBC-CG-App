@@ -73,7 +73,7 @@ class TotalsByWeekCsv extends ControllerBase {
   public function index() {
     $data = $this->getData();
 
-    $csv = Writer::createFromString();
+    $csv = Writer::fromString();
     $csv->insertOne($data['header']);
     $csv->insertAll($data['rows']);
 

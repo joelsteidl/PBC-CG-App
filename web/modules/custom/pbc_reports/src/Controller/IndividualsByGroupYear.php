@@ -85,7 +85,7 @@ class IndividualsByGroupYear extends ControllerBase {
     }
 
     // Write to CSV.
-    $csv = Writer::createFromString();
+    $csv = Writer::fromString();
     $csv->insertOne($header);
     $csv->insertAll($rows);
 

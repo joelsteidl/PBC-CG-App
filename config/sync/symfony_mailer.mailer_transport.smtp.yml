@@ -7,7 +7,7 @@ label: SMTP
 plugin: smtp
 configuration:
   user: cg.providencedenver.org
-  pass: qpwY9nsJCj4LSVvG
+  pass: null
   host: mail.smtp2go.com
   port: 2525
   query:

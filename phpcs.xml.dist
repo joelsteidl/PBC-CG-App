@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<ruleset name="Drupal">
+    <file>./web</file>
+    <description>Drupal project coding standards.</description>
+    <!-- Include the extensions of the files we want to test. -->
+    <arg name="extensions" value="php,inc,module,install,test,profile,theme"/>
+
+    <!-- Specify the standard to use -->
+    <rule ref="Drupal">
+      <exclude name="Drupal.Files.LineLength.TooLong"/>
+      <exclude name="Drupal.Commenting.InlineComment.DocBlock"/>
+      <exclude name="Drupal.Commenting.DocComment.MissingShort"/>
+      <exclude name="Generic.CodeAnalysis.UselessOverridingMethod.Found"/>
+      <exclude name="Drupal.Commenting.FunctionComment.MissingParamComment"/>
+      <exclude name="Drupal.Commenting.FunctionComment.MissingReturnComment"/>
+      <exclude name="Drupal.Commenting.FunctionComment.ParamMissingDefinition"/>
+    </rule>
+    <rule ref="DrupalPractice">
+      <exclude name="DrupalPractice.Commenting.CommentEmptyLine"/>
+    </rule>
+
+    <!-- Exclude all directories except "themes/custom", "modules/custom", and "profiles/custom" -->
+    <exclude-pattern>^(?!.*(\/(modules\/contrib|profiles\/custom))($|\/)).*$</exclude-pattern>
+</ruleset>

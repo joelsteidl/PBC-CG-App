@@ -5,7 +5,7 @@ dependencies:
   config:
     - views.view.recent_group_attendance
   module:
-    - ctools
+    - node
     - system
     - views
   theme:
@@ -21,9 +21,10 @@ settings:
   label: ''
   label_display: visible
   provider: views
-  context_mapping: {  }
   views_label: ''
-  items_per_page: none
+  items_per_page: null
+  exposed: {  }
+  context_mapping: {  }
 visibility:
   'entity_bundle:node':
     id: 'entity_bundle:node'

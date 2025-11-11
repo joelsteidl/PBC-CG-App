@@ -34,7 +34,7 @@
     "drupal/jquery_ui_touch_punch": "^1.1",
     "drupal/key": "^1.15",
     "drupal/pathauto": "^1.14",
-    "drupal/pco": "^2.0",
+    "drupal/pco": "^2.1",
     "drupal/queue_ui": "^3.1",
     "drupal/r4032login": "^2.2",
     "drupal/symfony_mailer": "^1.6",
@@ -62,7 +62,10 @@
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "drupal/core-composer-scaffold": true,
       "drupal/core-project-message": true,
+      "php-http/discovery": true,
+      "phpstan/extension-installer": true,
       "rvtraveller/qs-composer-installer": true,
+      "tbachert/spi": true,
       "topfloor/composer-cleanup-vcs-dirs": true
     }
   },
@@ -96,6 +99,7 @@
     }
   },
   "require-dev": {
+    "drupal/core-dev": "^11",
     "drupal/coder": "^8.3"
   }
 }

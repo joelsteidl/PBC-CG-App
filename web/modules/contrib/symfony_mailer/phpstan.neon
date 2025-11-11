@@ -1,0 +1,25 @@
+# Configuration file for PHPStan static code checking.
+
+parameters:
+
+  level: 1
+  reportUnmatchedIgnoredErrors: false
+
+  ignoreErrors:
+    # new static() is a best practice in Drupal, so we cannot fix that.
+    # @see https://www.drupal.org/docs/develop/development-tools/phpstan/handling-unsafe-usage-of-new-static
+    - "#^Unsafe usage of new static#"
+
+    # Dependency injection leads to huge amounts of dull boiler plate code,
+    # and BC problems so we don't always do it.
+    - "#Drupal calls should be avoided in classes, use dependency injection instead#"
+
+    # The next two come in MailManagerReplacement and any attempt to ignore
+    # them with comments seems to just generate other warnings.
+    - "#^Plugin definitions cannot be altered.#"
+    - "#^Missing cache backend declaration for performance.#"
+
+    # We've already fixed all D11 deprecations. We're not concerned with D12
+    # deprecations yet, and they will keep appearing. We'll deal with them
+    # closer to D12 availability.
+    - identifier: method.deprecated

@@ -194,7 +194,7 @@ class PbcAutomationCommands extends DrushCommands {
 
     $groupNodes = $storage->loadMultiple($groups);
     $missing = [];
-    $shouldCreate = isset($options['create']);
+    $shouldCreate = !empty($options['create']) && $options['create'] === TRUE;
 
     // Iterate through each date in the range.
     $currentDate = clone $startDateTime;

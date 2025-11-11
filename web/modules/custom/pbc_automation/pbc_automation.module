@@ -61,7 +61,7 @@ function pbc_automation_cron() {
   ]);
 
   foreach ($groups as $group) {
-    // See if a record already exists for the week.
+    // See if a record already exists for this week.
     $attendance = $storage->getQuery()->count()
       ->condition('type', 'group_attendance_record')
       ->condition('status', 1)
@@ -70,52 +70,68 @@ function pbc_automation_cron() {
       ->accessCheck(FALSE)
       ->execute();
 
-    // 1. Attendance not created for the current week.
-    // 2. It is after the set day and time of the meeting.
-    $day = $group->field_meeting_day->getString();
-    $days = [
-      'Sunday' => '12:00',
-      'Monday' => '20:00',
-      'Tuesday' => '20:00',
-      'Wednesday' => '20:00',
-      'Thursday' => '20:00',
-      'Friday' => '20:00',
-      'Saturday' => '20:00',
-    ];
-
-    // Create a DrupalDateTime object with the specific timestamp.
-    $now = new DrupalDateTime();
-    $nowDate = $now->format('Y-m-d');
-    $nowDay = $now->format('l');
-    $nowTime = $now->format('H:i');
-
-    if ($attendance == 0
-      && $nowDay == $day
-      && $nowTime >= $days[$day]) {
-      $groupAttendValues = [
-        'type' => 'group_attendance_record',
-        'field_group' => $group->id(),
-        'field_meeting_date' => $nowDate,
+    if ($attendance == 0) {
+      // Attendance not created for the current week.
+      // Check if we should create it based on the meeting day and time.
+      $day = $group->field_meeting_day->getString();
+      $days = [
+        'Sunday' => '12:00',
+        'Monday' => '18:00',
+        'Tuesday' => '18:00',
+        'Wednesday' => '18:00',
+        'Thursday' => '18:00',
+        'Friday' => '18:00',
+        'Saturday' => '12:00',
       ];
 
-      // Create group_attendance_record node.
-      if ($attendance = $utility->createNode($groupAttendValues)) {
-        // Send attendance manager an email.
-        $user = $attendance->field_group->entity->field_attendance_manager->entity;
-        $emails = [$user->getEmail()];
-        // Notify additional folks if need be.
-        if ($user->hasField('field_also_notify') && !$user->field_also_notify->isEmpty()) {
-          $additional_emails = array_column($user->get('field_also_notify')->getValue(), 'value');
-          $emails = array_merge($emails, $additional_emails);
+      // Find the meeting date within the current week.
+      $dayMap = [
+        'Sunday' => 0,
+        'Monday' => 1,
+        'Tuesday' => 2,
+        'Wednesday' => 3,
+        'Thursday' => 4,
+        'Friday' => 5,
+        'Saturday' => 6,
+      ];
+      $meetingDateObj = new DrupalDateTime($startDate);
+      $daysUntilMeeting = ($dayMap[$day] - $meetingDateObj->format('w')) % 7;
+      $meetingDateObj->modify('+' . $daysUntilMeeting . ' days');
+      $meetingDate = $meetingDateObj->format('Y-m-d');
+      $meetingTime = $days[$day];
+
+      // Get current date and time.
+      $now = new DrupalDateTime();
+      $nowDate = $now->format('Y-m-d');
+      $nowTime = $now->format('H:i');
+
+      // Create attendance if we've reached or passed the meeting day and time.
+      if ($nowDate > $meetingDate || ($nowDate == $meetingDate && $nowTime >= $meetingTime)) {
+        $groupAttendValues = [
+          'type' => 'group_attendance_record',
+          'field_group' => $group->id(),
+          'field_meeting_date' => $meetingDate,
+        ];
+
+        // Create group_attendance_record node.
+        if ($attendance = $utility->createNode($groupAttendValues)) {
+          // Send attendance manager an email.
+          $user = $attendance->field_group->entity->field_attendance_manager->entity;
+          $emails = [$user->getEmail()];
+          // Notify additional folks if need be.
+          if ($user->hasField('field_also_notify') && !$user->field_also_notify->isEmpty()) {
+            $additional_emails = array_column($user->get('field_also_notify')->getValue(), 'value');
+            $emails = array_merge($emails, $additional_emails);
+          }
+
+          // Use Symfony Mailer
+          $emailFactory = \Drupal::service('email_factory');
+          $email = $emailFactory->newTypedEmail('pbc_automation', 'attendance_reminder', $user, $attendance);
+          $email->setTo($emails);
+
+          $mailer = \Drupal::service('symfony_mailer');
+          $mailer->send($email);
         }
-
-        // Use Symfony Mailer
-        $emailFactory = \Drupal::service('email_factory');
-        $email = $emailFactory->newTypedEmail('pbc_automation', 'attendance_reminder', $user, $attendance);
-        $email->setTo($emails);
-
-        $mailer = \Drupal::service('symfony_mailer');
-        $mailer->send($email);
       }
     }
   }

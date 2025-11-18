@@ -96,6 +96,20 @@ function pbc_automation_cron() {
       ];
       $meetingDateObj = new DrupalDateTime($startDate);
       $daysUntilMeeting = ($dayMap[$day] - $meetingDateObj->format('w')) % 7;
+
+      // If daysUntilMeeting is 0 and we haven't reached the meeting time yet today,
+      // we should still use today. Otherwise, if it's 0, move to next week.
+      if ($daysUntilMeeting == 0) {
+        $now = new DrupalDateTime();
+        $nowTime = $now->format('H:i');
+        $meetingTime = $days[$day];
+        if ($nowTime < $meetingTime) {
+          $daysUntilMeeting = 0;
+        } else {
+          $daysUntilMeeting = 7;
+        }
+      }
+
       $meetingDateObj->modify('+' . $daysUntilMeeting . ' days');
       $meetingDate = $meetingDateObj->format('Y-m-d');
       $meetingTime = $days[$day];

@@ -94,32 +94,26 @@ function pbc_automation_cron() {
         'Friday' => 5,
         'Saturday' => 6,
       ];
-      $meetingDateObj = new DrupalDateTime($startDate);
-      $daysUntilMeeting = ($dayMap[$day] - $meetingDateObj->format('w')) % 7;
-
-      // If daysUntilMeeting is 0 and we haven't reached the meeting time yet today,
-      // we should still use today. Otherwise, if it's 0, move to next week.
-      if ($daysUntilMeeting == 0) {
-        $now = new DrupalDateTime();
-        $nowTime = $now->format('H:i');
-        $meetingTime = $days[$day];
-        if ($nowTime < $meetingTime) {
-          $daysUntilMeeting = 0;
-        } else {
-          $daysUntilMeeting = 7;
-        }
-      }
-
-      $meetingDateObj->modify('+' . $daysUntilMeeting . ' days');
-      $meetingDate = $meetingDateObj->format('Y-m-d');
-      $meetingTime = $days[$day];
-
       // Get current date and time.
       $now = new DrupalDateTime();
       $nowDate = $now->format('Y-m-d');
       $nowTime = $now->format('H:i');
+      $meetingTime = $days[$day];
 
-      // Create attendance if we've reached or passed the meeting day and time.
+      // Calculate the meeting date.
+      $meetingDateObj = new DrupalDateTime($startDate);
+      $daysUntilMeeting = ($dayMap[$day] - $meetingDateObj->format('w')) % 7;
+
+      // If the meeting is today (daysUntilMeeting == 0), the meeting date is today.
+      // Otherwise, calculate the meeting date from the start of the week.
+      if ($daysUntilMeeting == 0) {
+        $meetingDate = $nowDate;
+      } else {
+        $meetingDateObj->modify('+' . $daysUntilMeeting . ' days');
+        $meetingDate = $meetingDateObj->format('Y-m-d');
+      }
+
+      // Create attendance if the meeting date has arrived and we've passed the meeting time.
       if ($nowDate > $meetingDate || ($nowDate == $meetingDate && $nowTime >= $meetingTime)) {
         $groupAttendValues = [
           'type' => 'group_attendance_record',

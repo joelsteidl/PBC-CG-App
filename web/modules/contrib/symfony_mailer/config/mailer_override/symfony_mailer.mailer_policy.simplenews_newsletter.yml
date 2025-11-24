@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - simplenews
+id: simplenews_newsletter
+configuration:
+  email_body:
+    content:
+      value: |-
+        <div class="clearfix">
+          {{ body }}
+        </div>
+
+        {% if mode == 'extra' %}
+          {% set reason = 'This email is a one-off message sent by an administrator.' %}
+        {% endif %}
+
+        {% if reason or not opt_out_hidden %}
+          <p class="newsletter-footer">
+            {{ reason }}
+            {% if not opt_out_hidden %}
+              <a href="[simplenews-subscriber:unsubscribe-url]">Unsubscribe from this newsletter</a>
+            {% endif %}
+          </p>
+        {% endif %}
+        {% if mode == 'test' %}
+          <p class="simplenews-test-message">This is a test version of the newsletter.</p>
+        {% endif %}
+      format: email_html
+  email_subject:
+    value: '[[simplenews-newsletter:name]] [node:title]'

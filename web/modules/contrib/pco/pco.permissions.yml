@@ -1,0 +1,3 @@
+administer pco:
+  title: 'Administer PCO'
+  description: 'Can configure Planning Center API settings'

@@ -1,0 +1,7 @@
+pco.settings:
+  path: '/admin/config/pco'
+  defaults:
+    _form: '\Drupal\pco\Form\ConfigForm'
+    _title: 'PCO - Planing Center Online API Settings'
+  requirements:
+    _permission: 'administer pco'

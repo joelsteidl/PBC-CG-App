@@ -1,0 +1,10 @@
+name: Mailer Transport
+type: module
+description: Placeholder to support upgrade to v2.x
+core_version_requirement: ^10.3 || ^11
+package: Mail
+
+# Information added by Drupal.org packaging script on 2025-06-27
+version: '1.6.2'
+project: 'symfony_mailer'
+datestamp: 1751013033

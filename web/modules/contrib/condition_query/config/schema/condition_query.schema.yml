@@ -1,0 +1,11 @@
+# Schema for the configuration of the condition_query module.
+
+condition.plugin.request_param:
+  type: condition.plugin
+  mapping:
+    request_param:
+      type: text
+      label: 'Query Parameters'
+    case_sensitive:
+      type: boolean
+      label: 'Case sensitive'

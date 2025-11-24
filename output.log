@@ -1,0 +1,74 @@
+Running php-build composer
+
+WARNING! Your credentials are stored unencrypted in '/home/runner/.docker/config.json'.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded
+Pulling docker.pkg.github.com/joelsteidl/pbc-cg-app/php-actions_composer_pbc-cg-app:php-8.3-gd-sodium-zip-build2.1.0
+php-8.3-gd-sodium-zip-build2.1.0: Pulling from joelsteidl/pbc-cg-app/php-actions_composer_pbc-cg-app
+f18232174bc9: Pulling fs layer
+ded09de61fb6: Pulling fs layer
+4d819fa29750: Pulling fs layer
+eb923d1687b9: Pulling fs layer
+be901242f1b3: Pulling fs layer
+dc0f946677ba: Pulling fs layer
+f2dd3a3cc3fa: Pulling fs layer
+37c9e54e1557: Pulling fs layer
+e3e576179711: Pulling fs layer
+390d17036704: Pulling fs layer
+cc87d6ea54ec: Pulling fs layer
+a2391c19b8c5: Pulling fs layer
+f2dd3a3cc3fa: Waiting
+37c9e54e1557: Waiting
+e3e576179711: Waiting
+390d17036704: Waiting
+cc87d6ea54ec: Waiting
+a2391c19b8c5: Waiting
+eb923d1687b9: Waiting
+be901242f1b3: Waiting
+dc0f946677ba: Waiting
+f18232174bc9: Verifying Checksum
+f18232174bc9: Download complete
+4d819fa29750: Verifying Checksum
+4d819fa29750: Download complete
+f18232174bc9: Pull complete
+eb923d1687b9: Verifying Checksum
+eb923d1687b9: Download complete
+ded09de61fb6: Verifying Checksum
+ded09de61fb6: Download complete
+dc0f946677ba: Verifying Checksum
+dc0f946677ba: Download complete
+be901242f1b3: Download complete
+37c9e54e1557: Verifying Checksum
+37c9e54e1557: Download complete
+e3e576179711: Verifying Checksum
+e3e576179711: Download complete
+f2dd3a3cc3fa: Verifying Checksum
+f2dd3a3cc3fa: Download complete
+ded09de61fb6: Pull complete
+4d819fa29750: Pull complete
+eb923d1687b9: Pull complete
+be901242f1b3: Pull complete
+dc0f946677ba: Pull complete
+cc87d6ea54ec: Download complete
+390d17036704: Verifying Checksum
+390d17036704: Download complete
+a2391c19b8c5: Verifying Checksum
+a2391c19b8c5: Download complete
+f2dd3a3cc3fa: Pull complete
+37c9e54e1557: Pull complete
+e3e576179711: Pull complete
+390d17036704: Pull complete
+cc87d6ea54ec: Pull complete
+a2391c19b8c5: Pull complete
+Digest: sha256:90d73bb98892e6e2413c1fb498d3c1c6503627834fc22cc96c26ec5f8fbe9faf
+Status: Downloaded newer image for docker.pkg.github.com/joelsteidl/pbc-cg-app/php-actions_composer_pbc-cg-app:php-8.3-gd-sodium-zip-build2.1.0
+docker.pkg.github.com/joelsteidl/pbc-cg-app/php-actions_composer_pbc-cg-app:php-8.3-gd-sodium-zip-build2.1.0
+Docker tag: docker.pkg.github.com/joelsteidl/pbc-cg-app/php-actions_composer_pbc-cg-app:php-8.3-gd-sodium-zip-build2.1.0
+No private keys supplied
+Command: composer install --no-dev --no-progress --no-interaction --optimize-autoloader --prefer-dist
+Skipping env variable PWD
+Skipping env variable HOME
+Skipping env variable SHLVL
+Skipping env variable PATH

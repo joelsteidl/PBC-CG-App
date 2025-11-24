@@ -1,0 +1,13 @@
+pco.settings:
+  type: config_object
+  label: 'PCO API Settings'
+  mapping:
+    base_uri:
+      type: string
+      label: 'PCO API Base REST URI'
+    secret:
+      type: string
+      label: 'PCO API Secret'
+    token:
+      type: string
+      label: 'PCO API Token'

@@ -1,0 +1,13 @@
+name: PCO API
+type: module
+description: API client for Planning Center. https://planningcenter.github.io/api-docs/
+core_version_requirement: ^10.2 || ^11
+package: Web services
+configure: pco.settings
+dependencies:
+  - key:key
+
+# Information added by Drupal.org packaging script on 2025-11-11
+version: '2.1.0'
+project: 'pco'
+datestamp: 1762882794

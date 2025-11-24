@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    autowire: true
+
+  logger.channel.pco:
+    parent: logger.channel_base
+    arguments: ['pco']
+  pco.client:
+    class: '\Drupal\pco\Client\PcoClient'
+
+  Drupal\pco\PcoClientInterface: '@pco.client'
